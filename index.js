@@ -41,7 +41,8 @@ app.post('/query', function (req, res) {
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
     // Set request specific properties for a given data set.
-    var dataset_uri, dataset_output = false;
+    var dataset_uri = false;
+    var dataset_output = false;
     switch (req.body.id) {
         case 'mapcountrytrans':
             dataset_uri = domain + endpoint + query;
