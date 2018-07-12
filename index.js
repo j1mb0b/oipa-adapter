@@ -1,8 +1,6 @@
 'use strict';
 
 var domain = 'http://18.221.72.54:8000';
-var endpoint = '/api/transactions/aggregations/';
-var query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
 var app = require('./webserver')();
 var request = require('request');
 
@@ -38,6 +36,9 @@ app.post('/query', function (req, res) {
 
     switch (req.body.id) {
         case 'mapcountrytrans':
+            var endpoint = '/api/transactions/aggregations/';
+            var query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
+
             request.get({
                 uri: domain + endpoint + query,
                 gzip: true,
