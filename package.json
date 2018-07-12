@@ -1,0 +1,15 @@
+{
+  "name": "cumul.io-plugin-oipa",
+  "version": "0.1.0",
+  "description": "OIPA Cumul.io plugin: visualize real-time IATI published data for the DGD portal.",
+  "dependencies": {
+    "body-parser": "1.17.2",
+    "compression": "1.6.2",
+    "express": "4.15.3",
+    "dotenv": "4.0.0",
+    "request": "2.81.0"
+  },
+  "engines": {
+    "node": "6.11.0"
+  }
+}
