@@ -8,12 +8,12 @@ var request = require('request');
 
 // 1. List datasets
 app.get('/datasets', function(req, res) {
-  if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
-    return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
+    if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
+        return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
-  var datasets = false;
+    var datasets = [];
 
-  datasets = [{
+    datasets.push([{
         id: 'mapcountrytrans',
         name: {en: 'Map country transactions data'},
         description: {en: 'Country map placement for transaction data'},
@@ -23,9 +23,8 @@ app.get('/datasets', function(req, res) {
             {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
             {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
         ]
-    }];
+    }]);
 
-  if (datasets)
     return res.status(200).json(datasets);
 });
 
