@@ -13,7 +13,7 @@ app.get('/datasets', function(req, res) {
 
     var datasets = [];
 
-    datasets.push([{
+    datasets.push({
         id: 'mapcountrytrans',
         name: {en: 'Map country transactions data'},
         description: {en: 'Country map placement for transaction data'},
@@ -23,7 +23,7 @@ app.get('/datasets', function(req, res) {
             {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
             {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
         ]
-    }]);
+    });
 
     return res.status(200).json(datasets);
 });
