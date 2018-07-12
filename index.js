@@ -11,28 +11,18 @@ app.get('/datasets', function(req, res) {
   if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
     return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
-  request.get({
-    uri: domain + endpoint + query + "&page=1&page_size=1",
-    gzip: true,
-    json: true
-  }, function(error, data) {
-    if (error)
-      return res.status(500).end('Internal Server Error');
-    var datasets = data.body.results.map(function(result) {
-      return {
-        id: result.recipient_country.code,
-        name: {en: `${result.recipient_country.name}`},
-        description: {en: `Country map placement for ${result.recipient_country.name} in ${result.recipient_country.region.name}`},
+    var datasets = {
+        id: 'map_country_trans',
+        name: {en: 'Map country transactions data'},
+        description: {en: 'Country map placement for transaction data'},
         columns: [
-          {id: 'name', name: {en: 'Country name'}, type: 'hierarchy'},
-          {id: 'disbursement', name: {en: 'Country co-ordinates'}, type: 'numeric'},
-          {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
-          {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
+            {id: 'name', name: {en: 'Country name'}, type: 'hierarchy'},
+            {id: 'disbursement', name: {en: 'Country co-ordinates'}, type: 'numeric'},
+            {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
+            {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
         ]
-      }
-    });
+    };
     return res.status(200).json(datasets);
-  });
 });
 
 // 2. Retrieve data slices
