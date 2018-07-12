@@ -1,6 +1,6 @@
 'use strict';
 
-var domain = 'http://ec2-52-14-178-251.us-east-2.compute.amazonaws.com:8000';
+var domain = 'http://18.221.72.54:8000';
 var endpoint = '/api/transactions/aggregations/';
 var query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
 var app = require('./webserver')();
