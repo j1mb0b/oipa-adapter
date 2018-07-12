@@ -52,7 +52,9 @@ app.post('/query', function (req, res) {
                 return res.status(200).json(datasets);
             });
             break;
+
+        default:
+            return res.status(403).end('No match for data set ID: ' + req.body.id);
     }
 
-    //return res.status(403).end('No match for data set ID: ' + req.body.id);
 });
