@@ -43,7 +43,7 @@ app.post('/query', function (req, res) {
     // Set request specific properties for a given data set.
     var dataset_uri = false;
     var dataset_output = false;
-    return req.body.id;
+    return res.status(200).json(req.body.id);
     switch (req.body.id) {
         case 'mapcountrytrans':
             dataset_uri = domain + endpoint + query;
