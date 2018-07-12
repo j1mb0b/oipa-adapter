@@ -1,6 +1,8 @@
 'use strict';
 
 var domain = 'http://18.221.72.54:8000';
+var endpoint = '/api/transactions/aggregations/';
+var query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
 var app = require('./webserver')();
 var request = require('request');
 
@@ -34,10 +36,8 @@ app.post('/query', function (req, res) {
     if (!req.body.id)
         res.status(403).end('Please include data set "id" in your request!');
 
-
-            var endpoint = '/api/transactions/aggregations/';
-            var query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
-
+    switch (req.body.id) {
+        case 'mapcountrytrans':
             request.get({
                 uri: domain + endpoint + query,
                 gzip: true,
@@ -50,7 +50,8 @@ app.post('/query', function (req, res) {
                 });
                 return res.status(200).json(datasets);
             });
-
+            break;
+    }
 
     return res.status(403).end('No match for data set ID: ' + req.body.id);
 });
