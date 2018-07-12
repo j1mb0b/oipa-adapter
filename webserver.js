@@ -5,6 +5,10 @@ module.exports = function() {
   var bodyParser = require('body-parser')
   var compression = require('compression');
   var dotenv = require('dotenv').config({path: __dirname + '/.env'});
+  var https = require('https');
+  var privateKey  = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/privkey.pem', 'utf8');
+  var certificate = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/fullchain.pem', 'utf8');
+  var credentials = {key: privateKey, cert: certificate};
   var express = require('express');
 
   // Configure webserver
@@ -25,7 +29,8 @@ module.exports = function() {
     res.status(204);
   });
 
-  app.listen(process.env.PORT, () => console.log(`[OK] Cumul.io plugin \'OIPA\' listening on port ${process.env.PORT}`));
+  var httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(process.env.PORT, () => console.log(`[OK] Cumul.io plugin \'OIPA\' listening on port ${process.env.PORT}`));
 
   return app;
 
