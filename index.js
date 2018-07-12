@@ -38,7 +38,7 @@ app.get('/datasets', function(req, res) {
 // 2. Retrieve data slices
 app.post('/query', function(req, res) {
   if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
-    return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
+    //return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
   request.get({
     uri: domain + endpoint + query,
@@ -48,8 +48,7 @@ app.post('/query', function(req, res) {
     if (error)
       return res.status(500).end('Internal Server Error');
     var datasets = data.body.results.map(function(result) {
-      return [result.recipient_country.name, result.disbursement,
-          result.recipient_country.location.coordinates, result.recipient_country.location.coordinates];
+      return [result.recipient_country.name, result.disbursement, result.recipient_country.location.coordinates[0], result.recipient_country.location.coordinates[1]];
     });
     return res.status(200).json(datasets);
   });
