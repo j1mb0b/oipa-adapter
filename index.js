@@ -51,7 +51,7 @@ app.post('/query', function (req, res) {
             break;
     }
 
-    console.log(req.body);
+    console.log(req);
 
     return res.status(403).end('No match for dataset ID: ' + req.body.id);
 });
