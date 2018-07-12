@@ -12,7 +12,7 @@ app.get('/datasets', function(req, res) {
     return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
   request.get({
-    uri: domain + endpoint + query,
+    uri: domain + endpoint + query + "&page=1&page_size=1",
     gzip: true,
     json: true
   }, function(error, data) {
