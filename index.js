@@ -40,6 +40,8 @@ app.post('/query', function(req, res) {
   if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
     return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
+  console.log(req);
+
   request.get({
     uri: domain + endpoint + query,
     gzip: true,
