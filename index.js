@@ -48,7 +48,7 @@ app.post('/query', function(req, res) {
     if (error)
       return res.status(500).end('Internal Server Error');
     var datasets = data.body.results.map(function(result) {
-      return [result.recipient_country.name, result.disbursement, result.recipient_country.location.coordinates[0], result.recipient_country.location.coordinates[1]];
+      return [result.recipient_country.name, result.disbursement, result.recipient_country.location.coordinates[1], result.recipient_country.location.coordinates[0]];
     });
     return res.status(200).json(datasets);
   });
