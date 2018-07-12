@@ -5,6 +5,7 @@ module.exports = function() {
   var bodyParser = require('body-parser')
   var compression = require('compression');
   var dotenv = require('dotenv').config({path: __dirname + '/.env'});
+  var fs = require('fs');
   var https = require('https');
   var privateKey  = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/privkey.pem', 'utf8');
   var certificate = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/fullchain.pem', 'utf8');
