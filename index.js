@@ -32,12 +32,9 @@ app.post('/query', function (req, res) {
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
     if (!req.body.id)
-        res.status(403).end('Please inlcude dataset "id" in your request!');
+        res.status(403).end('Please include data set "id" in your request!');
 
-    console.log(req.body.id);
 
-    switch (req.body.id) {
-        case 'mapcountrytrans':
             var endpoint = '/api/transactions/aggregations/';
             var query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
 
@@ -53,8 +50,7 @@ app.post('/query', function (req, res) {
                 });
                 return res.status(200).json(datasets);
             });
-            break;
-    }
 
-    return res.status(403).end('No match for dataset ID: ' + req.body.id);
+
+    return res.status(403).end('No match for data set ID: ' + req.body.id);
 });
