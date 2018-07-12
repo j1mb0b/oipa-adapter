@@ -20,7 +20,7 @@ app.get('/datasets', function(req, res) {
       return res.status(500).end('Internal Server Error');
     var datasets = data.body.results.map(function(result) {
       return {
-        id: 'map_country_trans',
+        id: 'mapcountrytrans',
         name: {en: 'Map country transactions data'},
         description: {en: 'Country map placement for transaction data'},
         columns: [
