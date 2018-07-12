@@ -34,7 +34,7 @@ app.post('/query', function (req, res) {
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
     if (!req.body.id)
-        res.status(403).end('Please include data set "id" in your request!');
+        return res.status(403).end('Please include data set "id" in your request!');
 
     switch (req.body.id) {
         case 'mapcountrytrans':
