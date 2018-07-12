@@ -31,6 +31,11 @@ app.post('/query', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
+    if (!req.body.id)
+        res.status(403).end('Please inlcude dataset "id" in your request!');
+
+    console.log(req.body.id);
+
     switch (req.body.id) {
         case 'mapcountrytrans':
             var endpoint = '/api/transactions/aggregations/';
@@ -50,8 +55,6 @@ app.post('/query', function (req, res) {
             });
             break;
     }
-
-    console.log(req);
 
     return res.status(403).end('No match for dataset ID: ' + req.body.id);
 });
