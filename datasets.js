@@ -19,8 +19,8 @@ module.exports = function() {
         description: {en: 'Aggregations of transactional data related to countries grouped by year'},
         columns: [
             {id: 'year', name: {en: 'Year'}, type: 'date'},
-            {id: 'disbursement', name: {en: 'Amount'}, type: 'numeric'},
-            {id: 'country', name: {en: 'Country name'}, type: 'hierarchy'}
+            {id: 'disbursement', name: {en: 'Amount'}, type: 'numeric'}
+            //{id: 'country', name: {en: 'Country name'}, type: 'hierarchy'}
         ]
     });
 
