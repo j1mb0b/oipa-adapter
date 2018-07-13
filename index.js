@@ -54,7 +54,7 @@ app.post('/query', function (req, res) {
                 if (error)
                     return res.status(500).end('Internal Server Error');
                 var datasets = data.body.results.map(function (result) {
-                    return [result.transaction_date_year, result.disbursement;
+                    return [result.transaction_date_year, result.disbursement];
                 });
                 return res.status(200).json(datasets);
             });
