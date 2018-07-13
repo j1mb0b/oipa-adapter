@@ -44,7 +44,7 @@ app.post('/query', function (req, res) {
 
         case 'country_year_transactions':
             endpoint = '/api/transactions/aggregations/';
-            query = '?format=json&group_by=transaction_date_year&aggregations=country&disbursement&reporting_organisation_identifier=XM-DAC-2-10&recipient_country=&order_by=transaction_date_year';
+            query = '?format=json&group_by=transaction_date_year&aggregations=disbursement&reporting_organisation_identifier=XM-DAC-2-10&recipient_country=&order_by=transaction_date_year';
 
             request.get({
                 uri: domain + endpoint + query,
