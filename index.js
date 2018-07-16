@@ -24,7 +24,7 @@ app.post('/query', function (req, res) {
     var endpoint = "";
     var query = "";
     switch (req.body.id) {
-        case 'map_country_trans':
+        case 'mapcountrytrans':
             endpoint = '/api/transactions/aggregations/';
             query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
 
@@ -42,7 +42,7 @@ app.post('/query', function (req, res) {
             });
             break;
 
-        case 'country_year_transactions':
+        case 'countryyeartrans':
             endpoint = '/api/transactions/aggregations/';
             query = '?format=json&group_by=transaction_date_year&aggregations=disbursement&reporting_organisation_identifier=XM-DAC-2-10&recipient_country=&order_by=transaction_date_year';
 
