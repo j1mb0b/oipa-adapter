@@ -2,7 +2,7 @@
 
 module.exports = function() {
     return [{
-        id: 'map-country-trans',
+        id: 'map_country_trans',
         name: {en: 'Map country transactions data'},
         description: {en: 'Country map placement for transaction data'},
         columns: [
@@ -12,7 +12,7 @@ module.exports = function() {
             {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'}
         ]},
         {
-        id: 'country-year-transactions',
+        id: 'country_year_transactions',
         name: {en: 'Country year transactions'},
         description: {en: 'Aggregations of transactional data related to countries grouped by year'},
         columns: [
