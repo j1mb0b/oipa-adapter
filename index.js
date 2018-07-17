@@ -25,7 +25,7 @@ app.post('/query', function (req, res) {
     var default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     var endpoint = "";
     var query = "";
-    var datasets = "";
+    var datasets = [];
     switch (req.body.id) {
         case 'mapcountrytrans':
         case 'mapcountrytransyear':
