@@ -64,7 +64,7 @@ app.post('/query', function (req, res) {
                 gzip: true,
                 json: true
             }, function (error, data) {
-                if (error || !data) {
+                if (error || !data.body.results) {
                     console.log(query);
                     return res.status(500).end('Internal Server Error');
                 }
