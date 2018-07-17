@@ -52,7 +52,7 @@ app.post('/query', function (req, res) {
             var aggr_type = ['disbursement', 'commitment', 'value'];
             for (var type in aggr_type) {
                 endpoint = '/api/transactions/aggregations/';
-                query = default_params + '&group_by=transaction_date_year&aggregations=' + type + '&order_by=transaction_date_year&recipient_country=' + country_code;
+                query = default_params + '&group_by=transaction_date_year&aggregations=' + aggr_type[type] + '&order_by=transaction_date_year&recipient_country=' + country_code;
 
                 request.get({
                     uri: domain + endpoint + query,
@@ -66,7 +66,7 @@ app.post('/query', function (req, res) {
                         // We assume the order of keys are first: transaction year, second: amount.
                         // Also that it remains the same for the other "cases", if not we are forced to
                         // hard code the string to get the value which won't work well with this generic code.
-                        return [result[obj[0]], result[obj[1]], type];
+                        return [result[obj[0]], result[obj[1]], aggr_type[type]];
                     }))
                 });
             }
