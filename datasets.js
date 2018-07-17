@@ -15,35 +15,14 @@ module.exports = function () {
             ]
         },
         {
-            id: 'country-disbursement',
-            name: {en: 'Country year disbursement'},
+            id: 'country-type-transactions',
+            name: {en: 'Country type transactions'},
             description: {en: 'Aggregations of transactional data related to countries grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
                 {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'},
                 {id: 'type', name: {en: 'Type'}, type: 'hierarchy'}
             ]
-        },
-        {
-            id: 'country-commitment',
-            name: {en: 'Country year commitment'},
-            description: {en: 'Aggregations of transactional data related to countries grouped by year'},
-            columns: [
-                {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
-                {id: 'commitment', name: {en: 'Commitment'}, type: 'numeric'},
-                {id: 'type', name: {en: 'Type'}, type: 'hierarchy'}
-            ]
-        },
-        {
-            id: 'country-value',
-            name: {en: 'Country year budget'},
-            description: {en: 'Aggregations of transactional data related to countries grouped by year'},
-            columns: [
-                {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
-                {id: 'budget', name: {en: 'Budget'}, type: 'numeric'},
-                {id: 'type', name: {en: 'Type'}, type: 'hierarchy'}
-            ]
         }
-
     ];
 };

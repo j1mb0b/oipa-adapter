@@ -25,6 +25,7 @@ app.post('/query', function (req, res) {
     var default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     var endpoint = "";
     var query = "";
+    var datasets = "";
     switch (req.body.id) {
         case 'mapcountrytrans':
         case 'mapcountrytransyear':
@@ -39,39 +40,38 @@ app.post('/query', function (req, res) {
             }, function (error, data) {
                 if (error)
                     return res.status(500).end('Internal Server Error');
-                var datasets = data.body.results.map(function (result) {
+                datasets = data.body.results.map(function (result) {
                     return [result.recipient_country.name, result.activity_count, result.disbursement, result.recipient_country.location.coordinates[1], result.recipient_country.location.coordinates[0]];
                 });
                 return res.status(200).json(datasets);
             });
             break;
 
-        case 'country-disbursement':
-        case 'country-commitment':
-        case 'country-value':
+        case 'disbursement':
             var country_code = (req.body.country_code) ? req.body.country_code : "MA";
+            var aggr_type = ['disbursement', 'commitment', 'value'];
+            for (var type in aggr_type) {
+                endpoint = '/api/transactions/aggregations/';
+                query = default_params + '&group_by=transaction_date_year&aggregations=' + type + '&order_by=transaction_date_year&recipient_country=' + country_code;
 
-            // Get the key used for filtering and getting a property from the response.
-            var aggr_type = req.body.id.match(/country-(.*)/)[1];
-            endpoint = '/api/transactions/aggregations/';
-            query = default_params + '&group_by=transaction_date_year&aggregations=' + aggr_type + '&order_by=transaction_date_year&recipient_country=' + country_code;
-
-            request.get({
-                uri: domain + endpoint + query,
-                gzip: true,
-                json: true
-            }, function (error, data) {
-                if (error)
-                    return res.status(500).end('Internal Server Error');
-                var datasets = data.body.results.map(function (result) {
-                    var obj = Object.keys(result);
-                    // We assume the order of keys are first: transaction year, second: amount.
-                    // Also that it remains the same for the other "cases", if not we are forced to
-                    // hard code the string to get the value which won't work well with this generic code.
-                    return [result[obj[0]], result[obj[1]], aggr_type];
+                request.get({
+                    uri: domain + endpoint + query,
+                    gzip: true,
+                    json: true
+                }, function (error, data) {
+                    if (error)
+                        return res.status(500).end('Internal Server Error');
+                    datasets.push(data.body.results.map(function (result) {
+                        var obj = Object.keys(result);
+                        // We assume the order of keys are first: transaction year, second: amount.
+                        // Also that it remains the same for the other "cases", if not we are forced to
+                        // hard code the string to get the value which won't work well with this generic code.
+                        return [result[obj[0]], result[obj[1]], type];
+                    }))
                 });
+            }
+            if (datasets)
                 return res.status(200).json(datasets);
-            });
             break;
 
         default:
