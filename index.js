@@ -64,7 +64,7 @@ app.post('/query', function (req, res) {
                     return res.status(500).end('Internal Server Error');
                 var datasets = data.body.results.map(function (result) {
                     var obj = Object.keys(result);
-                    return [result.$(obj[0]), result.$(obj[1])];
+                    return [result[obj[0]], result[obj[1]]];
                 });
                 return res.status(200).json(datasets);
             });
