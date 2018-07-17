@@ -21,12 +21,19 @@ app.post('/query', function (req, res) {
     if (!req.body.id)
         return res.status(403).end('Please include data set "id" in your request!');
 
+    // Default variables.
+    var default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     var endpoint = "";
     var query = "";
+    // Dynamic variables.
+    // @todo dynamic variable assignment.
+    var date_year = "";
+    var country_code = "MA";
     switch (req.body.id) {
         case 'mapcountrytrans':
+        case 'mapcountrytransyear':
             endpoint = '/api/transactions/aggregations/';
-            query = '?format=json&group_by=recipient_country&aggregations=activity_count,disbursement&reporting_organisation_identifier=XM-DAC-2-10&transaction_date_year=2016';
+            query = default_params + '&group_by=recipient_country&aggregations=activity_count,disbursement&transaction_date_year=' + date_year;
 
             request.get({
                 uri: domain + endpoint + query,
@@ -44,7 +51,7 @@ app.post('/query', function (req, res) {
 
         case 'countryyeartrans':
             endpoint = '/api/transactions/aggregations/';
-            query = '?format=json&group_by=transaction_date_year&aggregations=disbursement&reporting_organisation_identifier=XM-DAC-2-10&recipient_country=&order_by=transaction_date_year';
+            query = default_params + '&group_by=transaction_date_year&aggregations=disbursement&order_by=transaction_date_year&recipient_country=' + country_code;
 
             request.get({
                 uri: domain + endpoint + query,
