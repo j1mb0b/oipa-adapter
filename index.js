@@ -64,7 +64,8 @@ app.post('/query', function (req, res) {
                 gzip: true,
                 json: true
             }, function (error, data) {
-                if (error)
+                if (error || !data)
+                    console.log(query);
                     return res.status(500).end('Internal Server Error');
                 var datasets = data.body.results.map(function (result) {
                     var obj = Object.keys(result);
