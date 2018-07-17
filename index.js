@@ -59,13 +59,14 @@ app.post('/query', function (req, res) {
             // Build query string.
             query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
 
+            var uri = domain + endpoint + query;
             request.get({
-                uri: domain + endpoint + query,
+                uri: uri,
                 gzip: true,
                 json: true
             }, function (error, data) {
                 if (error || !data.body.results) {
-                    console.log(query);
+                    console.log(uri);
                     return res.status(500).end('Internal Server Error');
                 }
                 var datasets = data.body.results.map(function (result) {
