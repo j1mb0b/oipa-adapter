@@ -25,13 +25,10 @@ app.post('/query', function (req, res) {
     var default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     var endpoint = "";
     var query = "";
-    // Dynamic variables.
-    // @todo dynamic variable assignment.
-    var date_year = "";
-    var country_code = "MA";
     switch (req.body.id) {
         case 'mapcountrytrans':
         case 'mapcountrytransyear':
+            var date_year = ""; // @todo make this dynamic.
             endpoint = '/api/transactions/aggregations/';
             query = default_params + '&group_by=recipient_country&aggregations=activity_count,disbursement&transaction_date_year=' + date_year;
 
@@ -49,9 +46,14 @@ app.post('/query', function (req, res) {
             });
             break;
 
-        case 'countryyeartrans':
+        case 'country-disbursement':
+        case 'country-commitment':
+        case 'country-value':
+            var country_code = "MA"; // @todo make this dynamic.
+            // Get the key used for filtering and getting a property from the response.
+            var aggr_type = req.body.id.match(/country-(.*)/)[1];
             endpoint = '/api/transactions/aggregations/';
-            query = default_params + '&group_by=transaction_date_year&aggregations=disbursement&order_by=transaction_date_year&recipient_country=' + country_code;
+            query = default_params + '&group_by=transaction_date_year&aggregations=' + aggr_type + '&order_by=transaction_date_year&recipient_country=' + country_code;
 
             request.get({
                 uri: domain + endpoint + query,
@@ -61,7 +63,8 @@ app.post('/query', function (req, res) {
                 if (error)
                     return res.status(500).end('Internal Server Error');
                 var datasets = data.body.results.map(function (result) {
-                    return [result.transaction_date_year, result.disbursement];
+                    var obj = Object.keys(result);
+                    return [result.$(obj[0]), result.$(obj[1])];
                 });
                 return res.status(200).json(datasets);
             });
