@@ -61,13 +61,13 @@ app.post('/query', function (req, res) {
                 }, function (error, data) {
                     if (error)
                         return res.status(500).end('Internal Server Error');
-                    datasets.push(data.body.results.map(function (result) {
+                    data.body.results.map(function (result) {
                         var obj = Object.keys(result);
                         // We assume the order of keys are first: transaction year, second: amount.
                         // Also that it remains the same for the other "cases", if not we are forced to
                         // hard code the string to get the value which won't work well with this generic code.
-                        return [result[obj[0]], result[obj[1]], aggr_type[type]];
-                    }))
+                        datasets.push([result[obj[0]], result[obj[1]], aggr_type[type]]);
+                    })
                 });
             }
             if (datasets)
