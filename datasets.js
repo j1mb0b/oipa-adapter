@@ -11,7 +11,8 @@ module.exports = function () {
                 {id: 'activity_count', name: {en: 'Activity count'}, type: 'hierarchy'},
                 {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'},
                 {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
-                {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'}
+                {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
+                {id: 'region', name: {en: 'Region'}, type: 'hierarchy'}
             ]
         },
         {
