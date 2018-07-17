@@ -49,16 +49,19 @@ app.post('/query', function (req, res) {
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
-            var country_code = (req.body.country_code) ? req.body.country_code : "MA";
-
-            // Get the key used for filtering and getting a property from the response.
-            var aggr_type = req.body.id.match(/country-(.*)/)[1];
             endpoint = '/api/transactions/aggregations/';
-            // Exception for Budget since it uses a different field to the others.
-            var groupOrderBy = (req.body.id === 'country-value') ? 'budget_period_end_year' : 'transaction_date_year';
+            var groupOrderBy = 'transaction_date_year';
+            var country_code = (req.body.country_code) ? req.body.country_code : "MA";
+            // Get the key used for logic, filtering and getting a property from the response.
+            var aggr_type = req.body.id.match(/country-(.*)/)[1];
+            // Handle "country-value" since it uses a different endpoint, group, and order by.
+            if (aggr_type === 'value') {
+                endpoint = '/api/budgets/aggregations/';
+                // Exception for Budget since it uses a different field to the others.
+                groupOrderBy = 'budget_period_end_year';
+            }
             // Build query string.
             query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
-
             var uri = domain + endpoint + query;
             request.get({
                 uri: uri,
