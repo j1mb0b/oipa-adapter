@@ -68,7 +68,7 @@ app.post('/query', function (req, res) {
                     // We assume the order of keys are first: transaction year, second: amount.
                     // Also that it remains the same for the other "cases", if not we are forced to
                     // hard code the string to get the value which won't work well with this generic code.
-                    return [result[obj[0]], result[obj[1]]];
+                    return [result[obj[0]], result[obj[1]], aggr_type];
                 });
                 return res.status(200).json(datasets);
             });

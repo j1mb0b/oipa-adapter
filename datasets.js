@@ -20,7 +20,8 @@ module.exports = function () {
             description: {en: 'Aggregations of transactional data related to countries grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
-                {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'}
+                {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'},
+                {id: 'type', name: {en: 'Type'}, type: 'hierarchy'}
             ]
         },
         {
@@ -29,7 +30,8 @@ module.exports = function () {
             description: {en: 'Aggregations of transactional data related to countries grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
-                {id: 'commitment', name: {en: 'Commitment'}, type: 'numeric'}
+                {id: 'commitment', name: {en: 'Commitment'}, type: 'numeric'},
+                {id: 'type', name: {en: 'Type'}, type: 'hierarchy'}
             ]
         },
         {
@@ -38,7 +40,8 @@ module.exports = function () {
             description: {en: 'Aggregations of transactional data related to countries grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
-                {id: 'budget', name: {en: 'Budget'}, type: 'numeric'}
+                {id: 'budget', name: {en: 'Budget'}, type: 'numeric'},
+                {id: 'type', name: {en: 'Type'}, type: 'hierarchy'}
             ]
         }
 
