@@ -19,7 +19,7 @@ app.post('/query', function (req, res) {
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
     if (!req.body.id)
-        return res.status(403).end('Please include data set "id" in your request!');
+        return res.status(403).end('Please set "id" in the body of your request!');
 
     // Default variables.
     var default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
@@ -49,7 +49,10 @@ app.post('/query', function (req, res) {
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
-            var country_code = "MA"; // @todo make this dynamic.
+            if (!req.body.country_code)
+                return res.status(403).end('Please set "country_code" in the body of your request!');
+            var country_code = req.body.country_code;
+
             // Get the key used for filtering and getting a property from the response.
             var aggr_type = req.body.id.match(/country-(.*)/)[1];
             endpoint = '/api/transactions/aggregations/';
@@ -64,6 +67,9 @@ app.post('/query', function (req, res) {
                     return res.status(500).end('Internal Server Error');
                 var datasets = data.body.results.map(function (result) {
                     var obj = Object.keys(result);
+                    // We assume the order of keys are first: transaction year, second: amount.
+                    // Also that it remains the same for the other "cases", if not we are forced to
+                    // hard code the string to get the value which won't work well with this generic code.
                     return [result[obj[0]], result[obj[1]]];
                 });
                 return res.status(200).json(datasets);
