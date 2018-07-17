@@ -47,7 +47,7 @@ app.post('/query', function (req, res) {
             });
             break;
 
-        case 'disbursement':
+        case 'country-type-transactions':
             var country_code = (req.body.country_code) ? req.body.country_code : "MA";
             var aggr_type = ['disbursement', 'commitment', 'value'];
             for (var type in aggr_type) {
