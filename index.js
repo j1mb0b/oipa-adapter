@@ -49,7 +49,7 @@ app.post('/query', function (req, res) {
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
-            var country_code = (!req.body.country_code) ? req.body.country_code : "MA";
+            var country_code = (req.body.country_code) ? req.body.country_code : "MA";
 
             // Get the key used for filtering and getting a property from the response.
             var aggr_type = req.body.id.match(/country-(.*)/)[1];
