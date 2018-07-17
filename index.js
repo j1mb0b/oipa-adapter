@@ -54,7 +54,10 @@ app.post('/query', function (req, res) {
             // Get the key used for filtering and getting a property from the response.
             var aggr_type = req.body.id.match(/country-(.*)/)[1];
             endpoint = '/api/transactions/aggregations/';
-            query = default_params + '&group_by=transaction_date_year&aggregations=' + aggr_type + '&order_by=transaction_date_year&recipient_country=' + country_code;
+            // Exception for Budget since it uses a different field to the others.
+            var groupOrderBy = (req.body.id === 'country-value') ? 'budget_period_end_year' : 'transaction_date_year';
+            // Build query string.
+            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
 
             request.get({
                 uri: domain + endpoint + query,
