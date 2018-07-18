@@ -8,7 +8,7 @@ module.exports = function () {
             description: {en: 'Country map placement for transaction data'},
             columns: [
                 {id: 'name', name: {en: 'Country name'}, type: 'hierarchy'},
-                {id: 'activity_count', name: {en: 'Total projects'}, type: 'hierarchy'},
+                {id: 'activity_count', name: {en: 'Total projects'}, type: 'numeric'},
                 {id: 'disbursement', name: {en: 'Total disbursement'}, type: 'numeric'},
                 {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
                 {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
