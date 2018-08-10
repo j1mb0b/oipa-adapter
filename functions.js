@@ -38,7 +38,7 @@ module.exports = {
             .then(function (data) {
                 if (typeof data.results !== 'undefined') {
                     output.push(data.results.map(function (result) {
-                        return [result.iati_identifier, module.exports.getLocations(domain, result.iati_identifier, locations)];
+                        return [result.iati_identifier, module.exports.getLocations(domain, result.iati_identifier)];
                     }));
                 }
 
