@@ -34,6 +34,7 @@ module.exports = {
 
         rp(options)
             .then(function (data) {
+                console.log(data);
                 if (typeof data.body.results !== 'undefined') {
                     output.push(data.body.results.map(function (result) {
                         let locations = [];
