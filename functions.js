@@ -1,7 +1,7 @@
 'use strict';
 var datasets = [];
 module.exports = {
-    getProjects: function (url) {
+    getProjects: function (req, res, url) {
         request.get({
             uri: url,
             gzip: true,

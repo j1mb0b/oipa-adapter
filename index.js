@@ -30,7 +30,7 @@ app.post('/query', function (req, res) {
         case 'activities':
             endpoint = '/api/activities/';
             query = default_params;
-            api.getProjects(domain + endpoint + query);
+            api.getProjects(req, res, domain + endpoint + query);
             break;
 
         case 'country-disbursement':
