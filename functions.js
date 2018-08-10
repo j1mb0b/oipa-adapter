@@ -16,6 +16,8 @@ module.exports = {
                     if (typeof result.point.pos !== 'undefined')
                         return;
 
+                    console.log(result.point.pos.latitude);
+
                     return [result.point.pos.latitude, result.point.pos.longitude];
                 }));
             }
