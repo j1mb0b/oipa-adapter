@@ -1,26 +1,53 @@
 'use strict';
 
-var request = require('request');
-var datasets = [];
-module.exports = {
-    getProjects: function (req, res, url) {
+let request = require('request');
+let datasets = [];
+module.exports = class Api {
+    constructor(req, res, domain) {
+        this.req = req;
+        this.res = res;
+        this.domain = domain;
+    }
+
+    getProjects(url) {
         request.get({
             uri: url,
             gzip: true,
             json: true
         }, function (error, data) {
             if (error)
-                return res.status(500).end('Internal Server Error');
+                return this.res.status(500).end('Internal Server Error');
 
             datasets.push(data.body.results.map(function (result) {
-                return [result.recipient_country.name, result.activity_count, result.disbursement, result.recipient_country.location.coordinates[1], result.recipient_country.location.coordinates[0], result.recipient_country.region.name];
+                let locations = [];
+                self.getLocations(this.domain + "/api/locations/?format=json&activity_id=XM-DAC-2-10", locations);
+                return [result.iati_identifier, locations];
             }));
 
             if (result.next) {
-                this(result.next);
+                self.getProjects(result.next);
             }
             else {
-                return res.status(200).json(datasets);
+                return this.res.status(200).json(datasets);
+            }
+        });
+    }
+
+    getLocations(url, locations) {
+        request.get({
+            uri: url,
+            gzip: true,
+            json: true
+        }, function (error, data) {
+            if (error)
+                throw error;
+
+            locations.push(data.body.results.map(function (result) {
+                return [result.point.pos.latitude, result.point.pos.longitude];
+            }));
+
+            if (result.next) {
+                self.getLocations(result.next, locations);
             }
         });
     }
