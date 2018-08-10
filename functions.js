@@ -46,17 +46,16 @@ module.exports = {
                         datasets.push(locations);
                     }
                 );
-
-                console.log(result.next);
-                console.log(url);
-
-                if (result.next) {
-                    module.exports.getProjects(result.next, domain);
-                }
-                else {
-                    return datasets;
-                }
             });
+
+            console.log(url);
+
+            if (data.body.next) {
+                module.exports.getProjects(data.body.next, domain);
+            }
+            else {
+                return datasets;
+            }
         });
     }
 };
