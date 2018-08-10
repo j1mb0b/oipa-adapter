@@ -27,7 +27,7 @@ module.exports = {
             if (error)
                 throw error;
 
-            data.body.results.map(function (result) {
+            datasets.push(data.body.results.map(function (result) {
                 async.waterfall(
                     [
                         function(callback) {
@@ -41,7 +41,7 @@ module.exports = {
                     }
                 );
                 return [result.iati_identifier, locations];
-            });
+            }));
 
             if (result.next) {
                 this.getProjects(result.next, domain);
