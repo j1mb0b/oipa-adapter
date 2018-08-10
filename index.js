@@ -29,7 +29,7 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            return tools.getProjects(res, domain + endpoint + default_params, domain);
+            return res.status(200).json(tools.getProjects(domain + endpoint + default_params, domain));
 
         case 'country-disbursement':
         case 'country-commitment':

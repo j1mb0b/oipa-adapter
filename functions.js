@@ -27,7 +27,7 @@ module.exports = {
                 throw error;
             });
     },
-    getProjects: function(res, url, domain) {
+    getProjects: function(url, domain) {
         let options = {
             method: 'GET',
             uri: url,
@@ -44,7 +44,7 @@ module.exports = {
                 }
 
                 if (data.next) {
-                    return res.status(200).json(module.exports.getProjects(data.next, domain));
+                    return module.exports.getProjects(data.next, domain);
                 }
                 else {
                     console.log(output);
