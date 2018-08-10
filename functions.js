@@ -47,6 +47,8 @@ module.exports = {
                     }
                 );
 
+                console.log(datasets);
+
                 if (result.next) {
                     module.exports.getProjects(result.next, domain);
                 }
