@@ -12,13 +12,14 @@ module.exports = {
         }, function (error, data) {
             if (error)
                 throw error;
+            if (data.body.results.length > 0) {
+                locations.push(data.body.results.map(function (result) {
+                    if (typeof result.point.pos !== 'undefined')
+                        return;
 
-            locations.push(data.body.results.map(function (result) {
-                if (typeof result.point.pos !== 'undefined')
-                    return;
-
-                return [result.point.pos.latitude, result.point.pos.longitude];
-            }));
+                    return [result.point.pos.latitude, result.point.pos.longitude];
+                }));
+            }
         });
     },
     getProjects: function(url, domain) {
