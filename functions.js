@@ -8,6 +8,7 @@ module.exports = class Api {
     }
 
     getProjects(url) {
+        console.log(this.domain);
         request.get({
             uri: url,
             gzip: true,
@@ -15,6 +16,7 @@ module.exports = class Api {
         }, function (error, data) {
             if (error)
                 throw error;
+            console.log(this.domain);
 
             datasets.push(data.body.results.map(function (result) {
                 let locations = [];
