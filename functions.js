@@ -1,47 +1,56 @@
 'use strict';
 
-let request = require('request');
+let rp = require('request-promise');
 let output = [];
 module.exports = {
     getLocations: function(domain, id, locations) {
-        request.get({
+        let options = {
+            method: 'GET',
             uri: domain + "/api/locations/?format=json&activity_id=" + id,
             gzip: true,
             json: true
-        }, function (error, data) {
-            if (error)
-                throw error;
+        };
 
-            if (typeof data.body.results !== 'undefined') {
-                locations.push(data.body.results.map(function (result) {
-                    if (result.point.pos !== 'null')
-                        return result.point.pos;
-                }));
-            }
-        });
+        rp(options)
+            .then(function (data) {
+                if (typeof data.body.results !== 'undefined') {
+                    locations.push(data.body.results.map(function (result) {
+                        if (result.point.pos !== 'null')
+                            return result.point.pos;
+                    }));
+                }
+            })
+            .catch(function (error) {
+                throw error;
+            });
     },
     getProjects: function(url, domain) {
-        request.get({
+        let options = {
+            method: 'GET',
             uri: url,
             gzip: true,
             json: true
-        }, function (error, data) {
-            if (error)
+        };
+
+        rp(options)
+            .then(function (data) {
+                if (typeof data.body.results !== 'undefined') {
+                    output.push(data.body.results.map(function (result) {
+                        let locations = [];
+                        module.exports.getLocations(domain, result.iati_identifier, locations);
+                        return [result.iati_identifier, locations];
+                    }));
+                }
+
+                if (data.body.next) {
+                    module.exports.getProjects(data.body.next, domain);
+                }
+                else {
+                    return output;
+                }
+            })
+            .catch(function (error) {
                 throw error;
-
-            if (typeof data.body.results !== 'undefined') {
-                output.push(data.body.results.map(function (result) {
-                    let locations = [];
-                    module.exports.getLocations(domain, result.iati_identifier, locations);
-                    return [result.iati_identifier, locations];
-                }));
-            }
-
-            if (data.body.next) {
-                module.exports.getProjects(data.body.next, domain);
-            }
-        });
-
-        return output;
+            });
     }
 };
