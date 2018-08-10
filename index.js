@@ -4,7 +4,7 @@ let domain = 'http://18.221.72.54:8000';
 let app = require('./webserver')();
 let datasets = require('./datasets')();
 let request = require('request');
-const Api = require('./functions.js');
+let tools = require('./functions.js');
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {
@@ -29,8 +29,7 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            let oipa = new Api(domain);
-            return res.status(200).json(oipa.getProjects(domain + endpoint + default_params));
+            return res.status(200).json(tools.getProjects(domain + endpoint + default_params, domain));
 
         case 'country-disbursement':
         case 'country-commitment':

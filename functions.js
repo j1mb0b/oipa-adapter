@@ -1,14 +1,24 @@
 'use strict';
 
+let async = require('async');
 let request = require('request');
 let datasets = [];
-module.exports = class Api {
-    constructor(domain) {
-        this.domain = domain;
-    }
+module.exports = {
+    getLocations: function(domain, id, locations) {
+        request.get({
+            uri: domain + "/api/locations/?format=json&activity_id=" + id,
+            gzip: true,
+            json: true
+        }, function (error, data) {
+            if (error)
+                throw error;
 
-    getProjects(url) {
-        console.log(this.domain);
+            locations.push(data.body.results.map(function (result) {
+                return [result.point.pos.latitude, result.point.pos.longitude];
+            }));
+        });
+    },
+    getProjects: function(url, domain) {
         request.get({
             uri: url,
             gzip: true,
@@ -16,30 +26,25 @@ module.exports = class Api {
         }, function (error, data) {
             if (error)
                 throw error;
-            console.log(module.exports.Api.domain);
 
-            datasets.push(data.body.results.map(function (result) {
-                let locations = [];
-                //this.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
-
-                request.get({
-                    uri: this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier,
-                    gzip: true,
-                    json: true
-                }, function (error, data) {
-                    if (error)
-                        throw error;
-
-                    locations.push(data.body.results.map(function (result) {
-                        return [result.point.pos.latitude, result.point.pos.longitude];
-                    }));
-                });
-
+            data.body.results.map(function (result) {
+                async.waterfall(
+                    [
+                        function(callback) {
+                            let locations = [];
+                            this.getLocations(domain, result.iati_identifier, locations);
+                            callback(null, locations);
+                        }
+                    ],
+                    function (err, locations) {
+                        console.log(locations);
+                    }
+                );
                 return [result.iati_identifier, locations];
-            }));
+            });
 
             if (result.next) {
-                this.getProjects(result.next);
+                this.getProjects(result.next, domain);
             }
             else {
                 return datasets;
