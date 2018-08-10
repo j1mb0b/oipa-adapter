@@ -13,8 +13,9 @@ module.exports = {
 
         rp(options)
             .then(function (data) {
+                let locations = [];
+
                 if (typeof data.results !== 'undefined') {
-                    let locations = [];
                     locations.push(data.results.map(function (result) {
                         if (result.point.pos !== 'null')
                             return result.point.pos;
