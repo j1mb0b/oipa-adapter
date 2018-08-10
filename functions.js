@@ -13,9 +13,11 @@ module.exports = {
 
         rp(options)
             .then(function (data) {
-                if (typeof data.body.results !== 'undefined') {
+                if (typeof data.results !== 'undefined') {
+                    locations.push(data.results.map(function (result) {
                         if (result.point.pos !== 'null')
                             return result.point.pos;
+                    }));
                 }
             })
             .catch(function (error) {
@@ -32,15 +34,16 @@ module.exports = {
 
         rp(options)
             .then(function (data) {
-                console.log(data[iati_identifier]);
-                if (typeof data.body.results !== 'undefined') {
+                if (typeof data.results !== 'undefined') {
+                    output.push(data.results.map(function (result) {
                         let locations = [];
                         module.exports.getLocations(domain, result.iati_identifier, locations);
-                        return [data.iati_identifier, locations];
+                        return [result.iati_identifier, locations];
+                    }));
                 }
 
-                if (data.body.next) {
-                    module.exports.getProjects(data.body.next, domain);
+                if (data.next) {
+                    module.exports.getProjects(data.next, domain);
                 }
                 else {
                     return output;
