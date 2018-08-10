@@ -35,7 +35,7 @@ module.exports = {
                     [
                         function(callback) {
                             let locations = [];
-                            this.getLocations(domain, result.iati_identifier, locations);
+                            module.exports.getLocations(domain, result.iati_identifier, locations);
                             callback(null, locations);
                         }
                     ],
@@ -45,7 +45,7 @@ module.exports = {
                 );
 
                 if (result.next) {
-                    this.getProjects(result.next, domain);
+                    module.exports.getProjects(result.next, domain);
                 }
                 else {
                     return datasets;
