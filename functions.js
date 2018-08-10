@@ -27,8 +27,11 @@ module.exports = {
             if (error)
                 throw error;
 
-            datasets.push(data.body.results.map(function (result) {
-                async.waterfall(
+            data.body.results.map(function (result) {
+                datasets.push(result.iati_identifier);
+
+                result.iati_identifier,
+                    async.waterfall(
                     [
                         function(callback) {
                             let locations = [];
@@ -37,19 +40,17 @@ module.exports = {
                         }
                     ],
                     function (err, locations) {
-                        console.log(locations);
-                        return [result.iati_identifier, locations];
+                        datasets.push(locations);
                     }
                 );
-                //return [result.iati_identifier, locations];
-            }));
 
-            if (result.next) {
-                this.getProjects(result.next, domain);
-            }
-            else {
-                return datasets;
-            }
+                if (result.next) {
+                    this.getProjects(result.next, domain);
+                }
+                else {
+                    return datasets;
+                }
+            });
         });
     }
 };
