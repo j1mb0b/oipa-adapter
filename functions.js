@@ -47,6 +47,7 @@ module.exports = {
                     }
                 );
 
+                console.log(result.next);
                 console.log(url);
 
                 if (result.next) {
