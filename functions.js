@@ -46,6 +46,7 @@ module.exports = {
                     return module.exports.getProjects(data.next, domain);
                 }
                 else {
+                    console.log(output);
                     return output;
                 }
             })
