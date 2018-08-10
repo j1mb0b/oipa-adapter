@@ -3,7 +3,7 @@
 var domain = 'http://18.221.72.54:8000';
 var app = require('./webserver')();
 var datasets = require('./datasets')();
-var api = require('./functions')();
+var api = require('./functions');
 var request = require('request');
 
 // 1. List datasets
