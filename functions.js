@@ -2,7 +2,7 @@
 
 let async = require('async');
 let request = require('request');
-let datasets = [];
+let output = [];
 module.exports = {
     getLocations: function(domain, id, locations) {
         request.get({
@@ -43,7 +43,7 @@ module.exports = {
                         ],
                         function (err, locations) {
                             if (locations) {
-                                datasets.push([result.iati_identifier, locations]);
+                                output.push([result.iati_identifier, locations]);
                             }
                         }
                     );
@@ -54,7 +54,7 @@ module.exports = {
                 module.exports.getProjects(data.body.next, domain);
             }
             else {
-                return datasets;
+                return output;
             }
         });
     }

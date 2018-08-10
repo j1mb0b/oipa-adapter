@@ -30,7 +30,7 @@ app.post('/query', function (req, res) {
         case 'activities':
             endpoint = '/api/activities/';
             tools.getProjects(domain + endpoint + default_params, domain);
-            return res.status(200).json(datasets);
+            return res.status(200).json(output);
 
         case 'country-disbursement':
         case 'country-commitment':
