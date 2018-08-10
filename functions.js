@@ -14,7 +14,7 @@ module.exports = {
             if (typeof data.body.results !== 'undefined') {
                 locations.push(data.body.results.map(function (result) {
                     if (typeof result.point.pos !== 'undefined')
-                        return [result.point.pos.latitude, result.point.pos.longitude];
+                        return [result.point.pos[latitude], result.point.pos[longitude]];
                 }));
             }
         });
