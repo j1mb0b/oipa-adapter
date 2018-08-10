@@ -7,8 +7,6 @@ module.exports = class Api {
         this.req = req;
         this.res = res;
         this.domain = domain;
-
-        console.log(this.domain);
     }
 
     async getLocations(url, locations) {
@@ -41,7 +39,7 @@ module.exports = class Api {
 
             datasets.push(data.body.results.map(function (result) {
                 let locations = [];
-                this.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
+                self.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
                 return [result.iati_identifier, locations];
             }));
 
