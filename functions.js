@@ -41,10 +41,15 @@ module.exports = class Api {
                 return this.res.status(500).end('Internal Server Error');
 
             datasets.push(data.body.results.map(function (result) {
-                let locations = [];
-                this.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
-                return [result.iati_identifier, locations];
+                return [result.iati_identifier];
             }));
+
+            console.log(datasets[0]);
+
+            let locations = [];
+            this.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + datasets[0], locations);
+
+            console.log(locations);
 
             if (result.next) {
                 this.getProjects(result.next);
