@@ -53,9 +53,8 @@ module.exports = {
             if (data.body.next) {
                 module.exports.getProjects(data.body.next, domain);
             }
-            else {
-                return output;
-            }
         });
+
+        return output;
     }
 };
