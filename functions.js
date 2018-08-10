@@ -1,4 +1,6 @@
 'use strict';
+
+var request = require('request');
 var datasets = [];
 module.exports = {
     getProjects: function (req, res, url) {
