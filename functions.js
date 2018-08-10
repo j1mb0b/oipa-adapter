@@ -33,22 +33,11 @@ module.exports = {
                 throw error;
 
             if (typeof data.body.results !== 'undefined') {
-                data.body.results.map(function (result) {
-                    async.waterfall(
-                        [
-                            function (callback) {
-                                let locations = [];
-                                module.exports.getLocations(domain, result.iati_identifier, locations);
-                                callback(null, locations);
-                            }
-                        ],
-                        function (err, locations) {
-                            if (locations) {
-                                output.push([result.iati_identifier, locations]);
-                            }
-                        }
-                    );
-                });
+                output.push(data.body.results.map(function (result) {
+                    let locations = [];
+                    module.exports.getLocations(domain, result.iati_identifier, locations);
+                    return [result.iati_identifier, locations];
+                }));
             }
 
             if (data.body.next) {
