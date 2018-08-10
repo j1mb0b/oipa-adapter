@@ -16,7 +16,7 @@ module.exports = class Api {
         }, function (error, data) {
             if (error)
                 throw error;
-            console.log(this.domain);
+            console.log(module.exports.Api.domain);
 
             datasets.push(data.body.results.map(function (result) {
                 let locations = [];
