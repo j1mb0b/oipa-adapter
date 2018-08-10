@@ -4,8 +4,7 @@ let request = require('request');
 let datasets = [];
 module.exports = class Api {
     constructor(req, res, domain) {
-        this.getLocations = this.getLocations.bind(this);
-        this.getProjects = this.getProjects.bind(this);
+        autoBind(this);
         this.req = req;
         this.res = res;
         this.domain = domain;
