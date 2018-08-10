@@ -13,7 +13,7 @@ module.exports = {
                 throw error;
             if (typeof data.body.results !== 'undefined') {
                 locations.push(data.body.results.map(function (result) {
-                    console.log(result.point.pos[0]);
+                    console.log(result.point.pos.latitude);
                     if (typeof result.point.pos !== 'undefined')
                         return [result.point.pos[latitude], result.point.pos[longitude]];
                 }));
