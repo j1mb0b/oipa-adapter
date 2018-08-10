@@ -1,10 +1,10 @@
 'use strict';
 
-var domain = 'http://18.221.72.54:8000';
-var app = require('./webserver')();
-var datasets = require('./datasets')();
-var tool = require('./functions');
-var request = require('request');
+let domain = 'http://18.221.72.54:8000';
+let app = require('./webserver')();
+let datasets = require('./datasets')();
+let request = require('request');
+const Api = require('./functions.js').Api;
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {
@@ -23,23 +23,23 @@ app.post('/query', function (req, res) {
         return res.status(403).end('Please set "id" in the body of your request!');
 
     // Default variables.
-    var default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
-    var endpoint = "";
-    var query = "";
+    let default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
+    let endpoint = "";
+    let query = "";
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            var oipa = new tool(req, res, domain);
+            let oipa = new Api(req, res, domain);
             return oipa.getProjects(domain + endpoint + default_params);
 
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
             endpoint = '/api/transactions/aggregations/';
-            var groupOrderBy = 'transaction_date_year';
-            var country_code = (req.body.country_code) ? req.body.country_code : "MA";
+            let groupOrderBy = 'transaction_date_year';
+            let country_code = (req.body.country_code) ? req.body.country_code : "MA";
             // Get the key used for logic, filtering and getting a property from the response.
-            var aggr_type = req.body.id.match(/country-(.*)/)[1];
+            let aggr_type = req.body.id.match(/country-(.*)/)[1];
             // Handle "country-value" since it uses a different endpoint, group, and order by.
             if (aggr_type === 'value') {
                 endpoint = '/api/budgets/aggregations/';
@@ -48,7 +48,7 @@ app.post('/query', function (req, res) {
             }
             // Build query string.
             query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
-            var uri = domain + endpoint + query;
+            let uri = domain + endpoint + query;
             request.get({
                 uri: uri,
                 gzip: true,
@@ -58,8 +58,8 @@ app.post('/query', function (req, res) {
                     console.log(uri);
                     return res.status(500).end('Internal Server Error');
                 }
-                var datasets = data.body.results.map(function (result) {
-                    var obj = Object.keys(result);
+                let datasets = data.body.results.map(function (result) {
+                    let obj = Object.keys(result);
                     // We assume the order of keys are first: transaction year, second: amount.
                     // Also that it remains the same for the other "cases", if not we are forced to
                     // hard code the string to get the value which won't work well with this generic code.
