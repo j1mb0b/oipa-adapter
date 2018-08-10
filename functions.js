@@ -9,6 +9,25 @@ module.exports = class Api {
         this.domain = domain;
     }
 
+    getLocations(url, locations) {
+        request.get({
+            uri: url,
+            gzip: true,
+            json: true
+        }, function (error, data) {
+            if (error)
+                throw error;
+
+            locations.push(data.body.results.map(function (result) {
+                return [result.point.pos.latitude, result.point.pos.longitude];
+            }));
+
+            if (result.next) {
+                self.getLocations(result.next, locations);
+            }
+        });
+    }
+
     getProjects(url) {
         request.get({
             uri: url,
@@ -29,25 +48,6 @@ module.exports = class Api {
             }
             else {
                 return this.res.status(200).json(datasets);
-            }
-        });
-    }
-
-    getLocations(url, locations) {
-        request.get({
-            uri: url,
-            gzip: true,
-            json: true
-        }, function (error, data) {
-            if (error)
-                throw error;
-
-            locations.push(data.body.results.map(function (result) {
-                return [result.point.pos.latitude, result.point.pos.longitude];
-            }));
-
-            if (result.next) {
-                self.getLocations(result.next, locations);
             }
         });
     }
