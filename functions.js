@@ -39,7 +39,7 @@ module.exports = class Api {
 
             datasets.push(data.body.results.map(function (result) {
                 let locations = [];
-                this.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
+                parent.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
                 return [result.iati_identifier, locations];
             }));
 
