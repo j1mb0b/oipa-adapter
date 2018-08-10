@@ -35,11 +35,11 @@ module.exports = class Api {
             json: true
         }, function (error, data) {
             if (error)
-                return this.res.status(500).end('Internal Server Error');
+                return Api.res.status(500).end('Internal Server Error');
 
             datasets.push(data.body.results.map(function (result) {
                 let locations = [];
-                Api.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
+                Api.getLocations(Api.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
                 return [result.iati_identifier, locations];
             }));
 
@@ -47,7 +47,7 @@ module.exports = class Api {
                 self.getProjects(result.next);
             }
             else {
-                return this.res.status(200).json(datasets);
+                return Api.res.status(200).json(datasets);
             }
         });
     }
