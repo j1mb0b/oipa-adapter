@@ -14,6 +14,9 @@ module.exports = {
                 throw error;
 
             locations.push(data.body.results.map(function (result) {
+                if (!result.point.pos.latitude)
+                    return;
+
                 return [result.point.pos.latitude, result.point.pos.longitude];
             }));
         });
