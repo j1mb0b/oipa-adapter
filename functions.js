@@ -9,7 +9,7 @@ module.exports = class Api {
         this.domain = domain;
     }
 
-    async getLocations(url, locations) {
+    getLocations(url, locations) {
         request.get({
             uri: url,
             gzip: true,
@@ -23,7 +23,7 @@ module.exports = class Api {
             }));
 
             if (result.next) {
-                self.getLocations(result.next, locations);
+                this.getLocations(result.next, locations);
             }
         });
     }
@@ -39,12 +39,12 @@ module.exports = class Api {
 
             datasets.push(data.body.results.map(function (result) {
                 let locations = [];
-                self.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
+                this.getLocations(this.domain + "/api/locations/?format=json&activity_id=" + result.iati_identifier, locations);
                 return [result.iati_identifier, locations];
             }));
 
             if (result.next) {
-                self.getProjects(result.next);
+                this.getProjects(result.next);
             }
             else {
                 return this.res.status(200).json(datasets);
