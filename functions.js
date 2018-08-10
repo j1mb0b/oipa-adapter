@@ -32,7 +32,7 @@ module.exports = {
 
         rp(options)
             .then(function (data) {
-                console.log(data.iati_identifier);
+                console.log(data[iati_identifier]);
                 if (typeof data.body.results !== 'undefined') {
                         let locations = [];
                         module.exports.getLocations(domain, result.iati_identifier, locations);
