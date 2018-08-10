@@ -49,7 +49,7 @@ module.exports = {
                 );
             });
 
-            console.log(url);
+            console.log(datasets);
 
             if (data.body.next) {
                 module.exports.getProjects(data.body.next, domain);
