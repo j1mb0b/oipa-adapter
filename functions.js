@@ -43,7 +43,7 @@ module.exports = {
                 }
 
                 if (data.next) {
-                    module.exports.getProjects(data.next, domain);
+                    return module.exports.getProjects(data.next, domain);
                 }
                 else {
                     return output;
