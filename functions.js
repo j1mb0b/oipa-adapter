@@ -31,23 +31,25 @@ module.exports = {
             if (error)
                 throw error;
 
-            data.body.results.map(function (result) {
-                datasets.push(result.iati_identifier);
-
-                result.iati_identifier,
+            if (typeof data.body.results !== 'undefined') {
+                data.body.results.map(function (result) {
+                    datasets.push(result.iati_identifier);
                     async.waterfall(
-                    [
-                        function(callback) {
-                            let locations = [];
-                            module.exports.getLocations(domain, result.iati_identifier, locations);
-                            callback(null, locations);
+                        [
+                            function (callback) {
+                                let locations = [];
+                                module.exports.getLocations(domain, result.iati_identifier, locations);
+                                callback(null, locations);
+                            }
+                        ],
+                        function (err, locations) {
+                            if (locations) {
+                                datasets.push(locations);
+                            }
                         }
-                    ],
-                    function (err, locations) {
-                        datasets.push(locations);
-                    }
-                );
-            });
+                    );
+                });
+            }
 
             console.log(datasets);
 
@@ -55,6 +57,7 @@ module.exports = {
                 module.exports.getProjects(data.body.next, domain);
             }
             else {
+                console.log(datasets);
                 return datasets;
             }
         });
