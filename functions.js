@@ -33,15 +33,15 @@ module.exports = {
                         function(callback) {
                             let locations = [];
                             this.getLocations(domain, result.iati_identifier, locations);
-                            console.log(locations);
                             callback(null, locations);
                         }
                     ],
                     function (err, locations) {
                         console.log(locations);
+                        return [result.iati_identifier, locations];
                     }
                 );
-                return [result.iati_identifier, locations];
+                //return [result.iati_identifier, locations];
             }));
 
             if (result.next) {
