@@ -3,7 +3,7 @@
 let rp = require('request-promise');
 let output = [];
 module.exports = {
-    getLocations: function(domain, id, locations) {
+    getLocations: function(domain, id) {
         let options = {
             method: 'GET',
             uri: domain + "/api/locations/?format=json&activity_id=" + id,
@@ -14,11 +14,13 @@ module.exports = {
         rp(options)
             .then(function (data) {
                 if (typeof data.results !== 'undefined') {
+                    let locations = [];
                     locations.push(data.results.map(function (result) {
                         if (result.point.pos !== 'null')
                             return result.point.pos;
                     }));
                 }
+                return locations;
             })
             .catch(function (error) {
                 throw error;
@@ -36,9 +38,7 @@ module.exports = {
             .then(function (data) {
                 if (typeof data.results !== 'undefined') {
                     output.push(data.results.map(function (result) {
-                        let locations = [];
-                        //module.exports.getLocations(domain, result.iati_identifier, locations);
-                        return [result.iati_identifier, locations];
+                        return [result.iati_identifier, module.exports.getLocations(domain, result.iati_identifier, locations)];
                     }));
                 }
 
