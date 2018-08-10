@@ -3,7 +3,7 @@
 module.exports = function () {
     return [
         {
-            id: 'mapcountrytrans',
+            id: 'activities',
             name: {en: 'Map country transactions data'},
             description: {en: 'Country map placement for transaction data'},
             columns: [
@@ -12,7 +12,8 @@ module.exports = function () {
                 {id: 'disbursement', name: {en: 'Total disbursement'}, type: 'numeric'},
                 {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
                 {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
-                {id: 'region', name: {en: 'Region'}, type: 'hierarchy'}
+                {id: 'region', name: {en: 'Region'}, type: 'hierarchy'},
+                {id: 'polygon', name: {en: 'Polygon'}, type: 'hierarchy'},
             ]
         },
         {
@@ -21,7 +22,7 @@ module.exports = function () {
             description: {en: 'Aggregations of transactional data related to countries grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
-                {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'}
+                {id: 'disbursement', name: {en: 'Expenditure'}, type: 'numeric'}
             ]
         },
         {

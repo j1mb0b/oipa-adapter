@@ -3,6 +3,7 @@
 var domain = 'http://18.221.72.54:8000';
 var app = require('./webserver')();
 var datasets = require('./datasets')();
+var api = require('./functions')();
 var request = require('request');
 
 // 1. List datasets
@@ -26,24 +27,10 @@ app.post('/query', function (req, res) {
     var endpoint = "";
     var query = "";
     switch (req.body.id) {
-        case 'mapcountrytrans':
-        case 'mapcountrytransyear':
-            var date_year = ""; // @todo make this dynamic.
-            endpoint = '/api/transactions/aggregations/';
-            query = default_params + '&group_by=recipient_country&aggregations=activity_count,disbursement&transaction_date_year=' + date_year;
-
-            request.get({
-                uri: domain + endpoint + query,
-                gzip: true,
-                json: true
-            }, function (error, data) {
-                if (error)
-                    return res.status(500).end('Internal Server Error');
-                var datasets = data.body.results.map(function (result) {
-                    return [result.recipient_country.name, result.activity_count, result.disbursement, result.recipient_country.location.coordinates[1], result.recipient_country.location.coordinates[0], result.recipient_country.region.name];
-                });
-                return res.status(200).json(datasets);
-            });
+        case 'activities':
+            endpoint = '/api/activities/';
+            query = default_params;
+            api.getProjects(domain + endpoint + query);
             break;
 
         case 'country-disbursement':
