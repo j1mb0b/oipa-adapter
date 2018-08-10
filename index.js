@@ -29,7 +29,7 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            var oipa = new tool.Api(req, res, domain);
+            var oipa = new tool(req, res, domain);
             return oipa.getProjects(domain + endpoint + default_params);
 
         case 'country-disbursement':
