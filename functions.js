@@ -13,9 +13,10 @@ module.exports = {
                 throw error;
             if (typeof data.body.results !== 'undefined') {
                 locations.push(data.body.results.map(function (result) {
-                    let obj = Object.keys(result);
-                    if (typeof result.point.pos !== 'undefined')
+                    if (typeof result.point.pos !== 'undefined') {
+                        let obj = Object.keys(result.point.pos);
                         return [result.point.pos[obj[0]], result.point.pos[obj[1]]];
+                    }
                 }));
             }
         });
