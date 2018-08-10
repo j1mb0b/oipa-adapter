@@ -3,7 +3,7 @@
 var domain = 'http://18.221.72.54:8000';
 var app = require('./webserver')();
 var datasets = require('./datasets')();
-var api = require('./functions');
+var tool = require('./functions');
 var request = require('request');
 
 // 1. List datasets
@@ -29,7 +29,7 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            var oipa = new Api(req, res, domain);
+            var oipa = new tool.Api(req, res, domain);
             return oipa.getProjects(domain + endpoint + default_params);
 
         case 'country-disbursement':
