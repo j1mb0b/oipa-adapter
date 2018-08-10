@@ -33,6 +33,7 @@ module.exports = {
                         function(callback) {
                             let locations = [];
                             this.getLocations(domain, result.iati_identifier, locations);
+                            console.log(locations);
                             callback(null, locations);
                         }
                     ],
