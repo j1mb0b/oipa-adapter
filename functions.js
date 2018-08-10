@@ -1,6 +1,5 @@
 'use strict';
 
-let async = require('async');
 let request = require('request');
 let output = [];
 module.exports = {
@@ -14,6 +13,8 @@ module.exports = {
                 throw error;
             if (typeof data.body.results !== 'undefined') {
                 locations.push(data.body.results.map(function (result) {
+                    console.log(result.point.pos);
+
                     if (typeof result.point.pos !== 'undefined')
                         return;
 
