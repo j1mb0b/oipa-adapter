@@ -17,7 +17,7 @@ module.exports = {
                     if (typeof result.point.pos !== 'undefined')
                         return;
 
-                    return [result.point.pos.latitude, result.point.pos.longitude];
+                    return [result.point.pos[latitude], result.point.pos[longitude]];
                 }));
             }
         });
