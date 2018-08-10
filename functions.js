@@ -12,7 +12,7 @@ module.exports = {
         }, function (error, data) {
             if (error)
                 throw error;
-            if (data.body.results.length > 0) {
+            if (typeof data.body.results !== 'undefined') {
                 locations.push(data.body.results.map(function (result) {
                     if (typeof result.point.pos !== 'undefined')
                         return;
