@@ -33,7 +33,6 @@ module.exports = {
 
             if (typeof data.body.results !== 'undefined') {
                 data.body.results.map(function (result) {
-                    datasets.push(result.iati_identifier);
                     async.waterfall(
                         [
                             function (callback) {
@@ -44,20 +43,17 @@ module.exports = {
                         ],
                         function (err, locations) {
                             if (locations) {
-                                datasets.push(locations);
+                                datasets.push([result.iati_identifier, locations]);
                             }
                         }
                     );
                 });
             }
 
-            console.log(datasets);
-
             if (data.body.next) {
                 module.exports.getProjects(data.body.next, domain);
             }
             else {
-                console.log(datasets);
                 return datasets;
             }
         });
