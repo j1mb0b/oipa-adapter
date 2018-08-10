@@ -14,7 +14,7 @@ module.exports = {
                 throw error;
 
             locations.push(data.body.results.map(function (result) {
-                if (!result.point.pos.latitude)
+                if (typeof result.point.pos.latitude !== 'undefined')
                     return;
 
                 return [result.point.pos.latitude, result.point.pos.longitude];
