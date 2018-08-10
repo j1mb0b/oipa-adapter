@@ -7,6 +7,8 @@ module.exports = class Api {
         this.req = req;
         this.res = res;
         this.domain = domain;
+
+        console.log(this.domain);
     }
 
     async getLocations(url, locations) {
