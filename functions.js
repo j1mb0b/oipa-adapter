@@ -13,13 +13,10 @@ module.exports = {
                 throw error;
             if (typeof data.body.results !== 'undefined') {
                 locations.push(data.body.results.map(function (result) {
-                    console.log(result.point.pos);
-
                     if (typeof result.point.pos !== 'undefined')
                         return;
 
-                    console.log(result.point.pos);
-                    return [result.point.pos[latitude], result.point.pos[longitude]];
+                    return [result.point.pos.latitude, result.point.pos.longitude];
                 }));
             }
         });
