@@ -1,7 +1,9 @@
 'use strict';
 
 let request = require('request');
+const autoBind = require('auto-bind');
 let datasets = [];
+
 module.exports = class Api {
     constructor(req, res, domain) {
         autoBind(this);
