@@ -27,25 +27,32 @@ module.exports = {
         });
 
         activities.results.map(function (result) {
-            //const activity = request({
-               // "method": "GET",
-              //  "uri": result.url,
-               // "json": true
-            //});
-
             output.push(result.url);
-
-          //  activity.locations.map(function (loc) {
-               // if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                  //  output.push(loc.point.pos.latitude, loc.point.pos.longitude);
-           // });
         });
 
-        //if (activities.next) {
-         //   module.exports.activity(activities.next, domain);
-       // }
+        if (activities.next) {
+            module.exports.activity(activities.next, domain);
+        }
 
         console.log(output);
+        return output;
+    },
+    locations: async function (urls) {
+        const locations = await request({
+            "method": "GET",
+            "uri": url,
+            "json": true
+        });
+
+        locations.results.map(function (loc) {
+            if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                output.push(loc.point.pos.latitude, loc.point.pos.longitude);
+        });
+
+        if (locations.next) {
+           module.exports.locations(locations.next);
+        }
+
         return output;
     }
 };
