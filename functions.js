@@ -46,20 +46,15 @@ module.exports = {
                 return module.exports.activity(data.next, "activity");
             }
             else if (Object.keys(output).length > 0) {
-                return module.exports.cacheSet(url, output);
+                return output;
             }
         });
     },
     main: function (url, domain) {
-        return module.exports.cacheGet(url)
+        return module.exports.activity(url, "activity")
             .then(function (result) {
                 console.log(result);
-                if (!result) {
-                    return module.exports.activity(url, "activity");
-                }
-                else {
-                    return result;
-                }
+               return result;
             })
             .catch(function (error) {
                 throw error;
