@@ -11,8 +11,10 @@ module.exports = {
         }).then(function (data) {
             if (type === "location") {
                 data.locations.map(function (loc) {
-                    if (loc.point.pos !== 'null' && loc.point.pos.hasOwnProperty('latitude'))
-                        output.push([loc.point.pos.latitude, loc.point.pos.longitude]);
+                    if (loc.point.pos !== 'null') {
+                        if (loc.point.pos.hasOwnProperty('latitude'))
+                            output.push(loc.point.pos.latitude, loc.point.pos.longitude);
+                    }
                 });
             }
             else {
