@@ -36,22 +36,22 @@ module.exports = {
             return output;
         });
     },
-    locations: async function (urls) {
-        const locations = await request({
+    locations: async function (url) {
+        return request({
             "method": "GET",
             "uri": url,
             "json": true
+        }).then(function(locations) {
+            locations.results.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    output.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            });
+
+            if (locations.next) {
+                module.exports.locations(locations.next);
+            }
+
+            return output;
         });
-
-        locations.results.map(function (loc) {
-            if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                output.push(loc.point.pos.latitude, loc.point.pos.longitude);
-        });
-
-        if (locations.next) {
-           module.exports.locations(locations.next);
-        }
-
-        return output;
     }
 };
