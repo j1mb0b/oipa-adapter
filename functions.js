@@ -20,7 +20,7 @@ module.exports = {
         });
     },
     activity: async function (url, domain, type) {
-        request({
+        await request({
             "method": "GET",
             "uri": url,
             "json": true
