@@ -8,7 +8,7 @@ module.exports = {
     cacheGet: function (key) {
         return oipaCache.get(key, function (err, value) {
             if (!err) {
-                if (typeof result !== 'undefined') {
+                if (typeof value !== 'undefined') {
                     return value;
                 }
                 else {
