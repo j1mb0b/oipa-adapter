@@ -1,6 +1,31 @@
 'use strict';
 
-let request = require('request-promise');
+//let request = require('request-promise');
+// setup a cache object
+const cacheManager = require('cache-manager');
+const cache = cacheManager.caching({
+    store: 'memory',
+    max: 500 // keep maximum 500 different URL responses
+});
+
+const rp = require('request-plus');
+
+// create a concrete wrapper
+// you have can multiple in one project with different settings
+const request = rp({
+    // use retry wrapper
+    retry: {
+        attempts: 3
+    },
+    // use cache wrapper
+    cache: {
+        cache: cache,
+        cacheOptions: {
+            ttl: 3600 * 4 // 4 hours
+        }
+    }
+});
+
 let output = [];
 module.exports = {
     activity: function (url, domain, type) {
