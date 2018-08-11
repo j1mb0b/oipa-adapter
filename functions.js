@@ -43,7 +43,7 @@ module.exports = {
             console.log("Promise Rejected");
         });
 
-        if (Object.keys(obj).length > 0) {
+        if (Object.keys(output).length > 0) {
             console.log(output);
             return output;
         }
