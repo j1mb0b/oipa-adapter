@@ -39,9 +39,9 @@ module.exports = {
 
             if (data.next)
                 return module.exports.activity(data.next, domain, "activity");
-        }).finally(function (data) {
-            console.log(output);
-            return output;
         });
+
+        console.log(output);
+        return output;
     }
 };
