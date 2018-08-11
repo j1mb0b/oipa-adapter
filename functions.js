@@ -12,9 +12,9 @@ module.exports = {
             if (typeof data.results !== 'undefined') {
                 if (type === "location") {
                     data.results.map(function (result) {
-                        output.push(result.locations.map(function (result) {
-                            if (result.locations.point.pos !== 'null')
-                                return result.locations.point.pos;
+                        output.push(result.locations.map(function (loc) {
+                            if (loc.locations.point.pos !== 'null')
+                                return loc.locations.point.pos;
                         }));
                     });
                 }
