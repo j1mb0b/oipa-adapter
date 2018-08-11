@@ -30,7 +30,7 @@ module.exports = {
             });
 
             if (activities.next) {
-                module.exports.activity(activities.next, domain);
+                return module.exports.activity(activities.next, domain);
             }
 
             return output;
