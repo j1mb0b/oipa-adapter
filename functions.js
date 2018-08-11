@@ -35,12 +35,12 @@ module.exports = {
                     }
                     else {
                         data.results.map(function (result) {
-                            return getActivity(result.url, "location");
+                            getActivity(result.url, "location");
                         });
                     }
 
                     if (data.next)
-                        return getActivity(data.next, "activity");
+                        getActivity(data.next, "activity");
                 });
             }
             catch (err) {
