@@ -1,7 +1,7 @@
 'use strict';
 
 const NodeCache = require("node-cache");
-const oipaCache = new NodeCache({stdTTL: 100, checkperiod: 120});
+const oipaCache = new NodeCache();
 let request = require('request-promise');
 let output = [];
 module.exports = {
