@@ -12,7 +12,7 @@ module.exports = {
             if (type === "location") {
                 data.locations.map(function (loc) {
                     if (loc.point.pos !== 'null')
-                        output.push(loc.point.pos);
+                        output.push(loc.point.pos.latitude);
                 });
             }
             else {
