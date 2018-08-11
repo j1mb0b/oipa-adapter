@@ -26,7 +26,7 @@ module.exports = {
                 return module.exports.activity(data.next, domain, "activity");
             }
 
-            if (output)
+            if (output !== 'null')
                 console.log(output);
 
             return output;
