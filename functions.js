@@ -20,11 +20,11 @@ module.exports = {
         });
     },
     activity: async function (url, domain) {
-        const activities = await request({
+        return request({
             "method": "GET",
             "uri": url,
             "json": true
-        }).then(function(response) {
+        }).then(function(activities) {
             activities.results.map(function (result) {
                 output.push(result.url);
             });
