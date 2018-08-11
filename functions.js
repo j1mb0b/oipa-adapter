@@ -5,7 +5,7 @@ const oipaCache = new NodeCache();
 let request = require('request-promise');
 let output = [];
 module.exports = {
-    validateCache: function (url) {
+    activityCache: function (url) {
         let response = module.exports.cacheGet(url);
         if (typeof response !== 'undefined')
             return response;
@@ -13,14 +13,14 @@ module.exports = {
         return module.exports.activity(url, "activity");
     },
     cacheGet: function (key) {
-        oipaCache.get(key, function (err, value) {
+        return oipaCache.get(key, function (err, value) {
             if (!err) {
                 return value;
             }
         });
     },
     cacheSet: function (key, obj) {
-        oipaCache.set(key, obj, function (err, success) {
+        return oipaCache.set(key, obj, function (err, success) {
             if (!err && success) {
                 return obj;
             }
@@ -53,7 +53,7 @@ module.exports = {
         });
     },
     main: function (url, domain) {
-        return module.exports.validateCache(url)
+        return module.exports.activityCache(url)
             .then(function (result) {
                 console.log(result);
                 return result;
