@@ -9,20 +9,18 @@ module.exports = {
             "uri": url,
             "json": true
         }).then(function (data) {
-            if (typeof data.results !== 'undefined') {
-                if (type === "location") {
-                    output.push(result.locations.map(function (loc) {
-                        if (loc.locations.point.pos !== 'null')
-                            console.log(loc.locations.point.pos);
-                            return loc.locations.point.pos;
-                    }));
-                }
-                else {
-                    data.results.map(function (result) {
-                        //console.log(result.url);
-                        return module.exports.getProjects(result.url, domain, "location");
-                    });
-                }
+            if (type === "location") {
+                output.push(data.locations.map(function (loc) {
+                    console.log(loc.locations);
+                    if (loc.locations.point.pos !== 'null')
+                        return loc.locations.point.pos;
+                }));
+            }
+            else {
+                data.results.map(function (result) {
+                    //console.log(result.url);
+                    return module.exports.getProjects(result.url, domain, "location");
+                });
             }
 
             if (data.next) {
