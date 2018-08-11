@@ -6,7 +6,7 @@ module.exports = {
     getProjects: function (url, domain, type) {
         return request({
             "method": "GET",
-            "uri": uri,
+            "uri": url,
             "json": true,
         }).then(function (data) {
             if (typeof data.results !== 'undefined') {
