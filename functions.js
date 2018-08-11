@@ -11,13 +11,12 @@ module.exports = {
         }).then(function (data) {
             if (type === "location") {
                 data.locations.map(function (loc) {
-                    if (Object.keys(loc.point.pos).length > 0)
+                    if (Object.prototype.toString.call(loc.point.pos) && Object.keys(loc.point.pos).length > 0)
                         output.push(loc.point.pos.latitude, loc.point.pos.longitude);
                 });
             }
             else {
                 data.results.map(function (result) {
-                    //console.log(result.url);
                     return module.exports.activity(result.url, domain, "location");
                 });
             }
