@@ -11,7 +11,7 @@ module.exports = {
         }).then(function (data) {
             if (type === "location") {
                 data.locations.map(function (loc) {
-                    if (Object.prototype.toString.call(loc.point.pos) && Object.keys(loc.point.pos).length > 0)
+                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                         output.push(loc.point.pos.latitude, loc.point.pos.longitude);
                 });
             }
