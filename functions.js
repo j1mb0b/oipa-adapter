@@ -34,6 +34,8 @@ module.exports = {
                 "json": true
             });
 
+            console.log(activity);
+
             output.push('cunt');
 
             activity.locations.map(function (loc) {
