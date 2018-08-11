@@ -19,7 +19,7 @@ module.exports = {
     cacheSet: function (key, obj) {
         oipaCache.set(key, obj, function (err, success) {
             if (!err && success) {
-                return true;
+                return obj;
             }
         });
     },
@@ -45,21 +45,20 @@ module.exports = {
                 return module.exports.activity(data.next, domain, "activity");
             }
 
-            if (Object.keys(output).length > 0)
-                console.log(output);
+            //if (Object.keys(output).length > 0)
+                //console.log(output);
 
             return output;
         });
     },
     main: function (url, domain) {
         let results;
+        console.log(results);
         if (results = module.exports.cacheGet(url)) {
             return results;
         }
         else {
-            results = module.exports.activity(url, domain, "activity");
-            module.exports.cacheSet(url, results);
-            return results;
+            return module.exports.cacheSet(url,  module.exports.activity(url, domain, "activity"));
         }
     }
 };
