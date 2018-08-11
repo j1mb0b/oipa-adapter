@@ -8,10 +8,10 @@ module.exports = {
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
             if (!err) {
-                if (value == undefined) {
-                    return false;
-                } else {
+                if (value) {
                     return value;
+                } else {
+                    return false;
                 }
             }
         });
@@ -53,8 +53,8 @@ module.exports = {
     },
     main: function (url, domain) {
         let results = module.exports.cacheGet(url);
+        console.log(results);
         if (results) {
-            console.log(results);
             return results;
         }
         else {
