@@ -3,7 +3,7 @@
 const NodeCache = require("node-cache");
 const oipaCache = new NodeCache();
 let request = require('request-promise');
-let output = [];
+let output, response = [];
 module.exports = {
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
@@ -40,10 +40,12 @@ module.exports = {
             if (data.next) {
                 return module.exports.activity(data.next, domain, "activity");
             }
-            //else if (Object.keys(output).length > 0) {
-                console.log(output);
-                return output;
-            //}
+
+            if (Object.keys(output).length > 0) {
+                response = output;
+            }
+
+            return response;
         });
     }
 };
