@@ -7,7 +7,7 @@ let output = [];
 module.exports = {
     validateCache: function (url) {
         let response = module.exports.cacheGet(url);
-        if (response)
+        if (typeof response !== 'undefined')
             return response;
 
         return module.exports.activity(url, "activity");
