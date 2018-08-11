@@ -31,8 +31,8 @@ app.post('/query', function (req, res) {
             endpoint = '/api/activities/';
             tools.activity(domain + endpoint + default_params, domain, "activity")
                 .then(response => {
-                    console.log(response);
-                    return res.status(200).json(response);
+                    console.log(output);
+                    return res.status(200).json(output);
                 })
                 .catch(error => console.log(error));
             break;
