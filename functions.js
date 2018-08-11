@@ -8,7 +8,9 @@ module.exports = {
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
             if (!err) {
+                console.log(value);
                 if (value) {
+                    console.log('success');
                     return value;
                 } else {
                     return false;
@@ -44,22 +46,24 @@ module.exports = {
             if (data.next) {
                 return module.exports.activity(data.next, domain, "activity");
             }
-
-            //if (Object.keys(output).length > 0)
-                //console.log(output);
-
-            return output;
+            else if (Object.keys(output).length > 0) {
+                return module.exports.cacheSet(url, output);
+            }
         });
     },
     main: function (url, domain) {
-        let results = module.exports.cacheGet(url);
-        console.log(results);
-        if (results) {
-            return results;
-        }
-        else {
-            console.log('set cache');
-            return module.exports.cacheSet(url,  module.exports.activity(url, domain, "activity"));
-        }
+        return module.exports.cacheGet(url)
+            .then(function (response) {
+                if (response)
+                    return response;
+
+                return module.exports.activity(url, domain, "activity");
+            })
+            .then(function (result) {
+                return result;
+            })
+            .catch(function (error) {
+                throw error;
+            });
     }
 };
