@@ -9,11 +9,11 @@ module.exports = {
         oipaCache.get(key, function (err, value) {
             if (!err) {
                 console.log(value);
-                if (value) {
+                if (typeof value !== 'undefined') {
                     console.log('success');
                     return value;
                 } else {
-                    return false;
+                    return "cacheMe";
                 }
             }
         });
@@ -54,7 +54,7 @@ module.exports = {
     main: function (url, domain) {
         return module.exports.cacheGet(url)
             .then(function (response) {
-                if (response)
+                if (response !== "cacheMe")
                     return response;
 
                 return module.exports.activity(url, domain, "activity");
