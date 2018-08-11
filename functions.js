@@ -1,7 +1,7 @@
 'use strict';
 
 let request = require('request-promise');
-let output = [];
+let output = null;
 module.exports = {
     activity: function (url, domain, type) {
         return request({
@@ -10,10 +10,10 @@ module.exports = {
             "json": true
         }).then(function (data) {
             if (type === "location") {
-                output.push(data.locations.map(function (loc) {
+                data.locations.map(function (loc) {
                     if (loc.point.pos !== 'null')
-                        return loc.point.pos;
-                }));
+                        output.push(loc.point.pos);
+                });
             }
             else {
                 data.results.map(function (result) {
