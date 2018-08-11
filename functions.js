@@ -8,7 +8,7 @@ module.exports = {
             "method": "GET",
             "uri": url,
             "json": true,
-            "gzip": true,
+            "resolveWithFullResponse": true
         }).then(function (data) {
             if (typeof data.results !== 'undefined') {
                 if (type === "location") {
