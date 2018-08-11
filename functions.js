@@ -40,12 +40,12 @@ module.exports = {
             }
             else {
                 data.results.map(function (result) {
-                    return module.exports.activity(result.url, domain, "location");
+                    return module.exports.activity(result.url, "location");
                 });
             }
 
             if (data.next) {
-                return module.exports.activity(data.next, domain, "activity");
+                return module.exports.activity(data.next, "activity");
             }
             else if (Object.keys(output).length > 0) {
                 return module.exports.cacheSet(url, output);
