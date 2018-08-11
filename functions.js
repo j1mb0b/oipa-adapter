@@ -39,8 +39,8 @@ module.exports = {
 
             if (data.next)
                 return module.exports.activity(data.next, domain, "activity");
-
-            resolve();
+        }).catch(function () {
+            console.log("Promise Rejected");
         });
 
         if (Object.keys(obj).length > 0) {
