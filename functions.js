@@ -41,6 +41,7 @@ module.exports = {
                 return module.exports.activity(data.next, domain, "activity");
             }
             else if (Object.keys(output).length > 0) {
+                console.log(output);
                 return output;
             }
         });
