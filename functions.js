@@ -20,7 +20,7 @@ module.exports = {
         });
     },
     activity: function (url, domain, type) {
-        output.push(request({
+        return request({
             "method": "GET",
             "uri": url,
             "json": true
@@ -33,14 +33,12 @@ module.exports = {
             }
             else {
                 data.results.map(function (result) {
-                    module.exports.activity(result.url, domain, "location");
+                    return module.exports.activity(result.url, domain, "location");
                 });
             }
 
             if (data.next)
-                module.exports.activity(data.next, domain, "activity");
-        }));
-
-        return output;
+                return module.exports.activity(data.next, domain, "activity");
+        });
     }
 };
