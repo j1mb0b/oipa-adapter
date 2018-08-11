@@ -20,7 +20,7 @@ module.exports = {
         });
     },
     activity: function (url, domain, type) {
-        return output.push(request({
+        return request({
             "method": "GET",
             "uri": url,
             "json": true
@@ -28,7 +28,7 @@ module.exports = {
             if (type === "location") {
                 data.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                        return [loc.point.pos.latitude, loc.point.pos.longitude];
+                        output.push(loc.point.pos.latitude, loc.point.pos.longitude);
                 });
             }
             else {
@@ -39,6 +39,8 @@ module.exports = {
 
             if (data.next)
                 return module.exports.activity(data.next, domain, "activity");
-        }));
+
+            return output:
+        });
     }
 };
