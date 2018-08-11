@@ -40,7 +40,7 @@ module.exports = {
             if (data.next)
                 return module.exports.activity(data.next, domain, "activity");
 
-            callback(output);
-        })
-    },
+            return output;
+        });
+    }
 };
