@@ -26,7 +26,6 @@ module.exports = {
             "json": true
         });
 
-        console.log(activities);
         activities.results.map(async function (result) {
             const activity = await request({
                 "method": "GET",
