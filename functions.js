@@ -6,7 +6,7 @@ let request = require('request-promise');
 let output = [];
 module.exports = {
     validateCache: function (url) {
-        let response = module.exports.validateCache(url);
+        let response = module.exports.cacheGet(url);
         if (response)
             return response;
 
