@@ -1,7 +1,7 @@
 'use strict';
 
 let request = require('request-promise');
-let output = null;
+let output = [];
 module.exports = {
     activity: function (url, domain, type) {
         return request({
@@ -26,7 +26,7 @@ module.exports = {
                 return module.exports.activity(data.next, domain, "activity");
             }
 
-            if (output !== 'null')
+            if (Object.keys(output).length > 0)
                 console.log(output);
 
             return output;
