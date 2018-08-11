@@ -52,12 +52,13 @@ module.exports = {
         });
     },
     main: function (url, domain) {
-        let results;
-        console.log(results);
-        if (results = module.exports.cacheGet(url)) {
+        let results = module.exports.cacheGet(url);
+        if (results) {
+            console.log(results);
             return results;
         }
         else {
+            console.log('set cache');
             return module.exports.cacheSet(url,  module.exports.activity(url, domain, "activity"));
         }
     }
