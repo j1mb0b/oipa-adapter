@@ -40,6 +40,9 @@ module.exports = {
             if (data.next) {
                 return module.exports.activity(data.next, domain, "activity");
             }
+            else if (Object.keys(output).length > 0) {
+                return output;
+            }
         });
     }
 };
