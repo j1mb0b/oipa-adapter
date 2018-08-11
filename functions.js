@@ -24,18 +24,17 @@ module.exports = {
             "method": "GET",
             "uri": url,
             "json": true
+        }).then(function(response) {
+            activities.results.map(function (result) {
+                output.push(result.url);
+            });
+
+            if (activities.next) {
+                module.exports.activity(activities.next, domain);
+            }
+
+            return output;
         });
-
-        activities.results.map(function (result) {
-            output.push(result.url);
-        });
-
-        if (activities.next) {
-            module.exports.activity(activities.next, domain);
-        }
-
-        console.log(output);
-        return output;
     },
     locations: async function (urls) {
         const locations = await request({
