@@ -43,10 +43,11 @@ module.exports = {
             });
         });
 
-        //if (activities.next) {
-            //module.exports.activity(activities.next, domain);
-        //}
+        if (activities.next) {
+            module.exports.activity(activities.next, domain);
+        }
 
+        console.log(output);
         return output;
     }
 };
