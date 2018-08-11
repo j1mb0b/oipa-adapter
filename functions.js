@@ -3,7 +3,6 @@
 const NodeCache = require("node-cache");
 const oipaCache = new NodeCache();
 let request = require('request-promise');
-let output = [];
 module.exports = {
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
@@ -25,6 +24,9 @@ module.exports = {
             "uri": url,
             "json": true
         }).then(function (data) {
+            if (!output) {
+                output = [];
+            }
             if (type === "location") {
                 data.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
@@ -37,12 +39,10 @@ module.exports = {
                 });
             }
 
-            if (data.next) {
+            if (data.next)
                 return module.exports.activity(data.next, domain, "activity");
-            }
-            else if (Object.keys(output).length > 0) {
-                return output;
-            }
+
+            return output;
         });
     }
 };
