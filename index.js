@@ -5,6 +5,7 @@ let app = require('./webserver')();
 let datasets = require('./datasets')();
 let request = require('request');
 let tools = require('./functions.js');
+const cache = require('memory-cache');
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {

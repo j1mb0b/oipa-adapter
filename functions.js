@@ -1,33 +1,28 @@
 'use strict';
 
-//let request = require('request-promise');
-// setup a cache object
-const cacheManager = require('cache-manager');
-const cache = cacheManager.caching({
-    store: 'memory',
-    max: 500 // keep maximum 500 different URL responses
-});
-
-const rp = require('request-plus');
-
-// create a concrete wrapper
-// you have can multiple in one project with different settings
-const request = rp({
-    // use retry wrapper
-    retry: {
-        attempts: 3
-    },
-    // use cache wrapper
-    cache: {
-        cache: cache,
-        cacheOptions: {
-            ttl: 3600 * 4 // 4 hours
-        }
-    }
-});
-
+const NodeCache = require("node-cache");
+const oipaCache = new NodeCache({stdTTL: 100, checkperiod: 120});
+let request = require('request-promise');
 let output = [];
 module.exports = {
+    cacheGet: function (key) {
+        oipaCache.get(key, function (err, value) {
+            if (!err) {
+                if (value == undefined) {
+                    return false;
+                } else {
+                    return value;
+                }
+            }
+        });
+    },
+    cacheSet: function (key, obj) {
+        oipaCache.set(key, obj, function (err, success) {
+            if (!err && success) {
+                return true;
+            }
+        });
+    },
     activity: function (url, domain, type) {
         return request({
             "method": "GET",
@@ -57,6 +52,14 @@ module.exports = {
         });
     },
     main: function (url, domain) {
-        return module.exports.activity(url, domain, "activity");
+        let results;
+        if (results = module.exports.cacheGet(url)) {
+            return results;
+        }
+        else {
+            results = module.exports.activity(url, domain, "activity");
+            module.exports.cacheSet(url, results);
+            return results;
+        }
     }
 };
