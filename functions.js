@@ -40,14 +40,9 @@ module.exports = {
             if (data.next) {
                 return module.exports.activity(data.next, domain, "activity");
             }
-            else if (Object.keys(output).length > 0) {
+            //else if (Object.keys(output).length > 0) {
                 return output;
-            }
+            //}
         });
-    },
-    main: function (url, domain) {
-        let response = module.exports.activity(url, domain, "activity");
-        console.log(response);
-        return response;
     }
 };
