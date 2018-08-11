@@ -10,7 +10,7 @@ module.exports = {
         if (response)
             return response;
 
-        return module.exports.activity(url, domain, "activity");
+        return module.exports.activity(url, "activity");
     },
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
@@ -26,7 +26,7 @@ module.exports = {
             }
         });
     },
-    activity: function (url, domain, type) {
+    activity: function (url, type) {
         return request({
             "method": "GET",
             "uri": url,
