@@ -26,8 +26,8 @@ module.exports = {
             "json": true
         });
 
-        activities.results.map(async function (result) {
-            const activity = await request({
+        activities.results.map(function (result) {
+            const activity = request({
                 "method": "GET",
                 "uri": result.url,
                 "json": true
@@ -35,7 +35,7 @@ module.exports = {
 
             console.log(activity);
 
-            output.push('cunt');
+            output.push(result.url);
 
             activity.locations.map(function (loc) {
                 if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
@@ -43,9 +43,9 @@ module.exports = {
             });
         });
 
-        if (activities.next) {
-            module.exports.activity(activities.next, domain);
-        }
+        //if (activities.next) {
+            //module.exports.activity(activities.next, domain);
+        //}
 
         console.log(output);
         return output;
