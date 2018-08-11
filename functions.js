@@ -19,7 +19,7 @@ module.exports = {
             }
         });
     },
-    activity: function (url, domain, type) {
+    activity: async function (url, domain, type) {
         request({
             "method": "GET",
             "uri": url,
