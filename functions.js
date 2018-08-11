@@ -6,25 +6,20 @@ let request = require('request-promise');
 let output = [];
 module.exports = {
     cacheGet: function (key) {
-        return oipaCache.get(key, function (err, value) {
+        oipaCache.get(key, function (err, value) {
             if (!err) {
-                if (typeof value !== 'undefined') {
-                    return value;
-                }
-                else {
-                    return false;
-                }
+                return value;
             }
         });
     },
     cacheSet: function (key, obj) {
-        return oipaCache.set(key, obj, function (err, success) {
+        oipaCache.set(key, obj, function (err, success) {
             if (!err && success) {
                 return obj;
             }
         });
     },
-    activity: function (url, type) {
+    activity: function (url, domain, type) {
         return request({
             "method": "GET",
             "uri": url,
@@ -38,12 +33,12 @@ module.exports = {
             }
             else {
                 data.results.map(function (result) {
-                    return module.exports.activity(result.url, "location");
+                    return module.exports.activity(result.url, domain, "location");
                 });
             }
 
             if (data.next) {
-                return module.exports.activity(data.next, "activity");
+                return module.exports.activity(data.next, domain, "activity");
             }
             else if (Object.keys(output).length > 0) {
                 return output;
@@ -51,13 +46,8 @@ module.exports = {
         });
     },
     main: function (url, domain) {
-        return module.exports.activity(url, "activity")
-            .then(result => {
-                // do something with the contacts...
-                console.log(result);
-                return result;
-            }).catch(function (error) {
-                throw error;
-            });
-    },
+        let response = module.exports.activity(url, domain, "activity");
+        console.log(response);
+        return response;
+    }
 };
