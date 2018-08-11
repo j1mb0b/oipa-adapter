@@ -19,33 +19,31 @@ module.exports = {
             }
         });
     },
-    activity: async function (url, domain, type) {
-        await request({
+    activity: async function (url, domain) {
+        const activities = await request({
             "method": "GET",
             "uri": url,
             "json": true
-        }).then(function (data) {
-            if (type === "location") {
-                data.locations.map(function (loc) {
-                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                        output.push(loc.point.pos.latitude, loc.point.pos.longitude);
-                });
-            }
-            else {
-                data.results.map(function (result) {
-                    return module.exports.activity(result.url, domain, "location");
-                });
-            }
+        });
+        activities.results.map(async function (result) {
+            const activity = await request({
+                "method": "GET",
+                "uri": result.url,
+                "json": true
+            });
 
-            if (data.next)
-                return module.exports.activity(data.next, domain, "activity");
-        }).catch(function () {
-            console.log("Promise Rejected");
+            output.push('cunt');
+
+            activity.locations.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    output.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            });
         });
 
-        if (Object.keys(output).length > 0) {
-            console.log(output);
-            return output;
-        }
+        //if (activities.next) {
+            //module.exports.activity(activities.next, domain);
+        //}
+
+        return output;
     }
 };
