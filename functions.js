@@ -13,6 +13,7 @@ module.exports = {
                 if (type === "location") {
                     output.push(result.locations.map(function (loc) {
                         if (loc.locations.point.pos !== 'null')
+                            console.log(loc.locations.point.pos);
                             return loc.locations.point.pos;
                     }));
                 }
