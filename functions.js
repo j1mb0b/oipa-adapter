@@ -42,8 +42,8 @@ module.exports = {
             "uri": url,
             "json": true
         }).then(function(results) {
-            console.log(results.locations);
             results.locations.map(function (loc) {
+                console.log(loc.point.pos);
                 if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                     output.push(loc.point.pos.latitude, loc.point.pos.longitude);
             });
