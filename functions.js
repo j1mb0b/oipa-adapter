@@ -27,25 +27,23 @@ module.exports = {
         });
 
         activities.results.map(function (result) {
-            const activity = request({
-                "method": "GET",
-                "uri": result.url,
-                "json": true
-            });
-
-            console.log(activity);
+            //const activity = request({
+               // "method": "GET",
+              //  "uri": result.url,
+               // "json": true
+            //});
 
             output.push(result.url);
 
-            activity.locations.map(function (loc) {
-                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    output.push(loc.point.pos.latitude, loc.point.pos.longitude);
-            });
+          //  activity.locations.map(function (loc) {
+               // if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                  //  output.push(loc.point.pos.latitude, loc.point.pos.longitude);
+           // });
         });
 
         //if (activities.next) {
-            //module.exports.activity(activities.next, domain);
-        //}
+         //   module.exports.activity(activities.next, domain);
+       // }
 
         console.log(output);
         return output;
