@@ -35,7 +35,7 @@ app.post('/query', function (req, res) {
                 })
                 .then(urls => {
                     console.log(urls);
-                    return urls.map(urls, function (item) {
+                    return urls.map(function (item) {
                         return tools.locations(item);
                     });
                 })
