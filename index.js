@@ -4,8 +4,7 @@ let domain = 'http://18.221.72.54:8000';
 let app = require('./webserver')();
 let datasets = require('./datasets')();
 let request = require('request');
-let rp = require('request-promise');
-//let tools = require('./functions.js');
+let tools = require('./functions.js');
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {
@@ -23,35 +22,6 @@ app.post('/query', function (req, res) {
     if (!req.body.id)
         return res.status(403).end('Please set "id" in the body of your request!');
 
-    // Define tools.
-    let output = [];
-    let tools = {
-        activity: function (url, domain, type) {
-            return rp({
-                "method": "GET",
-                "uri": url,
-                "json": true
-            }).then(function (data) {
-                if (type === "location") {
-                    data.locations.map(function (loc) {
-                        if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                            output.push(loc.point.pos.latitude, loc.point.pos.longitude);
-                    });
-                }
-                else {
-                    data.results.map(function (result) {
-                        return tools.activity(result.url, domain, "location");
-                    });
-                }
-
-                if (data.next)
-                    return tools.activity(data.next, domain, "activity");
-
-                return output;
-            });
-        }
-    };
-
     // Default variables.
     let default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     let endpoint = "";
@@ -59,12 +29,12 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-
-            tools.activity(domain + endpoint + default_params, domain, "activity").then(function(result) {
-                console.log(result);
-                console.log(output);
-                return res.status(200).json(result);
-            });
+            tools.activity(domain + endpoint + default_params, domain, "activity")
+                .then(response => {
+                    console.log(response);
+                    return res.status(200).json(response);
+                })
+                .catch(error => console.log(error));
             break;
 
         case 'country-disbursement':
