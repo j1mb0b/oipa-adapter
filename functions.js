@@ -10,10 +10,10 @@ module.exports = {
             "json": true
         }).then(function (data) {
             if (type === "location") {
+                console.log(data.locations);
                 output.push(data.locations.map(function (loc) {
-                    console.log(loc.locations);
-                    if (loc.locations.point.pos !== 'null')
-                        return loc.locations.point.pos;
+                    if (loc.point.pos !== 'null')
+                        return loc.point.pos;
                 }));
             }
             else {
