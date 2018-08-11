@@ -11,6 +11,7 @@ module.exports = {
         }).then(function (data) {
             if (typeof data.results !== 'undefined') {
                 if (type === "location") {
+                    console.log(data);
                     data.results.map(function (result) {
                         output.push(result.locations.map(function (loc) {
                             console.log(loc);
