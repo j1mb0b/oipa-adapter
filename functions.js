@@ -29,6 +29,7 @@ module.exports = {
                 data.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                         output.push(loc.point.pos.latitude, loc.point.pos.longitude);
+                        return output;
                 });
             }
             else {
