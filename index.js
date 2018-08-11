@@ -40,12 +40,12 @@ app.post('/query', function (req, res) {
                 }
                 else {
                     data.results.map(function (result) {
-                        return module.exports.activity(result.url, domain, "location");
+                        return tools.activity(result.url, domain, "location");
                     });
                 }
 
                 if (data.next)
-                    return module.exports.activity(data.next, domain, "activity");
+                    return tools.activity(data.next, domain, "activity");
 
                 return output;
             });
