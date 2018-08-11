@@ -55,6 +55,7 @@ module.exports = {
     main: function (url, domain) {
         return module.exports.validateCache(url)
             .then(function (result) {
+                console.log(result);
                 return result;
             })
             .catch(function (error) {
