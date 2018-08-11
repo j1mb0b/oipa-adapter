@@ -18,12 +18,12 @@ module.exports = {
             else {
                 data.results.map(function (result) {
                     //console.log(result.url);
-                    return module.exports.getProjects(result.url, domain, "location");
+                    return module.exports.activity(result.url, domain, "location");
                 });
             }
 
             if (data.next) {
-                return module.exports.getProjects(data.next, domain, "activity");
+                return module.exports.activity(data.next, domain, "activity");
             }
             console.log(output);
             return output;
