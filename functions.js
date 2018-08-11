@@ -43,14 +43,15 @@ module.exports = {
             "json": true
         }).then(function(results) {
             results.locations.map(function (loc) {
-                console.log(loc.point.pos);
                 if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    output.push(loc.point.pos.latitude, loc.point.pos.longitude);
+                    output.push(loc.point.pos);
             });
 
             if (results.next) {
                 module.exports.locations(results.next);
             }
+
+            console.log(output);
 
             return output;
         });
