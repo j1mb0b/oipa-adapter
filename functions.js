@@ -14,13 +14,14 @@ module.exports = {
                     data.results.map(function (result) {
                         output.push(result.locations.map(function (loc) {
                             if (loc.locations.point.pos !== 'null')
+                                console.log(loc.locations.point.pos);
                                 return loc.locations.point.pos;
                         }));
                     });
                 }
                 else {
                     data.results.map(function (result) {
-                        console.log(result.url);
+                        //console.log(result.url);
                         return module.exports.getProjects(result.url, domain, "location");
                     });
                 }
