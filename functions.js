@@ -41,15 +41,15 @@ module.exports = {
             "method": "GET",
             "uri": url,
             "json": true
-        }).then(function(locations) {
-            console.log(locations);
-            locations.results.map(function (loc) {
+        }).then(function(results) {
+            console.log(results.locations);
+            results.locations.map(function (loc) {
                 if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                     output.push(loc.point.pos.latitude, loc.point.pos.longitude);
             });
 
-            if (locations.next) {
-                module.exports.locations(locations.next);
+            if (results.next) {
+                module.exports.locations(results.next);
             }
 
             return output;
