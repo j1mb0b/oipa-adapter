@@ -38,12 +38,12 @@ module.exports = {
             }
             else {
                 data.results.map(function (result) {
-                    module.exports.activity(result.url, "location");
+                    return module.exports.activity(result.url, "location");
                 });
             }
 
             if (data.next) {
-                module.exports.activity(data.next, "activity");
+                return module.exports.activity(data.next, "activity");
             }
             else if (Object.keys(output).length > 0) {
                 return output;
@@ -52,12 +52,12 @@ module.exports = {
     },
     main: function (url, domain) {
         return module.exports.activity(url, "activity")
-            .then(function (result) {
+            .then(result => {
+                // do something with the contacts...
                 console.log(result);
-               return result;
-            })
-            .catch(function (error) {
+                return result;
+            }).catch(function (error) {
                 throw error;
             });
-    }
+    },
 };
