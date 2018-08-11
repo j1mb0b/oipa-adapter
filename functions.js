@@ -38,12 +38,12 @@ module.exports = {
             }
             else {
                 data.results.map(function (result) {
-                    return module.exports.activity(result.url, "location");
+                    module.exports.activity(result.url, "location");
                 });
             }
 
             if (data.next) {
-                return module.exports.activity(data.next, "activity");
+                module.exports.activity(data.next, "activity");
             }
             else if (Object.keys(output).length > 0) {
                 return output;
