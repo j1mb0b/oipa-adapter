@@ -20,7 +20,7 @@ module.exports = {
         });
     },
     activity: function (url, domain, type) {
-        return request({
+        return output.push(request({
             "method": "GET",
             "uri": url,
             "json": true
@@ -39,6 +39,6 @@ module.exports = {
 
             if (data.next)
                 return module.exports.activity(data.next, domain, "activity");
-        });
+        }));
     }
 };
