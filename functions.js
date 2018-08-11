@@ -13,8 +13,8 @@ module.exports = {
                 if (type === "location") {
                     data.results.map(function (result) {
                         output.push(result.locations.map(function (loc) {
+                            console.log(loc);
                             if (loc.locations.point.pos !== 'null')
-                                console.log(loc.locations.point.pos);
                                 return loc.locations.point.pos;
                         }));
                     });
