@@ -7,8 +7,7 @@ module.exports = {
         return request({
             "method": "GET",
             "uri": url,
-            "json": true,
-            "resolveWithFullResponse": true
+            "json": true
         }).then(function (data) {
             if (typeof data.results !== 'undefined') {
                 if (type === "location") {
@@ -21,6 +20,7 @@ module.exports = {
                 }
                 else {
                     data.results.map(function (result) {
+                        console.log(result.url);
                         return module.exports.getProjects(result.url, domain, "location");
                     });
                 }
