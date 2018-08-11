@@ -30,7 +30,7 @@ app.post('/query', function (req, res) {
         case 'activities':
             endpoint = '/api/activities/';
 
-            tools.activity(domain + endpoint + default_params, domain, "activity").then(function(result) {
+            tools.activity(domain + endpoint + default_params, domain, "activity", []).then(function(result) {
                 console.log(result);
                 return res.status(200).json(result);
             });
