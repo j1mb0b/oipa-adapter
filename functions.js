@@ -4,6 +4,7 @@ const NodeCache = require("node-cache");
 const oipaCache = new NodeCache();
 let request = require('request-promise');
 let output = [];
+let locations = [];
 module.exports = {
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
@@ -44,16 +45,16 @@ module.exports = {
         }).then(function(results) {
             results.locations.map(function (loc) {
                 if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    output.push(loc.point.pos);
+                    locations.push(loc.point.pos);
             });
 
             if (results.next) {
                 module.exports.locations(results.next);
             }
 
-            console.log(output);
+            console.log(locations);
 
-            return output;
+            return locations;
         });
     }
 };
