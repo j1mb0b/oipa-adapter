@@ -11,13 +11,10 @@ module.exports = {
         }).then(function (data) {
             if (typeof data.results !== 'undefined') {
                 if (type === "location") {
-                    data.results.map(function (result) {
-                        console.log(result);
-                        output.push(result.locations.map(function (loc) {
-                            if (loc.locations.point.pos !== 'null')
-                                return loc.locations.point.pos;
-                        }));
-                    });
+                    output.push(result.locations.map(function (loc) {
+                        if (loc.locations.point.pos !== 'null')
+                            return loc.locations.point.pos;
+                    }));
                 }
                 else {
                     data.results.map(function (result) {
