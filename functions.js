@@ -8,7 +8,12 @@ module.exports = {
     cacheGet: function (key) {
         return oipaCache.get(key, function (err, value) {
             if (!err) {
-                return value;
+                if (typeof result !== 'undefined') {
+                    return value;
+                }
+                else {
+                    return false;
+                }
             }
         });
     },
@@ -49,11 +54,11 @@ module.exports = {
         return module.exports.cacheGet(url)
             .then(function (result) {
                 console.log(result);
-                if (typeof result !== 'undefined') {
-                    return response;
+                if (!result) {
+                    return module.exports.activity(url, "activity");
                 }
                 else {
-                    return module.exports.activity(url, "activity");
+                    return result;
                 }
             })
             .catch(function (error) {
