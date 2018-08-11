@@ -11,10 +11,9 @@ module.exports = {
         }).then(function (data) {
             if (typeof data.results !== 'undefined') {
                 if (type === "location") {
-                    console.log(data);
                     data.results.map(function (result) {
+                        console.log(result.locations);
                         output.push(result.locations.map(function (loc) {
-                            console.log(loc);
                             if (loc.locations.point.pos !== 'null')
                                 return loc.locations.point.pos;
                         }));
