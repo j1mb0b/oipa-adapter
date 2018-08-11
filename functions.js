@@ -19,8 +19,8 @@ module.exports = {
             }
         });
     },
-    activity: function (url, domain, type) {
-        return request({
+    activity: async function (url, domain, type) {
+        await request({
             "method": "GET",
             "uri": url,
             "json": true
@@ -39,9 +39,8 @@ module.exports = {
 
             if (data.next)
                 return module.exports.activity(data.next, domain, "activity");
-
+        }).then(function (data) {
             console.log(output);
-            return output;
         });
     }
 };
