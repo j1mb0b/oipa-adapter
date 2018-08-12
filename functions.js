@@ -66,8 +66,10 @@ module.exports = {
 
             let locations = {};
             response.data.locations.map(function (loc) {
-                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
+                    locations[latitude] = loc.point.pos.latitude;
+                    locations[longitude] = loc.point.pos.longitude;
+                }
             });
 
             return locations;
