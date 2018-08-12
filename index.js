@@ -29,20 +29,16 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            //let urls = ["http://18.221.72.54:8000/api/activities/446213/?format=json", "http://18.221.72.54:8000/api/activities/446394/?format=json"];
-
-            let output = new Promise((res, rej) => {
-                res(tools.activity(domain + endpoint + default_params, domain, "activity"))
-            }).then((urls) => {
-                console.log(urls);
-                return tools.getLocations(urls);
+            let urls = ["http://18.221.72.54:8000/api/activities/446213/?format=json", "http://18.221.72.54:8000/api/activities/446394/?format=json"];
+            return tools.getLocations(urls).then(output => {
+                return res.status(200).json(output);
             });
 
-            return res.status(200).json(output);
-
-            //return tools.getLocations(urls).then(output => {
-                //return res.status(200).json(output);
-            //});
+            //tools.activity(domain + endpoint + default_params, domain, "activity")
+                //.then(urls => {
+                    //return res.status(200).json(tools.getLocations(urls));
+                //})
+                //.catch(error => console.log(error));
 
         case 'country-disbursement':
         case 'country-commitment':
