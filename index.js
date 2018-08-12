@@ -32,8 +32,7 @@ app.post('/query', function (req, res) {
             //let urls = ["http://18.221.72.54:8000/api/activities/446213/?format=json", "http://18.221.72.54:8000/api/activities/446394/?format=json"];
 
             return tools.getActivity(domain + endpoint + default_params).then(urls => {
-                console.log(urls);
-                return res.status(200).json(tools.getLocations(urls));
+                return res.status(200).json(urls);
             });
 
             //return tools.getLocations(urls).then(output => {
