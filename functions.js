@@ -56,7 +56,7 @@ module.exports = {
         });
     },
     getLocations: async function (urls) {
-        return urls.map(async item => {
+        const promises = urls.map(async item => {
             //return await module.exports.locations(item);
             const response = await Axios({
                 method: 'GET',
@@ -65,19 +65,19 @@ module.exports = {
             });
 
             let locations = [];
-            response.data.locations.map(function (loc) {
+            response.data.locations.map(async function (loc) {
                 if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                     locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
             });
 
             return locations;
-        }).then(function (promises) {;
-            console.log(promises);
-
-            const results = Promise.all(promises);
-
-            console.log(results);
-            return results;
         });
+
+        console.log(promises);
+
+        const results = await Promise.all(promises);
+
+        console.log(results);
+        return results;
     }
 };
