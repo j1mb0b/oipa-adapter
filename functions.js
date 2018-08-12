@@ -67,7 +67,7 @@ module.exports = {
         });
 
         if (activities.data.next !== null) {
-            return module.exports.getActivity(activities.data.next);
+            //return module.exports.getActivity(activities.data.next);
         }
 
         return output;
@@ -93,10 +93,7 @@ module.exports = {
         return await Promise.all(promises);
     },
     main: function (url) {
-        return new Promise(function(resolve, reject) {
-            let results = Promise.all(module.exports.getActivity(url))
-                .then(module.exports.getLocations);
-            resolve(results);
-        });
+        return module.exports.getActivity(url)
+            .then(module.exports.getLocations);
     }
 };
