@@ -56,7 +56,6 @@ module.exports = {
         });
     },
     getLocations: async function (urls) {
-        console.log(urls);
         const promises = urls.map(async item => {
             //return await module.exports.locations(item);
             const response = await Axios({
@@ -73,6 +72,8 @@ module.exports = {
 
             return locations;
         });
+
+        console.log(promises);
 
         return await Promise.all(promises);
     },
