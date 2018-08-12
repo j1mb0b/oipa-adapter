@@ -92,8 +92,11 @@ module.exports = {
 
         return await Promise.all(promises);
     },
-    main: async function (url) {
-        return await Promise.all(module.exports.getActivity(url))
-            .then(module.exports.getLocations);
+    main: function (url) {
+        return new Promise(function(resolve, reject) {
+            let results = Promise.all(module.exports.getActivity(url))
+                .then(module.exports.getLocations);
+            resolve(results);
+        });
     }
 };
