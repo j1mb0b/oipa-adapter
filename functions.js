@@ -91,5 +91,9 @@ module.exports = {
         }
 
         return await Promise.all(output);
+    },
+    main: function (url) {
+        return tools.getActivity(url)
+            .then(tools.getLocations);
     }
 };
