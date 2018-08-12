@@ -64,10 +64,8 @@ module.exports = {
                 json: true,
             });
 
-            console.log(response);
-
             let locations = [];
-            response.locations.map(function (loc) {
+            response.data.locations.map(function (loc) {
                 if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                     locations.push(loc.point.pos);
             });
