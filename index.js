@@ -29,15 +29,11 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            tools.activity(domain + endpoint + default_params, domain, "activity")
+            let urls = tools.activity(domain + endpoint + default_params, domain, "activity")
                 .then(response => {
                     return response;
-                })
-                .then(urls => {
-                    return res.status(200).json(tools.getLocations(urls));
-                })
-                .catch(error => console.log(error));
-            break;
+                });
+            return res.status(200).json(tools.getLocations(urls));
 
         case 'country-disbursement':
         case 'country-commitment':
