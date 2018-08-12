@@ -20,45 +20,10 @@ module.exports = {
             }
         });
     },
-    activity: async function (url, domain) {
-        return request({
-            "method": "GET",
-            "uri": url,
-            "json": true
-        }).then(function(activities) {
-            activities.results.map(function (result) {
-                output.push(result.url);
-            });
-
-            if (activities.next) {
-                return module.exports.activity(activities.next, domain);
-            }
-
-            return output;
-        });
-    },
-    locations: async function (url) {
-        return request({
-            "method": "GET",
-            "uri": url,
-            "json": true
-        }).then(function(results) {
-            results.locations.map(function (loc) {
-                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    locations.push(loc.point.pos);
-            });
-
-            if (results.next) {
-                module.exports.locations(results.next);
-            }
-
-            return locations;
-        });
-    },
     getActivity: async function (url) {
         const activities = await Axios({
             method: 'GET',
-            url: url,
+            url: url + "&page=19",
             json: true,
         });
 
