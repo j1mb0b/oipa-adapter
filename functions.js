@@ -55,26 +55,6 @@ module.exports = {
             return locations;
         });
     },
-    getLocations: async function (urls) {
-        const promises = urls.map(async item => {
-            //return await module.exports.locations(item);
-            const response = await Axios({
-                method: 'GET',
-                url: item,
-                json: true,
-            });
-
-            let locations = [];
-            response.data.locations.map(function (loc) {
-                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
-            });
-
-            return locations;
-        });
-
-        return await Promise.all(promises);
-    },
     getActivity: async function (url) {
         const activities = await Axios({
             method: 'GET',
@@ -92,10 +72,29 @@ module.exports = {
 
         return await Promise.all(output);
     },
+    getLocations: async function (urls) {
+        const promises = urls.map(async item => {
+            //return await module.exports.locations(item);
+            const response = await Axios({
+                method: 'GET',
+                url: item,
+                json: true,
+            });
+
+            let locations = [];
+            response.data.locations.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            });
+
+            console.log(locations);
+            return locations;
+        });
+
+        return await Promise.all(promises);
+    },
     main: function (url) {
-        let output = module.exports.getActivity(url)
+        return module.exports.getActivity(url)
             .then(module.exports.getLocations);
-        console.log(output);
-        return output;
     }
 };
