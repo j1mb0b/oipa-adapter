@@ -73,7 +73,7 @@ module.exports = {
             return locations;
         });
 
-        const results = await Promise.all(promises);
+        //const results = await Promise.all(promises);
 
         console.log(results);
         return results;
