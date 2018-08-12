@@ -56,6 +56,7 @@ module.exports = {
         });
     },
     getLocations: async function (urls) {
+        console.log(urls);
         const promises = urls.map(async item => {
             //return await module.exports.locations(item);
             const response = await Axios({
@@ -93,6 +94,7 @@ module.exports = {
         return await Promise.all(output);
     },
     main: function (url) {
-        return module.exports.getActivity(url);
+        return module.exports.getActivity(url)
+            .then(module.exports.getLocations);
     }
 };
