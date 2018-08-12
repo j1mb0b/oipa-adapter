@@ -33,7 +33,7 @@ app.post('/query', function (req, res) {
 
             tools.main(domain + endpoint + default_params).then(function(result) {
                 console.log(result);
-                return res.status(200).json(result);
+                return res.status(200).json(Promise.all(result));
             });
 
             //return tools.getLocations(urls).then(output => {
