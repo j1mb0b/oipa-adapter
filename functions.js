@@ -21,7 +21,7 @@ module.exports = {
         });
     },
     activity: async function (url, domain) {
-        return request({
+        return await Promise.all(request({
             "method": "GET",
             "uri": url,
             "json": true
@@ -35,7 +35,7 @@ module.exports = {
             }
 
             return output;
-        });
+        }));
     },
     locations: async function (url) {
         return request({
