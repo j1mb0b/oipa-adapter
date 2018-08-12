@@ -3,8 +3,8 @@
 const NodeCache = require("node-cache");
 const oipaCache = new NodeCache();
 let request = require('request-promise');
+let Axios = require('axios');
 let output = [];
-let locations = [];
 module.exports = {
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
@@ -57,7 +57,20 @@ module.exports = {
     },
     getLocations: async function (urls) {
         const promises = urls.map(async item => {
-            return await module.exports.locations(item);
+            //return await module.exports.locations(item);
+            const response = await Axios({
+                method: 'GET',
+                url: item,
+                json: true,
+            });
+
+            let locations = [];
+            response.locations.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    locations.push(loc.point.pos);
+            });
+
+            return locations;
         });
 
         const results = await Promise.all(promises);
