@@ -93,7 +93,9 @@ module.exports = {
         return await Promise.all(output);
     },
     main: function (url) {
-        return module.exports.getActivity(url)
+        let output = module.exports.getActivity(url)
             .then(module.exports.getLocations);
+        console.log(output);
+        return output;
     }
 };
