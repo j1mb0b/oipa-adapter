@@ -66,7 +66,7 @@ module.exports = {
             output.push(result.url);
         });
 
-        if (activities.data.next) {
+        if (activities.data.next !== null) {
             return module.exports.getActivity(activities.data.next);
         }
 
