@@ -34,16 +34,7 @@ app.post('/query', function (req, res) {
                     return response;
                 })
                 .then(urls => {
-                    let promises = urls.map(async function (item) {
-                        return await tools.locations(item).then(function(results){
-                            return results;
-                        })
-                    });
-
-                    Promise.all(promises).then(function(results) {
-                        console.log(results);
-                        return res.status(200).json(results);
-                    });
+                    return res.status(200).json(tools.getLocations(urls));
                 })
                 .catch(error => console.log(error));
             break;

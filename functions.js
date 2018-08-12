@@ -54,5 +54,15 @@ module.exports = {
 
             return locations;
         });
+    },
+    getLocations: async function (urls) {
+        const promises = urls.map(async item => {
+            return await module.exports.locations(item);
+        });
+
+        const results = await Promise.all(promises);
+
+        console.log(results);
+        return results;
     }
 };
