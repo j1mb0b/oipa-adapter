@@ -92,8 +92,8 @@ module.exports = {
 
         return await Promise.all(promises);
     },
-    main: function (url) {
-        return Promise.all(module.exports.getActivity(url))
+    main: async function (url) {
+        return await Promise.all(module.exports.getActivity(url))
             .then(module.exports.getLocations);
     }
 };
