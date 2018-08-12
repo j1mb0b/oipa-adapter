@@ -70,7 +70,7 @@ module.exports = {
             return module.exports.getActivity(activities.data.next);
         }
 
-        return await output;
+        return output;
     },
     getLocations: async function (urls) {
         const promises = urls.map(async item => {
@@ -93,7 +93,7 @@ module.exports = {
         return await Promise.all(promises);
     },
     main: function (url) {
-        return module.exports.getActivity(url)
+        return Promise.all(module.exports.getActivity(url))
             .then(module.exports.getLocations);
     }
 };
