@@ -93,13 +93,14 @@ module.exports = {
             return locations;
         });
 
-        return await Promise.all(promises);
-        //return new Promise((resolve, reject) => {
-            //resolve(promises);
-        //});
+        //return await Promise.all(promises);
+        return new Promise((resolve, reject) => {
+            resolve(promises);
+        });
     },
     main: function (url) {
-        return module.exports.getActivity(url)
-            .then(module.exports.getLocations);
+        return module.exports.getActivity(url).then((urls) => {
+            return Promise.all([module.exports.getLocations(urls)]);
+        }).then((args) => console.log(args));
     }
 };
