@@ -34,6 +34,8 @@ app.post('/query', function (req, res) {
                 return output;
             });
 
+            console.log(urls);
+
             return tools.getLocations(urls).then(output => {
                 return res.status(200).json(output);
             });
