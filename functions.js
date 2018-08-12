@@ -75,7 +75,7 @@ module.exports = {
 
         //const results = await Promise.all(promises);
 
-        console.log(results);
-        return results;
+        console.log(promises);
+        return promises;
     }
 };
