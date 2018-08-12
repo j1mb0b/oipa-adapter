@@ -31,10 +31,10 @@ app.post('/query', function (req, res) {
             endpoint = '/api/activities/';
             //let urls = ["http://18.221.72.54:8000/api/activities/446213/?format=json", "http://18.221.72.54:8000/api/activities/446394/?format=json"];
 
-            return Promise.all(tools.main(domain + endpoint + default_params).then(function(result) {
+            Promise.all(tools.main(domain + endpoint + default_params).then(function(result) {
                 console.log(result);
                 return res.status(200).json(result);
-            }));
+            })).catch(err => console.error(err));
 
             //return tools.getLocations(urls).then(output => {
                 //return res.status(200).json(output);
