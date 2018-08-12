@@ -39,6 +39,7 @@ app.post('/query', function (req, res) {
             //return tools.getLocations(urls).then(output => {
                 //return res.status(200).json(output);
             //});
+            break;
 
         case 'country-disbursement':
         case 'country-commitment':
