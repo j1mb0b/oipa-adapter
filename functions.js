@@ -73,9 +73,7 @@ module.exports = {
             return locations;
         });
 
-        return new Promise((resolve, reject) => {
-            resolve(promises);
-        });
+        return promises;
     },
     getActivity: async function (url) {
         const activities = await Axios({
@@ -92,9 +90,7 @@ module.exports = {
             return module.exports.getActivity(activities.data.next);
         }
 
-        return new Promise((resolve, reject) => {
-            resolve(output);
-        });
+        return output;
     },
     main: function (url) {
         return module.exports.getActivity(url)
