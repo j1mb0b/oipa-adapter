@@ -73,10 +73,7 @@ module.exports = {
             return locations;
         });
 
-        const results = await Promise.all(promises);
-
-        console.log(results);
-        return results;
+        return await Promise.all(promises);
     },
     getActivity: async function (url) {
         const activities = await Axios({
@@ -93,8 +90,6 @@ module.exports = {
             return module.exports.getActivity(activities.data.next);
         }
 
-        const results = await Promise.all(output);
-        console.log(results);
-        return results;
+        return await Promise.all(output);
     }
 };
