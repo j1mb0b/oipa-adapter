@@ -52,8 +52,6 @@ module.exports = {
                 module.exports.locations(results.next);
             }
 
-            console.log(locations);
-
             return locations;
         });
     }
