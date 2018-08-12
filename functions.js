@@ -66,11 +66,14 @@ module.exports = {
             output.push(result.url);
         });
 
-        if (activities.data.next) {
-            //return module.exports.getActivity(activities.data.next);
-        }
-
-        return await Promise.all(output);
+        // Wait for the promises to resolve
+        return Promise.all(output).then(function(result) {
+            // If next is empty, return the result
+            if (!activities.data.next)
+                return result;
+            // If there is a next, repeat results.
+            return module.exports.getActivity(activities.data.next);
+        });
     },
     getLocations: async function (urls) {
         const promises = urls.map(async item => {
