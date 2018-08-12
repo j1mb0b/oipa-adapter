@@ -70,7 +70,7 @@ module.exports = {
             return module.exports.getActivity(activities.data.next);
         }
 
-        return output;
+        return await output;
     },
     getLocations: async function (urls) {
         const promises = urls.map(async item => {
