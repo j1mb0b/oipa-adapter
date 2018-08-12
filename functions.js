@@ -21,7 +21,7 @@ module.exports = {
         });
     },
     activity: async function (url, domain) {
-        return await Promise.all(request({
+        return request({
             "method": "GET",
             "uri": url,
             "json": true
@@ -35,7 +35,7 @@ module.exports = {
             }
 
             return output;
-        }));
+        });
     },
     locations: async function (url) {
         return request({
@@ -75,6 +75,25 @@ module.exports = {
 
         const results = await Promise.all(promises);
 
+        console.log(results);
+        return results;
+    },
+    getActivity: async function (url) {
+        const activities = await Axios({
+            method: 'GET',
+            url: url,
+            json: true,
+        });
+
+        activities.data.results.map(function (result) {
+            output.push(result.url);
+        });
+
+        if (activities.data.next) {
+            return module.exports.getActivity(activities.data.next);
+        }
+
+        const results = await Promise.all(output);
         console.log(results);
         return results;
     }
