@@ -70,7 +70,10 @@ module.exports = {
             return module.exports.getActivity(activities.data.next);
         }
 
-        return await Promise.all(output);
+        //return await Promise.all(output);
+        return new Promise((resolve, reject) => {
+            resolve(output);
+        });
     },
     getLocations: async function (urls) {
         const promises = urls.map(async item => {
@@ -87,14 +90,17 @@ module.exports = {
                     locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
             });
 
-            console.log(locations);
             return locations;
         });
 
-        return await Promise.all(promises);
+        //return await Promise.all(promises);
+        return new Promise((resolve, reject) => {
+            resolve(promises);
+        });
     },
     main: function (url) {
         return module.exports.getActivity(url)
-            .then(module.exports.getLocations);
+            .then(module.exports.getLocations)
+            .then(Promise.all);
     }
 };
