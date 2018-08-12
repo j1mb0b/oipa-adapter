@@ -64,13 +64,13 @@ module.exports = {
                 json: true,
             });
 
-            let locations = [];
-            response.data.locations.map(async function (loc) {
-                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
-            });
+            //let locations = [];
+            //response.data.locations.map(function (loc) {
+            //    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+            //        locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            //});
 
-            return locations;
+            return ["cunt"];
         });
 
         console.log(promises);
