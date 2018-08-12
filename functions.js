@@ -70,10 +70,7 @@ module.exports = {
             //return module.exports.getActivity(activities.data.next);
         }
 
-        //return await Promise.all(output);
-        return new Promise((resolve, reject) => {
-            resolve(output);
-        });
+        return await Promise.all(output);
     },
     getLocations: async function (urls) {
         const promises = urls.map(async item => {
@@ -93,14 +90,10 @@ module.exports = {
             return locations;
         });
 
-        //return await Promise.all(promises);
-        return new Promise((resolve, reject) => {
-            resolve(promises);
-        });
+        return await Promise.all(promises);
     },
     main: function (url) {
-        return module.exports.getActivity(url).then((urls) => {
-            return Promise.all([module.exports.getLocations(urls)]);
-        }).then((args) => console.log(args));
+        return module.exports.getActivity(url)
+            .then(module.exports.getLocations);
     }
 };
