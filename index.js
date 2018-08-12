@@ -34,13 +34,13 @@ app.post('/query', function (req, res) {
                     return response;
                 })
                 .then(urls => {
-                    let json = res.status(200).json(urls.map(function (item) {
+                    let json = urls.map(function (item) {
                         return tools.locations(item).then(function(results){
                             return results;
                         })
-                    }));
+                    });
                     console.log(json);
-                    return json;
+                    return res.status(200).json(json);
                 })
                 .catch(error => console.log(error));
             break;
