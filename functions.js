@@ -64,16 +64,14 @@ module.exports = {
                 json: true,
             });
 
-            //let locations = [];
-            //response.data.locations.map(function (loc) {
-            //    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-            //        locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
-            //});
+            let locations = [];
+            response.data.locations.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            });
 
-            return ["cunt"];
+            return locations;
         });
-
-        console.log(promises);
 
         const results = await Promise.all(promises);
 
