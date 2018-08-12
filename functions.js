@@ -69,10 +69,11 @@ module.exports = {
         // Wait for the promises to resolve
         return Promise.all(output).then(function(result) {
             // If next is empty, return the result
-            if (!activities.data.next)
-                return result;
+            console.log(activities.data.next);
+            if (activities.data.next)
+                return module.exports.getActivity(activities.data.next);
             // If there is a next, repeat results.
-            return module.exports.getActivity(activities.data.next);
+            return result;
         });
     },
     getLocations: async function (urls) {
