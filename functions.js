@@ -67,7 +67,7 @@ module.exports = {
         });
 
         if (activities.data.next) {
-            return module.exports.getActivity(activities.data.next);
+            //return module.exports.getActivity(activities.data.next);
         }
 
         //return await Promise.all(output);
