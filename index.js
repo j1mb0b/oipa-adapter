@@ -34,9 +34,11 @@ app.post('/query', function (req, res) {
                     return response;
                 })
                 .then(urls => {
-                    let locations = urls.map(function (item) {
+                    return urls.map(function (item) {
                         return tools.locations(item);
                     });
+                })
+                .then(locations => {
                     console.log(locations);
                     return res.status(200).json(locations);
                 })
