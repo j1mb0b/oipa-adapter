@@ -2,7 +2,6 @@
 
 const NodeCache = require("node-cache");
 const oipaCache = new NodeCache();
-let request = require('request-promise');
 let Axios = require('axios');
 let output = [];
 module.exports = {
@@ -20,10 +19,20 @@ module.exports = {
             }
         });
     },
+    checkActivity: function(url) {
+        if (output = module.exports.cacheGet(url)) {
+            console.log(output);
+            return output;
+        }
+        else {
+            let activity = module.exports.getActivity(url)
+            return module.exports.cacheSet(url, activity);
+        }
+    },
     getActivity: async function (url) {
         const activities = await Axios({
             method: 'GET',
-            url: url + "&page=19",
+            url: url,
             json: true,
         });
 
@@ -32,7 +41,7 @@ module.exports = {
         });
 
         if (activities.data.next !== null) {
-            //return module.exports.getActivity(activities.data.next);
+            return module.exports.getActivity(activities.data.next);
         }
 
         return output;
@@ -58,7 +67,7 @@ module.exports = {
         return await Promise.all(promises);
     },
     main: function (url) {
-        return module.exports.getActivity(url)
+        return module.exports.checkActivity(url)
             .then(module.exports.getLocations);
     }
 };
