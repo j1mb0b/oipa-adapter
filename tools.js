@@ -13,7 +13,7 @@ module.exports = {
 
             console.log(activities);
 
-            activities.body.results.map(function (result) {
+            activities.results.map(function (result) {
                 output.push(result.url);
             });
 
@@ -33,7 +33,7 @@ module.exports = {
             }).then(response => {
 
                 let locations = [];
-                response.body.locations.map(function (loc) {
+                response.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                         locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
                 });
