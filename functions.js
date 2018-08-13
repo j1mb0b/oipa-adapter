@@ -5,14 +5,14 @@ const oipaCache = new NodeCache();
 let Axios = require('axios');
 module.exports = {
     cacheGet: function (key) {
-        oipaCache.get(key, function (err, value) {
+        return oipaCache.get(key, function (err, value) {
             if (!err) {
                 return value;
             }
         });
     },
     cacheSet: function (key, obj) {
-        oipaCache.set(key, obj, function (err, success) {
+        return oipaCache.set(key, obj, function (err, success) {
             if (!err && success) {
                 return obj;
             }
@@ -27,7 +27,7 @@ module.exports = {
         else {
             let output = [];
             const activity = await module.exports.getActivity(url, output);
-            module.exports.cacheSet(url, activity);
+            module.exports.cacheSet(url, {activity});
             return Promise.all(activity);
         }
     },
