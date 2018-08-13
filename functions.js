@@ -57,7 +57,7 @@ module.exports = {
         return new Promise(function(resolve, reject) {
             let promises = urls.map(async item => {
                 //return await module.exports.locations(item);
-                const response = Axios({
+                const response = await Axios({
                     method: 'GET',
                     url: item,
                     json: true,
@@ -73,6 +73,12 @@ module.exports = {
             });
 
             resolve(promises);
+        }).catch(err => {
+            return {
+                name: null,
+                // err.code or whatever your error looks like, maybe just 404
+                status: err.code
+            }
         });
     },
     main: function (url) {
