@@ -45,11 +45,9 @@ module.exports = {
                     });
 
                     if (activities.data.next !== null) {
-                        console.log(activities.data.next);
                         module.exports.getActivity(activities.data.next).then(resolve);
                     }
                     else {
-                        console.log(output);
                         resolve(output);
                     }
                 });
@@ -73,9 +71,10 @@ module.exports = {
             return locations;
         });
 
-        return await Promise.all(promises);
+        return Promise.all(promises);
     },
     main: function (url) {
-        return module.exports.getActivity(url);
+        return module.exports.getActivity(url)
+            .then(module.exports.getLocations);
     }
 };
