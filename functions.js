@@ -31,25 +31,32 @@ module.exports = {
             return activity;
         }
     },
-    getActivity: async function (url, output) {
+    getActivity: function (url, output) {
         if (!Array.isArray(output)) {
             output = [];
         }
-        const activities = await Axios({
-            method: 'GET',
-            url: url + "&page=19",
-            json: true,
+        return new Promise(function(resolve, reject) {
+            recursiveGetActivity(url);
+            function recursiveGetActivity(url) {
+                Axios({
+                    method: 'GET',
+                    url: url + "&page=19",
+                    json: true,
+                }).then(activities => {
+
+                    activities.data.results.map(function (result) {
+                        output.push(result.url);
+                    });
+
+                    if (activities.data.next !== null) {
+                        return module.exports.getActivity(activities.data.next);
+                    }
+                    else {
+                        resolve(output);
+                    }
+                });
+            }
         });
-
-        activities.data.results.map(function (result) {
-            output.push(result.url);
-        });
-
-        if (activities.data.next !== null) {
-            //return module.exports.getActivity(activities.data.next, output);
-        }
-
-        return output;
     },
     getLocations: async function (urls) {
         const promises = urls.map(async item => {
