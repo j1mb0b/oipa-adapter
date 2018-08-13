@@ -11,7 +11,7 @@ module.exports = {
                 output = [];
             }
 
-            activities.data.results.map(function (result) {
+            activities.body.results.map(function (result) {
                 output.push(result.url);
             });
 
@@ -31,7 +31,7 @@ module.exports = {
             }).then(response => {
 
                 let locations = [];
-                response.data.locations.map(function (loc) {
+                response.body.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                         locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
                 });
