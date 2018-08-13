@@ -43,10 +43,10 @@ module.exports = {
             }
         });
     },
-    getLocation: function (item) {
+    getLocation: async function (item) {
         let locations = [];
 
-        const response = Axios({
+        const response = await Axios({
             method: 'GET',
             url: item,
             json: true,
