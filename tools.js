@@ -11,6 +11,8 @@ module.exports = {
                 output = [];
             }
 
+            console.log(activities);
+
             activities.body.results.map(function (result) {
                 output.push(result.url);
             });
