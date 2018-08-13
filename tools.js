@@ -16,7 +16,7 @@ module.exports = {
             });
 
             if (activities.results.next !== null) {
-                module.exports.getActivity(activities.next, output);
+                module.exports.getActivity(activities.results.next, output);
             }
             return output;
         });
