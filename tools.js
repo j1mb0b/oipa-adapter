@@ -15,9 +15,10 @@ module.exports = {
                 output.push(result.url);
             });
 
-            if (activities.results.next !== null) {
-                module.exports.getActivity(activities.results.next, output);
+            if (activities.next !== null) {
+                return module.exports.getActivity(activities.next, output);
             }
+
             return output;
         });
     },
