@@ -22,7 +22,7 @@ module.exports = {
         let output = [];
         return new Promise( async function(resolve, reject) {
             await recursiveGetActivity(url);
-            function recursiveGetActivity(url) {
+            async function recursiveGetActivity(url) {
                 Axios({
                     method: 'GET',
                     url: url,
