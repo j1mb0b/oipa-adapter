@@ -37,7 +37,7 @@ module.exports = {
         }
         const activities = await Axios({
             method: 'GET',
-            url: url,
+            url: url + "&page=19",
             json: true,
         });
 
@@ -46,7 +46,7 @@ module.exports = {
         });
 
         if (activities.data.next !== null) {
-            return module.exports.getActivity(activities.data.next, output);
+            //return module.exports.getActivity(activities.data.next, output);
         }
 
         return output;
@@ -69,7 +69,7 @@ module.exports = {
             return locations;
         });
 
-        return await Promise.all(promises);
+        return await promises;
     },
     main: function (url) {
         return module.exports.checkActivity(url)
