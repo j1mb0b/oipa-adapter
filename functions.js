@@ -25,16 +25,13 @@ module.exports = {
             return results;
         }
         else {
-            let output = [];
-            const activity = await module.exports.getActivity(url, output);
+            const activity = await module.exports.getActivity(url);
             module.exports.cacheSet(url, {activity});
             return activity;
         }
     },
-    getActivity: function (url, output) {
-        if (!Array.isArray(output)) {
-            output = [];
-        }
+    getActivity: function (url) {
+        let output = [];
         return new Promise(function(resolve, reject) {
             recursiveGetActivity(url);
             function recursiveGetActivity(url) {
