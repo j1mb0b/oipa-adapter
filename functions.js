@@ -27,8 +27,8 @@ module.exports = {
         else {
             let output = [];
             const activity = await module.exports.getActivity(url, output);
-            console.log(activity);
-            return Promise.all([module.exports.cacheSet(url, activity)]);
+            module.exports.cacheSet(url, activity);
+            return Promise.all(activity);
         }
     },
     getActivity: async function (url, output) {
