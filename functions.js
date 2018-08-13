@@ -40,8 +40,6 @@ module.exports = {
             json: true,
         });
 
-        console.log(activities);
-
         activities.data.results.map(function (result) {
             output.push(result.url);
         });
@@ -49,6 +47,8 @@ module.exports = {
         if (activities.data.next !== null) {
             return module.exports.getActivity(activities.data.next, output);
         }
+
+        console.log(output);
 
         return output;
     },
