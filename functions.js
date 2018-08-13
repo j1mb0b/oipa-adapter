@@ -46,7 +46,6 @@ module.exports = {
 
                     if (activities.data.next !== null) {
                         console.log(activities.data.next);
-                        console.log(output);
                         module.exports.getActivity(activities.data.next).then(resolve);
                     }
                     else {
