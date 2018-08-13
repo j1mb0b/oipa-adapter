@@ -69,7 +69,7 @@ module.exports = {
             return locations;
         });
 
-        return await promises;
+        return await Promise.all(promises);
     },
     main: function (url) {
         return module.exports.checkActivity(url)
