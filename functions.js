@@ -53,11 +53,11 @@ module.exports = {
                 });
         });
     },
-    getLocations: async function (urls) {
+    getLocations: function (urls) {
         return new Promise(function(resolve, reject) {
             let promises = urls.map(async item => {
                 //return await module.exports.locations(item);
-                const response = await Axios({
+                const response = Axios({
                     method: 'GET',
                     url: item,
                     json: true,
