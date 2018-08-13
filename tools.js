@@ -18,7 +18,6 @@ module.exports = {
             if (activities.next !== null) {
                 module.exports.getActivity(activities.next, output);
             }
-            console.log(output);
             return output;
         });
     },
@@ -42,9 +41,5 @@ module.exports = {
         }));
         console.log(results);
         return results;
-    },
-    main: function(url) {
-        return module.exports.getActivity(url)
-            .then(module.exports.getLocations);
     }
 };
