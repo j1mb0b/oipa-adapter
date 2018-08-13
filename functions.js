@@ -37,7 +37,7 @@ module.exports = {
             function recursiveGetActivity(url) {
                 Axios({
                     method: 'GET',
-                    url: url + "&page=19",
+                    url: url,
                     json: true,
                 }).then(activities => {
 
