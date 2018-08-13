@@ -10,15 +10,13 @@ module.exports = {
             if (!output) {
                 output = [];
             }
-
-            console.log(activities);
-
+            
             activities.results.map(function (result) {
                 output.push(result.url);
             });
 
-            if (activities.data.next !== null) {
-                module.exports.getActivity(activities.data.next, output);
+            if (activities.next !== null) {
+                module.exports.getActivity(activities.next, output);
             }
             return output;
         });
