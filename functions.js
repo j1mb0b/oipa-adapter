@@ -51,11 +51,6 @@ module.exports = {
                         resolve(output);
                     }
                 });
-        }).catch(err => {
-            return {
-                name: null,
-                status: err.code
-            }
         });
     },
     getLocations: function (urls) {
@@ -78,11 +73,6 @@ module.exports = {
             });
 
             resolve(promises);
-        }).catch(err => {
-            return {
-                name: null,
-                status: err.code
-            }
         });
     },
     main: function (url) {
