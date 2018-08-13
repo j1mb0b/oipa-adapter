@@ -52,7 +52,10 @@ module.exports = {
                     }
                 });
         }).catch(err => {
-            reject(err);
+            return {
+                name: null,
+                status: err.code
+            }
         });
     },
     getLocations: function (urls) {
@@ -76,7 +79,10 @@ module.exports = {
 
             resolve(promises);
         }).catch(err => {
-            reject(err);
+            return {
+                name: null,
+                status: err.code
+            }
         });
     },
     main: function (url) {
