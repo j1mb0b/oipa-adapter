@@ -45,33 +45,36 @@ module.exports = {
                     });
 
                     if (activities.data.next !== null) {
+                        console.log(output);
                         module.exports.getActivity(activities.data.next).then(resolve);
                     }
                     else {
+                        console.log(output);
                         resolve(output);
                     }
                 });
         });
     },
     getLocations: async function (urls) {
-        return new Promise(function(resolve, reject) {
-            const promises = urls.map(async item => {
-                //return await module.exports.locations(item);
-                const response = await Axios({
-                    method: 'GET',
-                    url: item,
-                    json: true,
-                });
-
-                let locations = [];
-                response.data.locations.map(function (loc) {
-                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                        locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
-                });
-
-                return locations;
+        const promises = urls.map(async item => {
+            //return await module.exports.locations(item);
+            const response = await Axios({
+                method: 'GET',
+                url: item,
+                json: true,
             });
-            resolve(promises);
+
+            let locations = [];
+            response.data.locations.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            });
+
+            return locations;
+        });
+
+        return Promise.all(promises).then(function(results) {
+            console.log(results)
         });
     },
     main: function (url) {
