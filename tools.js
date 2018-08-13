@@ -10,7 +10,7 @@ module.exports = {
             if (!output) {
                 output = [];
             }
-            
+
             activities.results.map(function (result) {
                 output.push(result.url);
             });
@@ -18,6 +18,7 @@ module.exports = {
             if (activities.next !== null) {
                 module.exports.getActivity(activities.next, output);
             }
+            console.log(output);
             return output;
         });
     },
@@ -39,6 +40,7 @@ module.exports = {
                 return locations;
             });
         }));
+        console.log(results);
         return results;
     },
     main: function(url) {
