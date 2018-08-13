@@ -26,6 +26,7 @@ module.exports = {
         }
         else {
             const activity = await module.exports.getActivity(url);
+            console.log(activity);
             module.exports.cacheSet(url, activity);
             return activity;
         }
