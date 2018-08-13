@@ -40,6 +40,8 @@ module.exports = {
             json: true,
         });
 
+        console.log(activities);
+
         activities.data.results.map(function (result) {
             output.push(result.url);
         });
