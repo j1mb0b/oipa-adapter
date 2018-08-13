@@ -42,7 +42,7 @@ module.exports = {
         });
 
         if (activities.data.next !== null) {
-            return module.exports.getActivity(activities.data.next);
+            return module.exports.getActivity(activities.data.next, output);
         }
 
         return output;
