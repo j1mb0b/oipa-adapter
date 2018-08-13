@@ -51,6 +51,8 @@ module.exports = {
                         resolve(output);
                     }
                 });
+        }).catch(err => {
+            reject(err);
         });
     },
     getLocations: function (urls) {
@@ -74,11 +76,7 @@ module.exports = {
 
             resolve(promises);
         }).catch(err => {
-            return {
-                name: null,
-                // err.code or whatever your error looks like, maybe just 404
-                status: err.code
-            }
+            reject(err);
         });
     },
     main: function (url) {
