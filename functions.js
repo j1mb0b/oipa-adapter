@@ -53,29 +53,28 @@ module.exports = {
                 });
         });
     },
-    getLocations: function (urls) {
-        return new Promise(function(resolve, reject) {
-           return urls.map(async item => {
-                //return await module.exports.locations(item);
-                const response = await Axios({
-                    method: 'GET',
-                    url: item,
-                    json: true,
-                });
-
-                let locations = [];
-                response.data.locations.map(function (loc) {
-                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                        locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
-                });
-
-                resolve(locations);
+    getLocations: async function (urls) {
+        let promises = await Promise.all(urls.map(async item => {
+            const response = await Axios({
+                method: 'GET',
+                url: item,
+                json: true,
             });
-        });
+
+            let locations = [];
+            response.data.locations.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            });
+
+            return locations
+        }));
+        console.log(promises);
+        return promises;
     },
     main: function (url) {
         return module.exports.getActivity(url).then(function(result) {
-            console.log(result);
+            //console.log(result);
             return module.exports.getLocations(result).then(function(loc) {
                 console.log(loc);
             });
