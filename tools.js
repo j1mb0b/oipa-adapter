@@ -41,5 +41,9 @@ module.exports = {
         }));
         console.log(results);
         return results;
+    },
+    main: function(url) {
+        return module.exports.getActivity(url, [])
+            .then(module.exports.getLocations);
     }
 };
