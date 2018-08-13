@@ -38,7 +38,7 @@ module.exports = {
             function recursiveGetActivity(url) {
                 Axios({
                     method: 'GET',
-                    url: url,
+                    url: url + "&page=19",
                     json: true,
                 }).then(activities => {
 
@@ -46,12 +46,12 @@ module.exports = {
                         output.push(result.url);
                     });
 
-                    if (activities.data.next !== null) {
+                    //if (activities.data.next !== null) {
                         //return recursiveGetActivity(activities.data.next);
-                    }
-                    else {
+                    //}
+                    //else {
                         resolve(output);
-                    }
+                    //}
                 });
             }
         });
