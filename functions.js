@@ -27,6 +27,7 @@ module.exports = {
         else {
             let output = [];
             const activity = await module.exports.getActivity(url, output);
+            console.log(url);
             return Promise.all([module.exports.cacheSet(url, activity)]);
         }
     },
