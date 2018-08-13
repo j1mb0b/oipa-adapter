@@ -18,19 +18,6 @@ module.exports = {
             }
         });
     },
-    checkActivity: async function(url) {
-        let results;
-        if (results = module.exports.cacheGet(url)) {
-            console.log(results);
-            return results;
-        }
-        else {
-            const activity = await module.exports.getActivity(url);
-            console.log(activity);
-            module.exports.cacheSet(url, activity);
-            return activity;
-        }
-    },
     getActivity: function (url) {
         let output = [];
         return new Promise(function(resolve, reject) {
@@ -43,6 +30,7 @@ module.exports = {
                 }).then(activities => {
 
                     activities.data.results.map(function (result) {
+                        module.export.getLocation(result.url);
                         output.push(result.url);
                     });
 
@@ -56,26 +44,23 @@ module.exports = {
             }
         });
     },
-    getLocations: function (urls) {
-        return urls.map(item => {
-            //return await module.exports.locations(item);
-            const response = Axios({
-                method: 'GET',
-                url: item,
-                json: true,
-            });
+    getLocation: function (item) {
+        let locations = [];
 
-            let locations = [];
-            response.data.locations.map(function (loc) {
-                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
-            });
-
-            return locations;
+        const response = Axios({
+            method: 'GET',
+            url: item,
+            json: true,
         });
+
+        response.data.locations.map(function (loc) {
+            if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+        });
+
+        return location;
     },
     main: function (url) {
-        return module.exports.getActivity(url)
-            .then(module.exports.getLocations);
+        return module.exports.getActivity(url);
     }
 };
