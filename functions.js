@@ -30,7 +30,7 @@ module.exports = {
                 }).then(activities => {
 
                     activities.data.results.map(function (result) {
-                        output.push(module.export.getLocation(result.url));
+                        output.push(module.exports.getLocation(result.url));
                     });
 
                     if (activities.data.next !== null) {
