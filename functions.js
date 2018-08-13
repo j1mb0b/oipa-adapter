@@ -78,7 +78,9 @@ module.exports = {
     main: function (url) {
         return module.exports.getActivity(url).then(function(result) {
             console.log(result);
-            return module.exports.getLocations(result);
+            return module.exports.getLocations(result).then(function(loc) {
+                console.log(loc);
+            });
         });
     }
 };
