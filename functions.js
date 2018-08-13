@@ -25,7 +25,8 @@ module.exports = {
             return output;
         }
         else {
-            let activity = module.exports.getActivity(url)
+            let activity = module.exports.getActivity(url);
+            console.log(activity);
             return module.exports.cacheSet(url, activity);
         }
     },
