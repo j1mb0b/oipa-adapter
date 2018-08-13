@@ -31,6 +31,9 @@ module.exports = {
         }
     },
     getActivity: async function (url, output) {
+        if (!Array.isArray(output)) {
+            output = [];
+        }
         const activities = await Axios({
             method: 'GET',
             url: url,
