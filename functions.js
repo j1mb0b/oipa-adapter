@@ -36,7 +36,7 @@ module.exports = {
         return new Promise(function(resolve, reject) {
                 Axios({
                     method: 'GET',
-                    url: url + "&page=18",
+                    url: url,
                     json: true,
                 }).then(activities => {
 
@@ -45,6 +45,7 @@ module.exports = {
                     });
 
                     if (activities.data.next !== null) {
+                        console.log(activities.data.next);
                         console.log(output);
                         module.exports.getActivity(activities.data.next).then(resolve);
                     }
