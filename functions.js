@@ -3,7 +3,6 @@
 const NodeCache = require("node-cache");
 const oipaCache = new NodeCache();
 let Axios = require('axios');
-let output = [];
 module.exports = {
     cacheGet: function (key) {
         oipaCache.get(key, function (err, value) {
@@ -20,16 +19,18 @@ module.exports = {
         });
     },
     checkActivity: async function(url) {
-        if (output = module.exports.cacheGet(url)) {
-            console.log(output);
-            return await Promise.all(output);
+        let results;
+        if (results = module.exports.cacheGet(url)) {
+            console.log(results);
+            return await Promise.all(results);
         }
         else {
-            const activity = await module.exports.getActivity(url);
+            let output = [];
+            const activity = await module.exports.getActivity(url, output);
             return Promise.all([module.exports.cacheSet(url, activity)]);
         }
     },
-    getActivity: async function (url) {
+    getActivity: async function (url, output) {
         const activities = await Axios({
             method: 'GET',
             url: url,
