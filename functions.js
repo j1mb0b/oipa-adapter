@@ -18,44 +18,66 @@ module.exports = {
             }
         });
     },
-    getActivity: async function (url) {
+    checkActivity: async function(url) {
+        let results;
+        if (results = module.exports.cacheGet(url)) {
+            console.log(results);
+            return results;
+        }
+        else {
+            const activity = await module.exports.getActivity(url);
+            console.log(activity);
+            module.exports.cacheSet(url, activity);
+            return activity;
+        }
+    },
+    getActivity: function (url) {
         let output = [];
-        return new Promise( async function(resolve, reject) {
-            await recursiveGetActivity(url);
-            async function recursiveGetActivity(url) {
-                await Axios({
+        return new Promise(function(resolve, reject) {
+            recursiveGetActivity(url);
+            function recursiveGetActivity(url) {
+                Axios({
                     method: 'GET',
                     url: url,
                     json: true,
                 }).then(activities => {
 
                     activities.data.results.map(function (result) {
-                        output.push(module.exports.getLocation(result.url));
+                        output.push(result.url);
                     });
 
-
-                    resolve(output);
+                    if (activities.data.next !== null) {
+                        //return recursiveGetActivity(activities.data.next);
+                    }
+                    else {
+                        resolve(output);
+                    }
                 });
             }
         });
     },
-    getLocation: async function (item) {
-        let locations = [];
+    getLocations: async function (urls) {
+        const promises = urls.map(async item => {
+            //return await module.exports.locations(item);
+            const response = await Axios({
+                method: 'GET',
+                url: item,
+                json: true,
+            });
 
-        const response = await Axios({
-            method: 'GET',
-            url: item,
-            json: true,
+            let locations = [];
+            response.data.locations.map(function (loc) {
+                if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                    locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+            });
+
+            return locations;
         });
 
-        response.data.locations.map(function (loc) {
-            if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
-        });
-
-        return locations;
+        return await Promise.all(promises);
     },
     main: function (url) {
-        return module.exports.getActivity(url);
+        return module.exports.getActivity(url)
+            .then(module.exports.getLocations);
     }
 };
