@@ -76,7 +76,6 @@ module.exports = {
         return await Promise.all(promises);
     },
     main: function (url) {
-        return module.exports.getActivity(url)
-            .then(module.exports.getLocations);
+        return module.exports.getActivity(url);
     }
 };
