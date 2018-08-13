@@ -41,7 +41,7 @@ module.exports = {
         });
 
         console.log(results);
-        return results;
+        return Promise.all(results);
     },
     main: function(url) {
         return module.exports.getActivity(url, [])
