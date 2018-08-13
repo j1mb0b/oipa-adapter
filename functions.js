@@ -54,21 +54,21 @@ module.exports = {
         });
     },
     getLocations: async function (urls) {
-        let promises = await Promise.all(urls.map(async item => {
-            return Axios({
-                method: 'GET',
-                url: item,
-                json: true,
-            }).then(response => {
+            let promises = await Promise.all(urls.map(async item => {
+                const response = Axios({
+                    method: 'GET',
+                    url: item,
+                    json: true,
+                }).then(activities => {
 
-                let locations = [];
-                response.data.locations.map(function (loc) {
-                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                        locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+                    let locations = [];
+                    response.data.locations.map(function (loc) {
+                        if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                            locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
+                    });
+
+                    return locations
                 });
-
-                return locations;
-            });
         }));
         console.log(promises);
         return promises;
