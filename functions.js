@@ -3,6 +3,7 @@
 const NodeCache = require("node-cache");
 const oipaCache = new NodeCache();
 let Axios = require('axios');
+let output = [];
 module.exports = {
     cacheGet: function (key) {
         return oipaCache.get(key, function (err, value) {
@@ -32,10 +33,7 @@ module.exports = {
         }
     },
     getActivity: function (url) {
-        let output = [];
         return new Promise(function(resolve, reject) {
-            recursiveGetActivity(url);
-            function recursiveGetActivity(url) {
                 Axios({
                     method: 'GET',
                     url: url + "&page=18",
@@ -47,13 +45,12 @@ module.exports = {
                     });
 
                     if (activities.data.next !== null) {
-                        recursiveGetActivity(activities.data.next);
+                        module.exports.getActivity(activities.data.next).then(resolve);
                     }
                     else {
                         resolve(output);
                     }
                 });
-            }
         });
     },
     getLocations: async function (urls) {
