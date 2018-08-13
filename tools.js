@@ -1,6 +1,6 @@
 let request = require('request-promise');
 
-let oipaApi = {
+module.exports = {
     getActivity: function (url, output) {
         return request({
             method: 'GET',
@@ -16,7 +16,7 @@ let oipaApi = {
             });
 
             if (activities.data.next !== null) {
-                oipaApi.getActivity(activities.data.next, output);
+                module.exports.getActivity(activities.data.next, output);
             }
             return output;
         });
@@ -42,7 +42,7 @@ let oipaApi = {
         return results;
     },
     main: function(url) {
-        return oipaApi.getActivity(url)
-            .then(oipaApi.getLocations);
+        return module.exports.getActivity(url)
+            .then(module.exports.getLocations);
     }
 };
