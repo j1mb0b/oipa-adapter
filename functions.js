@@ -74,7 +74,7 @@ module.exports = {
             return locations;
         });
 
-        return await Promise.all(promises);
+        return await Promise.resolve(promises);
     },
     main: function (url) {
         return module.exports.getActivity(url)
