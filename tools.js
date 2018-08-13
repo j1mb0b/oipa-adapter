@@ -37,7 +37,7 @@ module.exports = {
                         locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
                 });
 
-                console.log(locations);
+                //console.log(locations);
 
                 return locations;
             });
