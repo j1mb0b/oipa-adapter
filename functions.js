@@ -19,15 +19,15 @@ module.exports = {
             }
         });
     },
-    checkActivity: function(url) {
+    checkActivity: async function(url) {
         if (output = module.exports.cacheGet(url)) {
             console.log(output);
-            return output;
+            return await Promise.all(output);
         }
         else {
             let activity = module.exports.getActivity(url);
             console.log(activity);
-            return module.exports.cacheSet(url, activity);
+            return await Promise.all(module.exports.cacheSet(url, activity));
         }
     },
     getActivity: async function (url) {
