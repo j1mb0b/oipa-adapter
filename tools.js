@@ -23,8 +23,7 @@ module.exports = {
         });
     },
     getLocations: function (urls) {
-        let results = [];
-        results.push(urls.map(item => {
+        let results = urls.map(item => {
             return request({
                 "method": "GET",
                 "uri": item,
@@ -37,11 +36,10 @@ module.exports = {
                         locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
                 });
 
-                //console.log(locations);
-
                 return locations;
             });
-        }));
+        });
+
         console.log(results);
         return results;
     },
