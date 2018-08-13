@@ -22,7 +22,7 @@ module.exports = {
         let results;
         if (results = module.exports.cacheGet(url)) {
             console.log(results);
-            return await Promise.all(results);
+            return results;
         }
         else {
             let output = [];
@@ -48,8 +48,6 @@ module.exports = {
         if (activities.data.next !== null) {
             return module.exports.getActivity(activities.data.next, output);
         }
-
-        console.log(output);
 
         return output;
     },
