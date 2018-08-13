@@ -45,11 +45,9 @@ module.exports = {
                     });
 
                     if (activities.data.next !== null) {
-                        console.log(output);
                         module.exports.getActivity(activities.data.next).then(resolve);
                     }
                     else {
-                        console.log(output);
                         resolve(output);
                     }
                 });
