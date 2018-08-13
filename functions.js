@@ -18,10 +18,10 @@ module.exports = {
             }
         });
     },
-    getActivity: function (url) {
+    getActivity: async function (url) {
         let output = [];
-        return new Promise(function(resolve, reject) {
-            recursiveGetActivity(url);
+        return new Promise( async function(resolve, reject) {
+            await recursiveGetActivity(url);
             function recursiveGetActivity(url) {
                 Axios({
                     method: 'GET',
@@ -37,7 +37,6 @@ module.exports = {
                         return recursiveGetActivity(activities.data.next);
                     }
                     else {
-                        console.log(output);
                         resolve(output);
                     }
                 });
