@@ -55,7 +55,6 @@ module.exports = {
     },
     getLocations: async function (urls) {
         let promises = await Promise.all(urls.map(async item => {
-            await timer(1000);
             return Axios({
                 method: 'GET',
                 url: item,
