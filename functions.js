@@ -45,7 +45,7 @@ module.exports = {
                     });
 
                     if (activities.data.next !== null) {
-                        module.exports.getActivity(activities.data.next).then(resolve);
+                        return module.exports.getActivity(activities.data.next);
                     }
                     else {
                         console.log(output);
