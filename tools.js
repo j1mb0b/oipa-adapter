@@ -25,7 +25,7 @@ module.exports = {
     getLocations: function (urls) {
         let results = [];
         results.push(urls.map(item => {
-            request({
+            return request({
                 "method": "GET",
                 "uri": item,
                 "json": true
