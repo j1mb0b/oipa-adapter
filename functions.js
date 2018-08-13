@@ -25,9 +25,8 @@ module.exports = {
             return await Promise.all(output);
         }
         else {
-            let activity = module.exports.getActivity(url);
-            console.log(activity);
-            return await Promise.all([module.exports.cacheSet(url, activity)]);
+            const activity = await module.exports.getActivity(url);
+            return Promise.all([module.exports.cacheSet(url, activity)]);
         }
     },
     getActivity: async function (url) {
