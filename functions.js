@@ -37,6 +37,7 @@ module.exports = {
                         return recursiveGetActivity(activities.data.next);
                     }
                     else {
+                        console.log(output);
                         resolve(output);
                     }
                 });
