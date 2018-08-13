@@ -46,12 +46,12 @@ module.exports = {
                         output.push(result.url);
                     });
 
-                    //if (activities.data.next !== null) {
-                        //return recursiveGetActivity(activities.data.next);
-                    //}
-                    //else {
+                    if (activities.data.next !== null) {
+                        return recursiveGetActivity(activities.data.next).then(resolve);
+                    }
+                    else {
                         resolve(output);
-                    //}
+                    }
                 });
             }
         });
