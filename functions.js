@@ -48,6 +48,7 @@ module.exports = {
                         module.exports.getActivity(activities.data.next).then(resolve);
                     }
                     else {
+                        console.log(output);
                         resolve(output);
                     }
                 });
