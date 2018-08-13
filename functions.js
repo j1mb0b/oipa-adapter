@@ -75,7 +75,6 @@ module.exports = {
         });
 
         //const output = await Promise.all(promises);
-        console.log(output);
         return output;
     },
     main: function (url) {
