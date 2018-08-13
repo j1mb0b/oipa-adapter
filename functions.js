@@ -33,12 +33,8 @@ module.exports = {
                         output.push(module.exports.getLocation(result.url));
                     });
 
-                    if (activities.data.next !== null) {
-                        //return recursiveGetActivity(activities.data.next);
-                    }
-                    else {
-                        resolve(output);
-                    }
+
+                    resolve(output);
                 });
             }
         });
