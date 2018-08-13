@@ -15,7 +15,7 @@ module.exports = {
                 output.push(result.url);
             });
 
-            if (activities.next !== null) {
+            if (activities.results.next !== null) {
                 module.exports.getActivity(activities.next, output);
             }
             return output;
@@ -23,7 +23,7 @@ module.exports = {
     },
     getLocations: function (urls) {
         let results = [];
-        results.push(urls.map(async item => {
+        results.push(urls.map(item => {
             request({
                 "method": "GET",
                 "uri": item,
