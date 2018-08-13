@@ -52,6 +52,8 @@ module.exports = {
             json: true,
         });
 
+        console.log(response);
+
         response.data.locations.map(function (loc) {
             if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                 locations.push(loc.point.pos.latitude, loc.point.pos.longitude);
