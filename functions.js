@@ -47,7 +47,7 @@ module.exports = {
                     });
 
                     if (activities.data.next !== null) {
-                        recursiveGetActivity(activities.data.next).then(resolve);
+                        recursiveGetActivity(activities.data.next);
                     }
                     else {
                         resolve(output);
