@@ -89,16 +89,14 @@ module.exports = {
             if (err) console.error(err);
             if (value === undefined) {
                 console.log('setting cache...');
-                const res = module.exports.getActivity(endpoint)
-                    .then(module.exports.getLocations);
-
-                console.log(res);
-
-                return cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
-                    if (!err && success) {
-                        return res;
-                    }
-                });
+                return module.exports.getActivity(endpoint)
+                    .then(module.exports.getLocations).then(function(res) {
+                        return cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
+                            if (!err && success) {
+                                return res;
+                            }
+                        });
+                    });
             }
             else {
                 console.log('worked!');
