@@ -69,8 +69,8 @@ module.exports = {
                         });
                     });
                 }
-
-                return locations !== [] ? locations : null;
+                console.log(locations);
+                return locations;
             }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
