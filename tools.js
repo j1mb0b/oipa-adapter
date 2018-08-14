@@ -64,6 +64,8 @@ module.exports = {
                     locations["_none"][item] = {};
                 }
 
+                console.log(locations);
+
                 // Go trough all possible countries and set activity markers.
                 locations.forEach(function(country) {
                     response.locations.map(function (loc) {
