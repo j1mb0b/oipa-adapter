@@ -88,7 +88,7 @@ module.exports = {
 
         return Promise.map(items[0].countries, function (item) {
             return request(module.exports.getOptions(item)).then(response => {
-                return response.polygon.coordinates;
+                items[0].countries[item].push(response.polygon.coordinates);
             }).catch(function (err) {
                 if (err.message === 'read ECONNRESET') {
                     console.log('Timed out :(');
@@ -99,7 +99,7 @@ module.exports = {
                 }
             });
         }, {concurrency: 10}).then(function (data) {
-            return data;
+            return items;
         });
     },
     setCache: function(key, obj) {
