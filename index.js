@@ -39,7 +39,7 @@ app.post('/query', function (req, res) {
                 if (value === undefined) {
                     console.log('create cache and return results!');
                     tools.main(url).then(function (result) {
-                        module.exports.setCache(url, result);
+                        tools.setCache(url, result);
                         return res.status(200).json(result);
                     });
                 }
