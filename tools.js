@@ -65,6 +65,6 @@ module.exports = {
                 }
             });
         });
-        return Promise.all([results]);
+        return await Promise.all([results]);
     },
 };
