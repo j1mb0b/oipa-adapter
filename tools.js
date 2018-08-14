@@ -58,30 +58,19 @@ module.exports = {
                             locations[country.country.url] = {};
 
                         locations[country.country.url][item] = [];
+
+                        response.locations.map(function (loc) {
+                            if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
+                                locations[country.country.url][item].push({
+                                    "latitude": loc.point.pos.latitude,
+                                    "longitude": loc.point.pos.longitude
+                                });
+                            }
+                        });
                     });
                 }
-                else {
-                    if (!locations.hasOwnProperty("_none"))
-                        locations["_none"] = {};
 
-                    locations["_none"][item] = {};
-                }
-
-                console.log(locations);
-
-                // Go trough all possible countries and set activity markers.
-                locations.forEach(function(country) {
-                    response.locations.map(function (loc) {
-                        if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
-                            locations[country][item].push({
-                                "latitude": loc.point.pos.latitude,
-                                "longitude": loc.point.pos.longitude
-                            });
-                        }
-                    });
-                });
-
-                return locations ? locations : null;
+                return locations !== [] ? locations : null;
             }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
