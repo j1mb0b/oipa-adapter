@@ -25,6 +25,14 @@ module.exports = {
             }
 
             return output;
+        }).catch(function (err) {
+            if(err.message === 'read ECONNRESET'){
+                console.log('Timed out :(');
+                return false;
+            } else {
+                console.log('Error.');
+                throw err;
+            }
         });
     },
     getLocations: async function (urls) {
@@ -52,6 +60,7 @@ module.exports = {
                     console.log('Timed out :(');
                     return false;
                 } else {
+                    console.log('Error.');
                     throw err;
                 }
             });
