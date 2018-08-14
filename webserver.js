@@ -1,18 +1,20 @@
 'use strict';
 
+let cacheProvider = require('./cache-provider');
+
 module.exports = function () {
-    var bodyParser = require('body-parser');
-    var compression = require('compression');
-    var dotenv = require('dotenv').config({path: __dirname + '/.env'});
-    var fs = require('fs');
-    var https = require('https');
-    var privateKey = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/privkey.pem', 'utf8');
-    var certificate = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/fullchain.pem', 'utf8');
-    var credentials = {key: privateKey, cert: certificate};
-    var express = require('express');
+    let bodyParser = require('body-parser');
+    let compression = require('compression');
+    let dotenv = require('dotenv').config({path: __dirname + '/.env'});
+    let fs = require('fs');
+    let https = require('https');
+    let privateKey = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/privkey.pem', 'utf8');
+    let certificate = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/fullchain.pem', 'utf8');
+    let credentials = {key: privateKey, cert: certificate};
+    let express = require('express');
 
     // Configure webserver
-    var app = express();
+    let app = express();
     app.set('json spaces', 2);
     app.set('x-powered-by', false);
     app.use(compression());
@@ -29,9 +31,13 @@ module.exports = function () {
         res.status(204);
     });
 
-    var httpsServer = https.createServer(credentials, app);
+    let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(process.env.PORT, function () {
         console.log("[OK] Cumul.io plugin 'OIPA' listening on port" + process.env.PORT);
+    });
+
+    cacheProvider.start(function(err) {
+        if (err) console.error(err);
     });
 
     return app;

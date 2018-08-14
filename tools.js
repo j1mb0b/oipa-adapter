@@ -1,5 +1,6 @@
 let request = require('request-promise');
 let Promise = require("bluebird");
+let cacheProvider = require('./cache-provider');
 
 module.exports = {
     getOptions: function(url) {
@@ -81,4 +82,11 @@ module.exports = {
             return items;
         });
     },
+    main: function(endpoint) {
+        const CACHE_DURATION = 600;
+        const CACHE_KEY = endpoint;
+
+        return module.exports.getActivity(endpoint)
+            .then(module.exports.getLocations);
+    }
 };
