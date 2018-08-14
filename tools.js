@@ -52,7 +52,7 @@ module.exports = {
                 let locations = {};
 
                 // Build all possible countries indexed on item url.
-                if (response.recipient_countries.country.length <= 0) {
+                if (response.recipient_countries) {
                     response.recipient_countries.map(function (country) {
                         locations[country.url][item] = [];
                     });
