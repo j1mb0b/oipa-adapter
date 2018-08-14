@@ -40,7 +40,6 @@ module.exports = {
             });
         });
 
-        console.log(results);
         return Promise.race(results);
     },
     main: function(url) {
