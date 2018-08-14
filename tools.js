@@ -58,7 +58,6 @@ module.exports = {
                             locations[country.country.url] = {};
 
                         locations[country.country.url][item] = [];
-                        console.log(country.country.url);
                     });
                 }
                 else {
@@ -67,6 +66,8 @@ module.exports = {
 
                     locations["_none"][item] = {};
                 }
+
+                console.log(locations);
 
                 // Go trough all possible countries and set activity markers.
                 locations.forEach(function(country) {
