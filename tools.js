@@ -22,9 +22,9 @@ module.exports = {
             return output;
         });
     },
-    getLocations: function (urls) {
-        let results = urls.map(item => {
-            return request({
+    getLocations: async function (urls) {
+        let results = urls.map(async function(item) {
+            return await request({
                 "method": "GET",
                 "uri": item,
                 "json": true
@@ -39,7 +39,7 @@ module.exports = {
                 return locations;
             });
         });
-
+        console.log(results);
         return Promise.race(results);
     },
     main: function(url) {
