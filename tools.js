@@ -83,9 +83,7 @@ module.exports = {
         });
     },
     getPolygon: function (items) {
-        let countryList = items.find(function(v){ return v[key] === "countries"});
-        console.log(countryList);
-        return Promise.map(countryList, function (item) {
+        return Promise.map(items["countries"], function (item) {
             return request(module.exports.getOptions(item)).then(response => {
                 return response.polygon.coordinates;
             }).catch(function (err) {
