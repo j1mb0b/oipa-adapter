@@ -49,22 +49,21 @@ module.exports = {
                 }
             }).then(response => {
 
-                let locations = {};
+                let locations = [];
 
                 // Build all possible countries indexed on item url.
-                if (response.recipient_countries) {
+                if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
                         if (!locations.hasOwnProperty(country.url))
                             locations[country.url] = {};
 
                         locations[country.url][item] = [];
+                        console.log(country.url);
                     });
                 }
                 else {
                     locations["_none"][item] = {};
                 }
-
-                console.log(locations);
 
                 // Go trough all possible countries and set activity markers.
                 locations.forEach(function(country) {
