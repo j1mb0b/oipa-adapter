@@ -2,8 +2,8 @@ let request = require('request-promise-cache');
 let Promise = require("bluebird");
 
 module.exports = {
-    getActivity: function (url, output) {
-        return request({
+    getOptions: function(url) {
+        return {
             method: 'GET',
             url: url,
             cacheKey: url,
@@ -15,7 +15,10 @@ module.exports = {
                 'Accept-Encoding': '',
                 'Accept-Language': 'en-US,en;q=0.8'
             }
-        }).then(function (activities) {
+        }
+    },
+    getActivity: function (url, output) {
+        return request(module.export.getOptions(url)).then(function (activities) {
             if (!output) {
                 output = [];
             }
@@ -43,16 +46,7 @@ module.exports = {
         let items = [];
         let countries = [];
         return Promise.map(urls, function(item) {
-            return request({
-                "method": "GET",
-                "uri": item,
-                "json": true,
-                "headers": {
-                    'Connection': 'keep-alive',
-                    'Accept-Encoding': '',
-                    'Accept-Language': 'en-US,en;q=0.8'
-                }
-            }).then(response => {
+            return request(module.export.getOptions(url)).then(response => {
                 // Get the countries at activity level and build a array.
                 // This is used to determine the polygon for valid locations.
                 if (response.recipient_countries.length > 0) {
