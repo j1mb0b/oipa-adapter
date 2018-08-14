@@ -39,7 +39,7 @@ module.exports = {
     getLocations: function (urls) {
         let items = [];
         let countries = [];
-        let locations = Promise.map(urls, function(item) {
+        return Promise.map(urls, function(item) {
             return request({
                 "method": "GET",
                 "uri": item,
@@ -60,7 +60,7 @@ module.exports = {
                 }
 
                 let locations = [];
-                return response.locations.map(function (loc) {
+                response.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
                         locations.push({
                             "latitude": loc.point.pos.latitude,
@@ -68,6 +68,7 @@ module.exports = {
                         });
                     }
                 });
+                return locations;
             }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
@@ -78,14 +79,12 @@ module.exports = {
                 }
             });
         }, { concurrency: 10}).then(function(data) {
-            return data;
-        });
+            items.push({
+                countries:countries,
+                locations:data
+            });
 
-        items.push({
-            countries:countries,
-            locations:locations
+            return items;
         });
-
-        return items;
     },
 };
