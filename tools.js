@@ -50,7 +50,7 @@ module.exports = {
             }).then(response => {
 
                 let locations = {};
-                if (response.recipient_countries.country.url.length <= 0) {
+                if (response.recipient_countries.country.length <= 0) {
                     locations["_none"][item] = {};
                 }
                 else {
