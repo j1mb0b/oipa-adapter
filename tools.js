@@ -54,11 +54,11 @@ module.exports = {
                 // Build all possible countries indexed on item url.
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
-                        if (!locations.hasOwnProperty(country.url))
-                            locations[country.url] = {};
+                        if (!locations.hasOwnProperty(country.country.url))
+                            locations[country.country.url] = {};
 
-                        locations[country.url][item] = [];
-                        console.log(country);
+                        locations[country.country.url][item] = [];
+                        console.log(country.country.url);
                     });
                 }
                 else {
