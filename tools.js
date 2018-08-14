@@ -83,7 +83,10 @@ module.exports = {
         });
     },
     getPolygon: function (items) {
-        return Promise.map(items["countries"], function (item) {
+        if (items[0].countries.length <= 0)
+            return false;
+
+        return Promise.map(items[0].countries, function (item) {
             return request(module.exports.getOptions(item)).then(response => {
                 return response.polygon.coordinates;
             }).catch(function (err) {
