@@ -103,15 +103,15 @@ module.exports = {
             }
         });
     },
-    main: function(endpoint) {
-        return module.exports.getCache(endpoint)
-            .then(function(cached) {
+    main: async function(endpoint) {
+        return await module.exports.getCache(endpoint)
+            .then(async function(cached) {
                 if (cached) {
                     console.log(cached);
                     return cached;
                 }
                 else {
-                    return module.exports.getActivity(endpoint).then(module.exports.getLocations).then(function(result) {
+                    return await module.exports.getActivity(endpoint).then(module.exports.getLocations).then(function(result) {
                         module.export.setCache(endpoint, result);
                         return result;
                     });
