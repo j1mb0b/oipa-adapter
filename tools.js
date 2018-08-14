@@ -49,18 +49,28 @@ module.exports = {
                 }
             }).then(response => {
 
-                console.log(response.recipient_countries.country.url);
-
                 let locations = {};
-                if (response.recipient_countries.length <= 0) {
-                    locations["_none"][item] = {};
+
+                // Build all possible countries indexed on item url.
+                if (response.recipient_countries.country.length <= 0) {
+                    response.recipient_countries.map(function (country) {
+                        locations[country.url][item] = [];
+                    });
                 }
                 else {
-                    locations[response.recipient_countries.country.url][item] = [];
+                    locations["_none"][item] = {};
                 }
-                response.locations.map(function (loc) {
-                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
-                        locations[response.recipient_countries.url][item].push({"latitude": loc.point.pos.latitude, "longitude": loc.point.pos.longitude});
+
+                // Go trough all possible countries and set activity markers.
+                locations.forEach(function(country) {
+                    response.locations.map(function (loc) {
+                        if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
+                            locations[country][item].push({
+                                "latitude": loc.point.pos.latitude,
+                                "longitude": loc.point.pos.longitude
+                            });
+                        }
+                    });
                 });
 
                 return locations ? locations : null;
