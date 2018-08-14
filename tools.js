@@ -116,6 +116,8 @@ module.exports = {
                         return result;
                     });
                 }
+            }).catch(function (err) {
+               console.log("no cache");
             });
     }
 };
