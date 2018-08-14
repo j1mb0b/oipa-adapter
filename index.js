@@ -34,7 +34,7 @@ app.post('/query', function (req, res) {
             endpoint = '/api/activities/';
             let url = domain + endpoint + default_params;
 
-            cacheProvider.instance().get(url, function(err, value) {
+            return cacheProvider.instance().get(url, function(err, value) {
                 if (err) console.error(err);
                 if (value === undefined) {
                     console.log('create cache and return results!');
@@ -48,8 +48,7 @@ app.post('/query', function (req, res) {
                     return res.status(200).json(value);
                 }
             });
-            break;
-
+            
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
