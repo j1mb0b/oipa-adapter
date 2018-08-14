@@ -1,4 +1,4 @@
-let request = require('request-promise-cache');
+let request = require('request-promise');
 let Promise = require("bluebird");
 
 module.exports = {
@@ -6,9 +6,6 @@ module.exports = {
         return {
             method: 'GET',
             url: url,
-            cacheKey: url,
-            cacheTTL: 3600,
-            cacheLimit: 12,
             json: true,
             headers: {
                 'Connection': 'keep-alive',

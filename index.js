@@ -4,6 +4,7 @@ let domain = 'http://18.221.72.54:8000';
 let app = require('./webserver')();
 let datasets = require('./datasets')();
 let request = require('request');
+// Load tools API.
 let tools = require('./tools.js');
 
 // 1. List datasets
