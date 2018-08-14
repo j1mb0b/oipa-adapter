@@ -94,13 +94,13 @@ module.exports = {
 
                 cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
                     if (!err && success) {
-                        cb(res);
+                        endpoint(res);
                     }
                 });
             }
             else {
                 console.log('worked!');
-                cb(value);
+                endpoint(value);
             }
         });
     }
