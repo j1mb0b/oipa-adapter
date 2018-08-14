@@ -34,7 +34,7 @@ app.post('/query', function (req, res) {
             endpoint = '/api/activities/';
             let url = domain + endpoint + default_params;
 
-            cacheProvider.instance().get(key, function(err, value) {
+            cacheProvider.instance().get(url, function(err, value) {
                 if (err) console.error(err);
                 if (value === undefined) {
                     console.log('create cache and return results!');
