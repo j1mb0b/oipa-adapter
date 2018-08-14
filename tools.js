@@ -85,25 +85,25 @@ module.exports = {
     main: function(endpoint) {
         const CACHE_DURATION = 600;
         const CACHE_KEY = endpoint;
-        return cacheProvider.instance().get(CACHE_KEY, function(err, value) {
+        const cb = cacheProvider.instance().get(CACHE_KEY, function(err, value) {
             if (err) console.error(err);
             if (value === undefined) {
                 console.log('setting cache...');
                 const res = module.exports.getActivity(endpoint)
                     .then(module.exports.getLocations);
 
-                cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
+                return cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
                     if (!err && success) {
                         return res;
                     }
                 });
-
-                return res;
             }
             else {
                 console.log('worked!');
                 return value;
             }
         });
+        console.log(cb);
+        return cb;
     }
 };
