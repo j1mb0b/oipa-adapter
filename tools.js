@@ -49,7 +49,7 @@ module.exports = {
                 }
             }).then(response => {
 
-                let locations = [];
+                let locations = {};
                 response.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
                         locations[item].push(loc.point.pos.latitude, loc.point.pos.longitude);
