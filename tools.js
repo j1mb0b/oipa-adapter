@@ -58,18 +58,27 @@ module.exports = {
                             locations[country.country.url] = {};
 
                         locations[country.country.url][item] = [];
-
-                        response.locations.map(function (loc) {
-                            if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
-                                locations[country.country.url][item].push({
-                                    "latitude": loc.point.pos.latitude,
-                                    "longitude": loc.point.pos.longitude
-                                });
-                            }
-                        });
                     });
                 }
-                console.log(locations);
+                else {
+                    if (!locations.hasOwnProperty("_none"))
+                        locations["_none"] = {};
+
+                    locations["_none"][item] = [];
+                }
+
+                // Go trough all possible countries and set activity markers.
+                locations.forEach(function(country) {
+                    response.locations.map(function (loc) {
+                        if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
+                            locations[country][item].push({
+                                "latitude": loc.point.pos.latitude,
+                                "longitude": loc.point.pos.longitude
+                            });
+                        }
+                    });
+                });
+
                 return locations;
             }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
