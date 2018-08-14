@@ -87,7 +87,7 @@ module.exports = {
             if (err) console.error(err);
             if (value === undefined) {
                 console.log('setting cache...');
-                return false;
+                return "";
             }
             else {
                 console.log('worked!');
