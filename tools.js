@@ -92,11 +92,13 @@ module.exports = {
                 const res = module.exports.getActivity(endpoint)
                     .then(module.exports.getLocations);
 
-                return cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
+                cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
                     if (!err && success) {
                         return res;
                     }
                 });
+
+                return res;
             }
             else {
                 console.log('worked!');
