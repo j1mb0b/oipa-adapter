@@ -37,7 +37,9 @@ module.exports = {
         });
     },
     getLocations: function (urls) {
-        return Promise.map(urls, function(item) {
+        let items = [];
+        let countries = [];
+        let locations = Promise.map(urls, function(item) {
             return request({
                 "method": "GET",
                 "uri": item,
@@ -48,18 +50,17 @@ module.exports = {
                     'Accept-Language': 'en-US,en;q=0.8'
                 }
             }).then(response => {
-
-                let items = [];
-                let locations = [];
-                let countries = [];
-
+                // Get the countries at activity level and build a array.
+                // This is used to determine the polygon for valid locations.
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
-                        countries.push([country.country.url])
+                        if (countries.indexOf(country.country.url) === -1)
+                            countries.push(country.country.url);
                     });
                 }
 
-                response.locations.map(function (loc) {
+                let locations = [];
+                return response.locations.map(function (loc) {
                     if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
                         locations.push({
                             "latitude": loc.point.pos.latitude,
@@ -67,13 +68,6 @@ module.exports = {
                         });
                     }
                 });
-
-                items.push({
-                    countries:countries,
-                    locations:locations
-                });
-
-                return items;
             }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
@@ -86,5 +80,12 @@ module.exports = {
         }, { concurrency: 10}).then(function(data) {
             return data;
         });
+
+        items.push({
+            countries:countries,
+            locations:locations
+        });
+
+        return items;
     },
 };
