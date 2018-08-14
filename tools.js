@@ -49,6 +49,8 @@ module.exports = {
                 }
             }).then(response => {
 
+                console.log(response.recipient_countries.country.url);
+
                 let locations = {};
                 if (response.recipient_countries.length <= 0) {
                     locations["_none"][item] = {};
