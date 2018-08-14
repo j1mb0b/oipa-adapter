@@ -1,5 +1,4 @@
-let request = require('request-promise');
-let Promise = require("bluebird");
+let request = require('request-promise-cache').use( require('bluebird').Promise )
 
 module.exports = {
     getActivity: function (url, output) {
@@ -39,7 +38,7 @@ module.exports = {
     getLocations: function (urls) {
         let items = [];
         let countries = [];
-        return Promise.map(urls, function(item) {
+        return request.map(urls, function(item) {
             return request({
                 "method": "GET",
                 "uri": item,
