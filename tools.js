@@ -51,7 +51,7 @@ module.exports = {
 
                 let locations = {};
                 if (typeof response.recipient_countries.country.url === 'undefined') {
-                    locations["_none"] = {};
+                    locations["_none"][item] = {};
                 }
                 else {
                     locations[response.recipient_countries.country.url][item] = [];
