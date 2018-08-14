@@ -37,18 +37,18 @@ app.post('/query', function (req, res) {
             return cacheProvider.instance().get(url, function(err, value) {
                 if (err) console.error(err);
                 if (value === undefined) {
-                    console.log('create cache and return results!');
+                    console.log('Creating new cache entry and fetching results...');
                     tools.main(url).then(function (result) {
                         tools.setCache(url, result);
                         return res.status(200).json(result);
                     });
                 }
                 else {
-                    console.log('worked!');
+                    console.log('Results fetched from cache entry using key: ' + url);
                     return res.status(200).json(value);
                 }
             });
-            
+
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
