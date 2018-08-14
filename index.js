@@ -32,7 +32,6 @@ app.post('/query', function (req, res) {
             return tools.getActivity(domain + endpoint + default_params)
                 .then(tools.getLocations)
                 .then(function(result) {
-                    console.log(result);
                     return res.status(200).json(result);
                 });
 
