@@ -36,7 +36,7 @@ module.exports = {
         });
     },
     getLocations: async function (urls) {
-        let results = urls.map(async function(item) {
+        return await Promise.all(urls.map(async function(item) {
             return await request({
                 "method": "GET",
                 "uri": item,
@@ -64,7 +64,6 @@ module.exports = {
                     throw err;
                 }
             });
-        });
-        return await Promise.all([results]);
+        }));
     },
 };
