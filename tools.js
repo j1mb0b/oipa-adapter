@@ -1,10 +1,14 @@
-let request = require('request-promise-cache').use( require('bluebird').Promise )
+let request = require('request-promise-cache');
+let Promise = require("bluebird");
 
 module.exports = {
     getActivity: function (url, output) {
         return request({
             method: 'GET',
             url: url,
+            cacheKey: url,
+            cacheTTL: 3600,
+            cacheLimit: 12,
             json: true,
             headers: {
                 'Connection': 'keep-alive',
@@ -38,7 +42,7 @@ module.exports = {
     getLocations: function (urls) {
         let items = [];
         let countries = [];
-        return request.map(urls, function(item) {
+        return Promise.map(urls, function(item) {
             return request({
                 "method": "GET",
                 "uri": item,
