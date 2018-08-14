@@ -82,42 +82,15 @@ module.exports = {
             return items;
         });
     },
-    getCache: function(key) {
-        return cacheProvider.instance().get(key, function(err, value) {
-            if (err) console.error(err);
-            if (value === undefined) {
-                console.log('setting cache...');
-                return "";
-            }
-            else {
-                console.log('worked!');
-                return value;
-            }
-        });
-    },
     setCache: function(key, obj) {
         const CACHE_DURATION = 600;
-        return cacheProvider.instance().set(key, obj, CACHE_DURATION, function(err, success) {
+        cacheProvider.instance().set(key, obj, CACHE_DURATION, function(err, success) {
             if (!err && success) {
                 return res;
             }
         });
     },
-    main: async function(endpoint) {
-        return await module.exports.getCache(endpoint)
-            .then(async function(cached) {
-                if (cached) {
-                    console.log(cached);
-                    return cached;
-                }
-                else {
-                    return await module.exports.getActivity(endpoint).then(module.exports.getLocations).then(function(result) {
-                        module.export.setCache(endpoint, result);
-                        return result;
-                    });
-                }
-            }).catch(function (err) {
-               console.log("no cache");
-            });
+    main: function(endpoint) {
+        return module.exports.getActivity(endpoint).then(module.exports.getLocations);
     }
 };

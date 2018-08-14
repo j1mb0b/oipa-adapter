@@ -6,6 +6,8 @@ let datasets = require('./datasets')();
 let request = require('request');
 // Load tools API.
 let tools = require('./tools.js');
+// Load cache provider.
+let cacheProvider = require('./cache-provider');
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {
@@ -30,10 +32,23 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            return tools.main(domain + endpoint + default_params)
-                .then(function(result) {
-                    return res.status(200).json(result);
-                });
+            let url = domain + endpoint + default_params;
+
+            cacheProvider.instance().get(key, function(err, value) {
+                if (err) console.error(err);
+                if (value === undefined) {
+                    console.log('create cache and return results!');
+                    tools.main(url).then(function (result) {
+                        module.export.setCache(url, result);
+                        return res.status(200).json(result);
+                    });
+                }
+                else {
+                    console.log('worked!');
+                    return res.status(200).json(value);
+                }
+            });
+            break;
 
         case 'country-disbursement':
         case 'country-commitment':
