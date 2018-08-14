@@ -22,8 +22,8 @@ module.exports = {
             return output;
         });
     },
-    getLocations: async function (urls) {
-        let results = await urls.map(item => {
+    getLocations: function (urls) {
+        let results = urls.map(item => {
             return request({
                 "method": "GET",
                 "uri": item,
@@ -41,7 +41,7 @@ module.exports = {
         });
 
         console.log(results);
-        return Promise.all(results);
+        return Promise.race(results);
     },
     main: function(url) {
         return module.exports.getActivity(url, [])
