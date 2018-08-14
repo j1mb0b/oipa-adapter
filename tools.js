@@ -82,8 +82,9 @@ module.exports = {
             return items;
         });
     },
-    getPolygon: function (urls) {
-        return Promise.map(urls, function (item) {
+    getPolygon: function (items) {
+        console.log(items);
+        return Promise.map(items.countries, function (item) {
             return request(module.exports.getOptions(item)).then(response => {
                 return response.polygon.coordinates;
             }).catch(function (err) {
@@ -110,6 +111,6 @@ module.exports = {
     main: function(endpoint) {
         return module.exports.getActivity(endpoint)
             .then(module.exports.getLocations)
-            .then(module.export.getPolygon);
+            .then(module.exports.getPolygon);
     }
 };
