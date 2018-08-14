@@ -58,7 +58,7 @@ module.exports = {
                             locations[country.url] = {};
 
                         locations[country.url][item] = [];
-                        console.log(country.url);
+                        console.log(country);
                     });
                 }
                 else {
