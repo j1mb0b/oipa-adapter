@@ -62,6 +62,9 @@ module.exports = {
                     });
                 }
                 else {
+                    if (!locations.hasOwnProperty("_none"))
+                        locations["_none"] = {};
+
                     locations["_none"][item] = {};
                 }
 
