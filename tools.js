@@ -82,29 +82,40 @@ module.exports = {
             return items;
         });
     },
-    main: function(endpoint) {
-        const CACHE_DURATION = 600;
-        const CACHE_KEY = endpoint;
-        const cb = cacheProvider.instance().get(CACHE_KEY, function(err, value) {
+    getCache: function(key) {
+        return cacheProvider.instance().get(key, function(err, value) {
             if (err) console.error(err);
             if (value === undefined) {
                 console.log('setting cache...');
-                return module.exports.getActivity(endpoint)
-                    .then(module.exports.getLocations).then(function(res) {
-                        return cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
-                            if (!err && success) {
-                                console.log(res);
-                                return res;
-                            }
-                        });
-                    });
+                return false;
             }
             else {
                 console.log('worked!');
                 return value;
             }
         });
-        console.log(cb);
-        return cb;
+    },
+    setCache: function(key, obj) {
+        const CACHE_DURATION = 600;
+        return cacheProvider.instance().set(key, obj, CACHE_DURATION, function(err, success) {
+            if (!err && success) {
+                return res;
+            }
+        });
+    },
+    main: function(endpoint) {
+        return module.exports.getCache(endpoint)
+            .then(function(cached) {
+                if (cached) {
+                    console.log(cached);
+                    return cached;
+                }
+                else {
+                    return module.exports.getActivity(endpoint).then(module.exports.getLocations).then(function(result) {
+                        module.export.setCache(endpoint, result);
+                        return result;
+                    });
+                }
+            });
     }
 };
