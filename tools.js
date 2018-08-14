@@ -37,6 +37,13 @@ module.exports = {
                 });
 
                 return locations;
+            }).catch((err) => {
+                if(err.message === 'read ECONNRESET'){
+                    console.log('Timed out :(');
+                    return false;
+                } else {
+                    throw err;
+                }
             });
         });
         return Promise.all([results]);
