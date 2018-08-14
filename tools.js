@@ -49,37 +49,31 @@ module.exports = {
                 }
             }).then(response => {
 
+                let items = [];
                 let locations = [];
+                let countries = [];
 
-                // Build all possible countries indexed on item url.
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
-                        if (!locations.hasOwnProperty(country.country.url))
-                            locations[country.country.url] = {};
-
-                        locations[country.country.url][item] = [];
+                        countries.push([country.country.url])
                     });
                 }
-                else {
-                    if (!locations.hasOwnProperty("_none"))
-                        locations["_none"] = {};
 
-                    locations["_none"][item] = [];
-                }
-
-                // Go trough all possible countries and set activity markers.
-                locations.forEach(function(country) {
-                    response.locations.map(function (loc) {
-                        if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
-                            locations[country][item].push({
-                                "latitude": loc.point.pos.latitude,
-                                "longitude": loc.point.pos.longitude
-                            });
-                        }
-                    });
+                response.locations.map(function (loc) {
+                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
+                        locations.push({
+                            "latitude": loc.point.pos.latitude,
+                            "longitude": loc.point.pos.longitude
+                        });
+                    }
                 });
 
-                return locations;
+                items.push({
+                    countries:countries,
+                    locations:locations
+                });
+
+                return items;
             }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
