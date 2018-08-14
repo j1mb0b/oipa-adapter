@@ -5,7 +5,12 @@ module.exports = {
         return request({
             method: 'GET',
             url: url,
-            json: true
+            json: true,
+            headers: {
+                'Connection': 'keep-alive',
+                'Accept-Encoding': '',
+                'Accept-Language': 'en-US,en;q=0.8'
+            }
         }).then(function (activities) {
             if (!output) {
                 output = [];
@@ -27,7 +32,12 @@ module.exports = {
             return await request({
                 "method": "GET",
                 "uri": item,
-                "json": true
+                "json": true,
+                "headers": {
+                    'Connection': 'keep-alive',
+                    'Accept-Encoding': '',
+                    'Accept-Language': 'en-US,en;q=0.8'
+                }
             }).then(response => {
 
                 let locations = [];
