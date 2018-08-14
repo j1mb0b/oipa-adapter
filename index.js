@@ -29,7 +29,7 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             endpoint = '/api/activities/';
-            return tools.main(domain + endpoint + default_params).then(function(result) {
+            return tools.getActivity(domain + endpoint + default_params).then(function(result) {
                 console.log(result);
                 return res.status(200).json(result);
             });

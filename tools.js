@@ -67,8 +67,4 @@ module.exports = {
         });
         return Promise.all([results]);
     },
-    main: function(url) {
-        return module.exports.getActivity(url, [])
-            .then(module.exports.getLocations);
-    }
 };
