@@ -18,7 +18,7 @@ module.exports = {
         }
     },
     getActivity: function (url, output) {
-        return request(module.export.getOptions(url)).then(function (activities) {
+        return request(module.exports.getOptions(url)).then(function (activities) {
             if (!output) {
                 output = [];
             }
@@ -46,7 +46,7 @@ module.exports = {
         let items = [];
         let countries = [];
         return Promise.map(urls, function(item) {
-            return request(module.export.getOptions(url)).then(response => {
+            return request(module.exports.getOptions(url)).then(response => {
                 // Get the countries at activity level and build a array.
                 // This is used to determine the polygon for valid locations.
                 if (response.recipient_countries.length > 0) {
