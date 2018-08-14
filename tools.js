@@ -37,7 +37,7 @@ module.exports = {
         });
     },
     getLocations: function (urls) {
-        return Promise.map(urls, function(item) {
+        let promises = Promise.map(urls, function(item) {
             return request({
                 "method": "GET",
                 "uri": item,
@@ -65,8 +65,12 @@ module.exports = {
                     throw err;
                 }
             });
-        }, { concurrency: 10}).then(function() {
+        }, { concurrency: 10}).then(function(data) {
+            console.log(data);
             console.log("done" + urls.length);
         });
+
+        console.log(promises);
+        return promises;
     },
 };
