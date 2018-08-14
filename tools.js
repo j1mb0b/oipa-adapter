@@ -1,4 +1,5 @@
 let request = require('request-promise');
+let Promise = require("bluebird");
 
 module.exports = {
     getActivity: function (url, output) {
@@ -35,9 +36,9 @@ module.exports = {
             }
         });
     },
-    getLocations: async function (urls) {
-        return await Promise.race(urls.map(async function(item) {
-            return await request({
+    getLocations: function (urls) {
+        return Promise.map(urls, function(item) {
+            return request({
                 "method": "GET",
                 "uri": item,
                 "json": true,
@@ -55,7 +56,7 @@ module.exports = {
                 });
 
                 return locations;
-            }).catch((err) => {
+            }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
                     return false;
@@ -64,6 +65,8 @@ module.exports = {
                     throw err;
                 }
             });
-        }));
+        }, { concurrency: 10}).then(function() {
+            console.log("done" + urls.length);
+        });
     },
 };
