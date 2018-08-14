@@ -93,6 +93,7 @@ module.exports = {
                     .then(module.exports.getLocations).then(function(res) {
                         return cacheProvider.instance().set(CACHE_KEY, res, CACHE_DURATION, function(err, success) {
                             if (!err && success) {
+                                console.log(res);
                                 return res;
                             }
                         });
