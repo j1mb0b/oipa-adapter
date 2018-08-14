@@ -86,7 +86,7 @@ module.exports = {
         const CACHE_DURATION = 600;
         cacheProvider.instance().set(key, obj, CACHE_DURATION, function(err, success) {
             if (!err && success) {
-                return res;
+                console.log("Cache entry on " + key + " has been set.");
             }
         });
     },
