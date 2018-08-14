@@ -49,13 +49,11 @@ module.exports = {
                 }
             }).then(response => {
 
-                let locations = [];
+                let locations = {};
+                locations[response.recipient_countries.url][item] = []
                 response.locations.map(function (loc) {
-                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
-                        let points = {};
-                        points[response.recipient_countries.url][item] = {"latitude": loc.point.pos.latitude, "longitude": loc.point.pos.longitude};
-                        locations.push(points);
-                    }
+                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0)
+                        locations[response.recipient_countries.url][item].push({"latitude": loc.point.pos.latitude, "longitude": loc.point.pos.longitude});
                 });
 
                 return locations ? locations : null;
