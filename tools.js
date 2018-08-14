@@ -22,8 +22,8 @@ module.exports = {
             return output;
         });
     },
-    getLocations: function (urls) {
-        let results = urls.map(item => {
+    getLocations: async function (urls) {
+        let results = await urls.map(item => {
             return request({
                 "method": "GET",
                 "uri": item,
