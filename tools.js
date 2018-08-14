@@ -39,8 +39,7 @@ module.exports = {
                 return locations;
             });
         });
-        console.log(results);
-        return Promise.all(results);
+        return Promise.all([results]);
     },
     main: function(url) {
         return module.exports.getActivity(url, [])
