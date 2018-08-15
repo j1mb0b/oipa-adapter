@@ -89,6 +89,7 @@ module.exports = {
         let poly = items;
         poly[0].countries = [];
 
+        console.log(items[0].countries);
         return Promise.map(items[0].countries, function (item) {
             console.log(item);
             return request(module.exports.getOptions(item)).then(response => {
