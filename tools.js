@@ -89,9 +89,9 @@ module.exports = {
         let poly = items;
         poly[0].countries = [];
 
-        return Promise.map(items[0].countries, async function (item) {
+        return Promise.map(items[0].countries, function (item) {
             console.log(item);
-            return await request(module.exports.getOptions(item)).then(response => {
+            return request(module.exports.getOptions(item)).then(response => {
                 console.log(response);
                 poly[0].countries.push(response.polygon);
                 return poly;
