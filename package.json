@@ -16,6 +16,7 @@
     "node": "6.11.0"
   },
   "scripts": {
-    "start": "node index.js -p 8443"
+    "start": "node index.js -p 8443",
+    "bundle": "browserify public/scripts/map.js -o public/scripts/bundle.js"
   }
 }
