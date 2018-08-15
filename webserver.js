@@ -28,8 +28,8 @@ module.exports = function () {
     });
     app.use(bodyParser.json());
     app.options('*', function (req, res) {
-        res.sendfile('./index.html');
-        //res.status(204);
+        res.sendFile(path.join(__dirname, '/public', 'index.html'));
+        res.status(204);
     });
 
     let httpsServer = https.createServer(credentials, app);
