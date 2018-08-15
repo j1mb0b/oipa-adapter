@@ -86,6 +86,8 @@ module.exports = {
         if (items[0].countries.length <= 0)
             return false;
 
+        console.log(items[0].countries);
+
         let poly = items;
         poly[0].countries = [];
 
@@ -93,6 +95,7 @@ module.exports = {
             return request(module.exports.getOptions(item)).then(response => {
                 console.log(response.polygon);
                 poly[0].countries.push(response.polygon);
+                return poly;
             }).catch(function (err) {
                 if (err.message === 'read ECONNRESET') {
                     console.log('Timed out :(');
@@ -103,7 +106,7 @@ module.exports = {
                 }
             });
         }, {concurrency: 10}).then(function (data) {
-            return poly;
+            return data;
         });
     },
     setCache: function(key, obj) {
