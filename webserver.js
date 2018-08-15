@@ -30,7 +30,7 @@ module.exports = function () {
     app.options('*', function (req, res) {
         res.status(204);
     });
-    app.use(express.static(__dirname + '/'));
+    app.use(express.static(__dirname + '/index.html'));
 
     let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(process.env.PORT, function () {
