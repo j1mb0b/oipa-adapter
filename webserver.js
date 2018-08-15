@@ -30,9 +30,7 @@ module.exports = function () {
     app.options('*', function (req, res) {
         res.status(204);
     });
-    app.options('/map', function (req, res) {
-        res.sendFile(path.join(__dirname, '/public', 'index.html'));
-    });
+    app.use(express.static(__dirname + '/public'));
 
     let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(process.env.PORT, function () {
