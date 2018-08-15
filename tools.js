@@ -103,7 +103,7 @@ module.exports = {
                     throw err;
                 }
             });
-        }, {concurrency: 10}).then(function (data) {
+        }, {concurrency: 5}).then(function (data) {
             return data;
         });
     },
