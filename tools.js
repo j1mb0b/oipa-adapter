@@ -91,7 +91,8 @@ module.exports = {
 
         return Promise.map(items[0].countries, function (item) {
             return request(module.exports.getOptions(item)).then(response => {
-                poly[0].countries.push(response.polygon.coordinates);
+                console.log(response.polygon);
+                poly[0].countries.push(response.polygon);
             }).catch(function (err) {
                 if (err.message === 'read ECONNRESET') {
                     console.log('Timed out :(');
