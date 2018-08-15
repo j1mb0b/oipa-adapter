@@ -90,6 +90,7 @@ module.exports = {
         poly[0].countries = [];
 
         return Promise.map(items[0].countries, function (item) {
+            console.log(item);
             return request(module.exports.getOptions(item)).then(response => {
                 console.log(response);
                 poly[0].countries.push(response.polygon);
