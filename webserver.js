@@ -31,7 +31,7 @@ module.exports = function () {
         res.status(204);
     });
     app.use(express.static(__dirname + '/public'));
-    app.use(__dirname + '/public/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
+    app.use('/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
 
     let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(process.env.PORT, function () {
