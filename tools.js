@@ -101,8 +101,7 @@ module.exports = {
                 }
             });
         }, {concurrency: 5}).then(function (data) {
-            console.log(data);
-            return items;
+            return items[0].countries = data;
         });
     },
     setCache: function(key, obj) {
