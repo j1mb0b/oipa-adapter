@@ -86,16 +86,9 @@ module.exports = {
         if (items[0].countries.length <= 0)
             return false;
 
-        console.log(items);
-
-        let poly = items;
-        poly[0].countries = [];
-
         return Promise.map(items[0].countries, function (item) {
             return request(module.exports.getOptions(item)).then(response => {
-                console.log(response.polygon.coordinates);
-                poly[0].countries.push(response.polygon.coordinates);
-                return poly;
+                return [item][response.polygon.coordinates];
             }).catch(function (err) {
                 if (err.message === 'read ECONNRESET') {
                     console.log('Timed out :(');
@@ -106,7 +99,8 @@ module.exports = {
                 }
             });
         }, {concurrency: 5}).then(function (data) {
-            return data;
+            console.log(data);
+            return items;
         });
     },
     setCache: function(key, obj) {
