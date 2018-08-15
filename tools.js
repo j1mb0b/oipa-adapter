@@ -86,10 +86,11 @@ module.exports = {
         if (items[0].countries.length <= 0)
             return false;
 
+        console.log(items);
+
         let poly = items;
         poly[0].countries = [];
 
-        console.log(items[0]);
         return Promise.map(items[0].countries, function (item) {
             return request(module.exports.getOptions(item)).then(response => {
                 console.log(response.polygon.coordinates);
