@@ -31,7 +31,6 @@ module.exports = function () {
         res.status(204);
     });
     app.use(express.static(__dirname + '/public'));
-    app.use(express.static(__dirname + '/node_modules'));
 
     let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(process.env.PORT, function () {
