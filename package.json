@@ -16,7 +16,6 @@
     "node": "6.11.0"
   },
   "scripts": {
-    //"start": "beefy map.js:bundle.js --live",
     "bundle": "browserify map.js -o bundle.js"
   }
 }
