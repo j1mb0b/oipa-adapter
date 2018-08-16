@@ -16,7 +16,7 @@ L.polygon([
 map.setView([47.70, 13.35], 7);
 
 // Initialize the base layer
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; OSM Mapnik <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; OSM Mapnik <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
