@@ -14,22 +14,50 @@ module.exports = function () {
     let express = require('express');
 
     // Configure webserver
+    let mime = {
+        html: 'text/html',
+        txt: 'text/plain',
+        css: 'text/css',
+        gif: 'image/gif',
+        jpg: 'image/jpeg',
+        png: 'image/png',
+        svg: 'image/svg+xml',
+        js: 'application/javascript'
+    };
     let app = express();
-    app.set('json spaces', 2);
-    app.set('x-powered-by', false);
-    app.use(compression());
-    app.use(function (req, res, next) {
-        res.setHeader('Content-Type', 'text/html');
-        res.setHeader('Content-Language', 'en');
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Content-Language, Accept');
-        next();
-    });
+    //app.set('json spaces', 2);
+    //app.set('x-powered-by', false);
+    //app.use(compression());
+    //app.use(function (req, res, next) {
+        //res.setHeader('Content-Type', 'text/html');
+        //res.setHeader('Content-Language', 'en');
+        //res.setHeader('Access-Control-Allow-Origin', '*');
+        //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        //res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Content-Language, Accept');
+        //next();
+    //});
     //app.use(bodyParser.json());
     //app.options('*', function (req, res) {
         //res.status(204);
     //});
+
+    app.get('*', function (req, res) {
+        let file = path.join(dir, req.path.replace(/\/$/, '/index.html'));
+        if (file.indexOf(dir + path.sep) !== 0) {
+            return res.status(403).end('Forbidden');
+        }
+        let type = mime[path.extname(file).slice(1)] || 'text/plain';
+        let s = fs.createReadStream(file);
+        s.on('open', function () {
+            res.set('Content-Type', type);
+            s.pipe(res);
+        });
+        s.on('error', function () {
+            res.set('Content-Type', 'text/plain');
+            res.status(404).end('Not found');
+        });
+    });
+
     app.use(express.static(__dirname + '/public/'));
     app.use('/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
 
