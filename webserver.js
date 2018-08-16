@@ -42,22 +42,8 @@ module.exports = function () {
         //res.status(204);
     //});
 
-    app.get('*', function (req, res) {
-        let dir = __dirname;
-        let file = path.join(dir, req.path.replace(/\/$/, '/index.html'));
-        if (file.indexOf(dir + path.sep) !== 0) {
-            return res.status(403).end('Forbidden');
-        }
-        let type = mime[path.extname(file).slice(1)] || 'text/plain';
-        let s = fs.createReadStream(file);
-        s.on('open', function () {
-            res.set('Content-Type', type);
-            s.pipe(res);
-        });
-        s.on('error', function () {
-            res.set('Content-Type', 'text/plain');
-            res.status(404).end('Not found');
-        });
+    app.get('/', function(req, res) {
+        res.sendFile(path.join(__dirname + '/public/index.html'));
     });
 
     app.use(express.static(__dirname + '/public/'));
