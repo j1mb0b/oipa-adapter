@@ -20,6 +20,7 @@ module.exports = function () {
     app.use(compression());
     app.use(function (req, res, next) {
         res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Content-Type', 'text/css');
         res.setHeader('Content-Language', 'en');
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
