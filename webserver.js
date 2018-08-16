@@ -43,6 +43,7 @@ module.exports = function () {
     //});
 
     app.get('*', function (req, res) {
+        let dir = __dirname;
         let file = path.join(dir, req.path.replace(/\/$/, '/index.html'));
         if (file.indexOf(dir + path.sep) !== 0) {
             return res.status(403).end('Forbidden');
