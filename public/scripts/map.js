@@ -21,4 +21,4 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     maxZoom: 0,
     id: 'map',
     accessToken: 'your.mapbox.access.token'
-}).addTo(mymap);
+}).addTo(map);
