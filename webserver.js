@@ -30,7 +30,7 @@ module.exports = function () {
     app.options('*', function (req, res) {
         res.status(204);
     });
-    app.use(express.static(__dirname + '/public'));
+    app.use(express.static(__dirname + '/public/'));
     app.use('/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
 
     let httpsServer = https.createServer(credentials, app);
