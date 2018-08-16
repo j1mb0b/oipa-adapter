@@ -11,6 +11,7 @@ module.exports = function () {
     let privateKey = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/privkey.pem', 'utf8');
     let certificate = fs.readFileSync('/etc/letsencrypt/live/dgdportal.openfed8.blue4you.be/fullchain.pem', 'utf8');
     let credentials = {key: privateKey, cert: certificate};
+    let path = require('path');
     let express = require('express');
 
     // Configure webserver
