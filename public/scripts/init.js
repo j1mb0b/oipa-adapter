@@ -170,31 +170,19 @@ $(document).ready(function () {
                     }
                     var multiPolygon = L.polygon(multiVertices, {
                         stroke: true, /* draws the border when true */
-                        color: '#ffffff', /* border color */
+                        color: 'red', /* border color */
                         weight: 1, /* stroke width in pixels */
-                        fill: true,
-                        fillColor: "#204B63",
-                        fillOpacity: 1//calculateOpacity(countryData, maxBudget)
+                        fill:true,
+                        fillColor: '#204B63',//"#204B63",
+                        fillOpacity: 0.4
                     });
 
                     multiPolygon.addTo(map);
                     /* finally addes the polygon to the map */
                     /* polygon events: click (popup), mouseover, mouseout */
-                    multiPolygon.bindPopup(getPopupHTML(countryData), {minWidth: 400}); // this option seams to doesn't work
                     /* paint the country red on mouseover */
-                    multiPolygon.on("mouseover", function (countryData) {
-                        return (function (e) {
-                            this.setStyle({
-                                fillColor: "#333"
-                            });
-
-                            countryhover
-                                .setLatLng(e.latlng)
-                                .setContent(countryData.country)
-                                .openOn(map);
-
-                            $(countryhover._wrapper).addClass("quickpop")
-                        })
+                    multiPolygon.on("mouseclick", function (countryData) {
+                       alert(countryData.country);
                     }(countryData), multiPolygon);
                 }
             }
