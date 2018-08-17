@@ -13,7 +13,7 @@ L.polygon([
 ]).addTo(map);
 
 // Set the position and zoom level of the map
-map.setView([47.70, 13.35], 7);
+map.setView([51.509, -0.08], 7);
 
 // Initialize the base layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
