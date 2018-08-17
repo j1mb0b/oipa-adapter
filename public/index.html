@@ -4,6 +4,7 @@
     <title>My first Leaflet example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" type="text/css" href="scripts/leaflet/leaflet.css">
     <link rel="stylesheet" type="text/css" href="scripts/leaflet/MarkerCluster.css">
     <link rel="stylesheet" type="text/css" href="scripts/leaflet/MarkerCluster.Default.css">
@@ -20,7 +21,7 @@
 <script type="text/javascript">
     let mapType = "global";
     let locations = "";
-    document.reportingOrgs = "XM-DAC-2-10";
+    let reportingOrgs = "XM-DAC-2-10";
 </script>
 <script src="scripts/bundle.js"></script>
 <script src="scripts/leaflet/leaflet-googlemaps.js"></script>
