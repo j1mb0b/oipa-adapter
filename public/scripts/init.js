@@ -33,7 +33,7 @@ $(document).ready(function() {
         };
         //helpers for the markers
         function markerOptions(id,title) {
-            var geojsonMarkerOptionsStuff = {
+            return geojsonMarkerOptionsStuff = {
                 radius: 6,
                 fillColor: "#a04567",
                 color: "#000",
@@ -43,7 +43,6 @@ $(document).ready(function() {
                 id:id,
                 title:title
             };
-            return geojsonMarkerOptionsStuff
         }
 
         function buildClusterPopupHtml(locations) {
@@ -215,13 +214,11 @@ $(document).ready(function() {
                         var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
                         var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
                         //create popup text
-                        var locationName = p.name[0].narratives[0].text;
+                        var locationName = "dsdsqdqs";//p.name[0].narratives[0].text;
                         marker.bindPopup("<a href='" + dtUrl + "'>" + title + " (" + iatiIdentifier + ")</a>" + "<br />" + locationName);
                         //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
                         //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
-                        console.log(p.point.pos.latitude);
                         if (isMarkerInsidePolygon(marker, multiPolygon)) {
-                            console.log(p.point.pos.latitude);
                             //add to the map layer
                             markers.addLayer(marker);
                         }
