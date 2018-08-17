@@ -15,16 +15,6 @@ module.exports = function () {
     let express = require('express');
 
     // Configure webserver
-    let mime = {
-        html: 'text/html',
-        txt: 'text/plain',
-        css: 'text/css',
-        gif: 'image/gif',
-        jpg: 'image/jpeg',
-        png: 'image/png',
-        svg: 'image/svg+xml',
-        js: 'application/javascript'
-    };
     let app = express();
     //app.set('json spaces', 2);
     //app.set('x-powered-by', false);
