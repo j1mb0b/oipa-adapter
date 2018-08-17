@@ -68,15 +68,6 @@ $(document).ready(function () {
             ].join("")
         }
 
-        function getPopupHTML(countryData) {
-            return 'called';
-        }
-
-        var countryhover = L.popup({
-            closeButton: false,
-            offset: new L.Point(0, -10)
-        });
-
         var countryName = $("#countryName").val();
         var countryCode = $("#countryCode").val();
         var projectType = $("#projectType").val();
