@@ -224,7 +224,7 @@ $(document).ready(function () {
                             //iterate over each location
                             d.locations.forEach(function (p) {
                                 console.log(p.point.pos);
-                                if (p.point.pos.length > 0) {
+                                if (p.point.pos !== null) {
                                     try {
                                         var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
                                         var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
