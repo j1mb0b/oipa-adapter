@@ -1,5 +1,6 @@
 // Initialize leaflet.js
 const L = require('leaflet');
+const MC = require('leaflet.markercluster');
 let jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const { window } = new JSDOM();
