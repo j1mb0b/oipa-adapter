@@ -1,5 +1,5 @@
 // Initialize leaflet.js
-const L = require('leaflet');
+//const L = require('leaflet');
 let jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const { window } = new JSDOM();
