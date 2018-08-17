@@ -138,7 +138,7 @@ $(document).ready(function () {
         if (!map) {
             return;
         }
-        µ
+        
         //get country locations from OIPA API
         // creates the country polygons
         $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
