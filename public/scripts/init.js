@@ -138,7 +138,7 @@ $(document).ready(function () {
         if (!map) {
             return;
         }
-        
+
         //get country locations from OIPA API
         // creates the country polygons
         $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
@@ -164,7 +164,7 @@ $(document).ready(function () {
                         color: '#ffffff', /* border color */
                         weight: 1, /* stroke width in pixels */
                         fill: true,
-                        fillColor: calculateBrightness(countryData, maxBudget),//"#204B63",
+                        fillColor: "#204B63",
                         fillOpacity: 1//calculateOpacity(countryData, maxBudget)
                     });
 
