@@ -20,6 +20,6 @@
   },
   "scripts": {
     "start": "node index.js -p 8443",
-    "bundle": "browserify public/scripts/map.js -o public/scripts/bundle.js"
+    "bundle": "browserify public/scripts/init.js -o public/scripts/bundle.js"
   }
 }
