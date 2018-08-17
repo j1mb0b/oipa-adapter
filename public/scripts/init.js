@@ -235,7 +235,7 @@ $(document).ready(function() {
             map.addLayer(markers);
         }).done(function () {
             $('.modal_map_markers').hide();
-        }).fail(function() {
+        }).fail(function(jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
             console.log( "Request Failed: " + err );
         }).always(function() {
