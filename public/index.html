@@ -4,11 +4,28 @@
     <title>My first Leaflet example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style/leaflet.css">
+    <link rel="stylesheet" type="text/css" href="scripts/leaflet/leaflet.css">
+    <link rel="stylesheet" type="text/css" href="scripts/leaflet/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="scripts/leaflet/MarkerCluster.Default.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
-<div id="map"></div>
+<div id="countryMap" class="countryMap">
+    <div class="modal_map_markers" style="display: none;">
+        <div>Loading Map Markers <br> Please Wait</div>
+    </div>
+</div>
+<input type="hidden" id="countryName" value="Sudan">
+<input type="hidden" id="countryCode" value="SD">
+<script type="text/javascript">
+    let mapType = "country";
+    let locations = "";
+    window.reportingOrgs = "GB-GOV-9,GB-GOV-6,GB-GOV-2,GB-GOV-1,GB-1,GB-GOV-3,GB-GOV-13,GB-GOV-7,GB-GOV-52,GB-6,GB-10,GB-GOV-10,GB-9,GB-GOV-8,GB-GOV-5,GB-GOV-12,GB-COH-RC000346,GB-COH-03877777";
+</script>
+<script src="scripts/leaflet/leaflet-googlemaps.js"></script>
+<script src="scripts/leaflet/leaflet.markercluster-src.js"></script>
+<script src="scripts/countryBounds.js" type="text/javascript"></script>
+<script src="scripts/world.js" type="text/javascript"></script>
 <script src="scripts/bundle.js"></script>
 </body>
 </html>

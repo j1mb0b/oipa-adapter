@@ -43,7 +43,7 @@ module.exports = function () {
     //});
 
     app.use(express.static(__dirname + '/public/'));
-    app.use('/style', express.static(__dirname + '/node_modules/leaflet/dist/'));
+    app.use('/scripts/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
     app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname + '/public/index.html'));
     });
