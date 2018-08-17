@@ -1,5 +1,5 @@
 // Initialize leaflet.js
-//const L = require('leaflet');
+const L = require('leaflet');
 let jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const { window } = new JSDOM();
@@ -150,15 +150,15 @@ $(document).ready(function() {
             }
             multiVertices[multiVertices.length]=vertices;
         }
-        var multiPolygon = L.multiPolygon(multiVertices,{
+        console.log(multiVertices);
+        var multiPolygon = L.polygon(multiVertices,{
             stroke: true, /* draws the border when true */
             color: 'red', /* border color */
             weight: 1, /* stroke width in pixels */
             fill:true,
             fillColor: '#204B63',//"#204B63",
             fillOpacity: 0.4
-        });
-        multiPolygon.addTo(map);
+        }).addTo(map);
 
         // create the geopoints if any are defined
         if(map) {
