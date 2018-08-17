@@ -223,23 +223,26 @@ $(document).ready(function () {
                             var title = (d.title.narratives != null) ? d.title.narratives[0].text : "";
                             //iterate over each location
                             d.locations.forEach(function (p) {
-                                try {
-                                    var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
-                                    var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
-                                    //create popup text
-                                    var locationName = "dsdsqdqs";//p.name[0].narratives[0].text;
-                                    marker.bindPopup("<a href='" + dtUrl + "'>" + title + " (" + iatiIdentifier + ")</a>" + "<br />" + locationName);
-                                    //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
-                                    //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
-                                    if (isMarkerInsidePolygon(marker, multiPolygon)) {
-                                        //add to the map layer
-                                        markers.addLayer(marker);
+                                console.log(p);
+                                if (p.point.length > 0) {
+                                    try {
+                                        var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
+                                        var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
+                                        //create popup text
+                                        var locationName = "dsdsqdqs";//p.name[0].narratives[0].text;
+                                        marker.bindPopup("<a href='" + dtUrl + "'>" + title + " (" + iatiIdentifier + ")</a>" + "<br />" + locationName);
+                                        //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
+                                        //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
+                                        if (isMarkerInsidePolygon(marker, multiPolygon)) {
+                                            //add to the map layer
+                                            markers.addLayer(marker);
+                                        }
                                     }
-                                }
-                                catch (e) {
-                                    console.log(e);
-                                    console.log(iatiIdentifier);
-                                    console.log("variable doesn't exist");
+                                    catch (e) {
+                                        console.log(e);
+                                        console.log(iatiIdentifier);
+                                        console.log("variable doesn't exist");
+                                    }
                                 }
                             });
                         });
