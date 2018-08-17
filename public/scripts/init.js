@@ -160,6 +160,7 @@ $(document).ready(function() {
         }).addTo(map);
 
         // create the geopoints if any are defined
+        console.log(map);
         if(map) {
             //alert("start processing datapoints");
             var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation="+reportingOrgs+"&hierarchy=1&recipient_country=&fields=title,iati_identifier,locations&page_size=500&activity_status=2";
