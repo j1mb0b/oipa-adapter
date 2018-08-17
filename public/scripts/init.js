@@ -15,6 +15,8 @@ $(document).ready(function () {
         //Source: https://github.com/substack/point-in-polygon
         //Source: https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html
         function isMarkerInsidePolygon(marker, poly) {
+            console.log(marker);
+            console.log(poly);
             var polyPoints = poly.getLatLngs();
             var x = marker.getLatLng().lat, y = marker.getLatLng().lng;
             var inside = false;
