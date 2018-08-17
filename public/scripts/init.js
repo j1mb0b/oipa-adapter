@@ -70,7 +70,7 @@ $(document).ready(function() {
 
         var countryName = $("#countryName").val();
         var countryCode = $("#countryCode").val();
-        var projectType = $("#mapType").val();
+        var projectType = $("#projectType").val();
         var map;
 
         var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
