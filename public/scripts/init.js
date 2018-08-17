@@ -223,8 +223,8 @@ $(document).ready(function () {
                             var title = (d.title.narratives != null) ? d.title.narratives[0].text : "";
                             //iterate over each location
                             d.locations.forEach(function (p) {
-                                console.log(p);
-                                if (p.point.length > 0) {
+                                console.log(p.point.pos);
+                                if (p.point.pos.length > 0) {
                                     try {
                                         var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
                                         var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
