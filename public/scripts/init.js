@@ -223,6 +223,7 @@ $(document).ready(function () {
                             var title = (d.title.narratives != null) ? d.title.narratives[0].text : "";
                             //iterate over each location
                             d.locations.forEach(function (p) {
+                                console.log(p.point.pos);
                                 if (p.point.pos !== null) {
                                     try {
                                         var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
@@ -232,6 +233,7 @@ $(document).ready(function () {
                                         marker.bindPopup("<a href='" + dtUrl + "'>" + title + " (" + iatiIdentifier + ")</a>" + "<br />" + locationName);
                                         //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
                                         //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
+                                        console.log('nearly there');
                                         if (isMarkerInsidePolygon(marker, multiPolygon)) {
                                             //add to the map layer
                                             markers.addLayer(marker);
