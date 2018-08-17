@@ -212,7 +212,6 @@ $(document).ready(function() {
                 //iterate over each location
                 d.locations.forEach(function (p) {
                     try {
-                        console.log(p);
                         var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
                         var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
                         //create popup text
@@ -220,7 +219,9 @@ $(document).ready(function() {
                         marker.bindPopup("<a href='" + dtUrl + "'>" + title + " (" + iatiIdentifier + ")</a>" + "<br />" + locationName);
                         //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
                         //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
+                        console.log(p.point.pos.latitude);
                         if (isMarkerInsidePolygon(marker, multiPolygon)) {
+                            console.log(p.point.pos.latitude);
                             //add to the map layer
                             markers.addLayer(marker);
                         }
