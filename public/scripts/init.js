@@ -212,6 +212,7 @@ $(document).ready(function() {
                 //iterate over each location
                 d.locations.forEach(function (p) {
                     try {
+                        console.log(p);
                         var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
                         var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
                         //create popup text
