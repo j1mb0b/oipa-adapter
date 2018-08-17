@@ -159,7 +159,7 @@ $(document).ready(function () {
                         }
                         multiVertices[multiVertices.length] = vertices;
                     }
-                    var multiPolygon = L.Polygon(multiVertices, {
+                    var multiPolygon = L.polygon(multiVertices, {
                         stroke: true, /* draws the border when true */
                         color: '#ffffff', /* border color */
                         weight: 1, /* stroke width in pixels */
