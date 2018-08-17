@@ -1,6 +1,6 @@
 // Initialize leaflet.js
 const L = require('leaflet');
-const $ = require('jQuery');
+const $ = jQuery = require('jquery')(window);
 $(document).ready(function() {
     (function(global, undefined){
         //The following method is created based on Ray casting algorithm
