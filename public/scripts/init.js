@@ -236,7 +236,8 @@ $(document).ready(function() {
         }).done(function () {
             $('.modal_map_markers').hide();
         }).fail(function() {
-            console.log( "error" );
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
         }).always(function() {
             console.log( "complete" );
         });
