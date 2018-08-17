@@ -173,7 +173,7 @@ $(document).ready(function () {
                     /* polygon events: click (popup), mouseover, mouseout */
                     /* paint the country red on mouseover */
                     multiPolygon.on("click", function (countryData) {
-                       alert(countryData.country);
+                       //alert(countryData.country);
                     }(countryData), multiPolygon);
                 }
             }
