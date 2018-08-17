@@ -30,7 +30,7 @@ module.exports = function () {
     //app.set('x-powered-by', false);
     //app.use(compression());
     //app.use(function (req, res, next) {
-        //res.setHeader('Content-Type', 'text/html');
+        //res.setHeader('Content-Type', 'application/json');
         //res.setHeader('Content-Language', 'en');
         //res.setHeader('Access-Control-Allow-Origin', '*');
         //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -42,12 +42,11 @@ module.exports = function () {
         //res.status(204);
     //});
 
+    app.use(express.static(__dirname + '/public/'));
+    app.use('/style', express.static(__dirname + '/node_modules/leaflet/dist/'));
     app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname + '/public/index.html'));
     });
-
-    app.use(express.static(__dirname + '/public/'));
-    app.use('/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
 
     let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(process.env.PORT, function () {
