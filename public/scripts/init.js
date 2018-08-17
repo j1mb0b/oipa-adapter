@@ -165,8 +165,6 @@ $(document).ready(function() {
         }
         //var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=" + reportingOrgs + "&hierarchy=1&recipient_country=&fields=title,iati_identifier,locations&page_size=500&activity_status=2";
         $.getJSON("/scripts/leaflet/activity.json", function (iati) {
-            console.log('success');
-            console.log(iati);
             $('.modal_map_markers').show();
             //set up markerCluster
             var markers = new L.MarkerClusterGroup({
@@ -238,8 +236,6 @@ $(document).ready(function() {
         }).fail(function(jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
             console.log( "Request Failed: " + err );
-        }).always(function() {
-            console.log( "complete" );
         });
 
     })(this)
