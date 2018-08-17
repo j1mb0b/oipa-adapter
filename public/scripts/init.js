@@ -69,7 +69,7 @@ $(document).ready(function() {
 
         var countryName = $("#countryName").val();
         var countryCode = $("#countryCode").val();
-        var projectType = $("#projectType").val();
+        var projectType = $("#mapType").val();
         var map;
 
         var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -150,7 +150,6 @@ $(document).ready(function() {
             }
             multiVertices[multiVertices.length]=vertices;
         }
-        console.log(multiVertices);
         var multiPolygon = L.polygon(multiVertices,{
             stroke: true, /* draws the border when true */
             color: 'red', /* border color */
@@ -165,6 +164,7 @@ $(document).ready(function() {
             //alert("start processing datapoints");
             var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation="+reportingOrgs+"&hierarchy=1&recipient_country=&fields=title,iati_identifier,locations&page_size=500&activity_status=2";
             $.getJSON("/scripts/leaflet/activity.json", function (iati) {
+                console.log(iati);
                 $('.modal_map_markers').show();
                 //set up markerCluster
                 var markers = new L.MarkerClusterGroup({
