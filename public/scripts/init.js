@@ -172,7 +172,7 @@ $(document).ready(function () {
                     /* finally addes the polygon to the map */
                     /* polygon events: click (popup), mouseover, mouseout */
                     /* paint the country red on mouseover */
-                    multiPolygon.on("mouseclick", function (countryData) {
+                    multiPolygon.on("click", function (countryData) {
                        alert(countryData.country);
                     }(countryData), multiPolygon);
                 }
