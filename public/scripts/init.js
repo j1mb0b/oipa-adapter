@@ -163,7 +163,8 @@ $(document).ready(function() {
         // create the geopoints if any are defined
         if(map) {
             //alert("start processing datapoints");
-            var url = "http://18.221.72.54:8000/activities/?format=json&reporting_organisation="+window.reportingOrgs+"&hierarchy=1&recipient_country=" + countryCode + "&fields=title,iati_identifier,locations&page_size=500&activity_status=2";
+            consol
+            var url = "https://18.221.72.54:8000/activities/?format=json&reporting_organisation="+document.reportingOrgs+"&hierarchy=1&recipient_country=" + countryCode + "&fields=title,iati_identifier,locations&page_size=500&activity_status=2";
             $.getJSON(url, function (iati) {
                 $('.modal_map_markers').show();
                 //set up markerCluster
