@@ -68,6 +68,10 @@ $(document).ready(function () {
             ].join("")
         }
 
+        function getPopupHTML(countryData) {
+            return 'called';
+        }
+
         var countryName = $("#countryName").val();
         var countryCode = $("#countryCode").val();
         var projectType = $("#projectType").val();
