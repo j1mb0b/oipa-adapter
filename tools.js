@@ -51,7 +51,7 @@ module.exports = {
         });
     },
     getLocations: function (urls) {
-        let countries = [];
+        let countries = {};
         return Promise.map(urls, function(item) {
             return request(module.exports.getOptions(item)).then(response => {
                 // Get the countries at activity level and build a array.
@@ -59,15 +59,14 @@ module.exports = {
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
                         if (countries.indexOf(country.country.url) === -1) {
-                            let obj = {};
-                            obj[country.country.code] = {
+                            countries[country.country.code] = {
                                 "country": country.country.name,
                                 "id": country.country.code,
                                 "projects": 10,
                                 "budget": 4234742.0,
                                 "flag": "/images/flags/ba.png"
                             };
-                            countries.push(obj);
+                            return countries;
                         }
                     });
                 }
