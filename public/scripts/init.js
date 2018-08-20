@@ -161,12 +161,26 @@ $(document).ready(function () {
                     });
 
                     multiPolygon.addTo(map);
-                    /* finally addes the polygon to the map */
-                    /* polygon events: click (popup), mouseover, mouseout */
                     /* paint the country red on mouseover */
-                    multiPolygon.on("click", function (countryData) {
-                        //alert(countryData.country);
-                    }(countryData), multiPolygon);
+                    /* polygon events: click (popup), mouseover, mouseout */
+                    multiPolygon.bindPopup(getPopupHTML(countryData), { minWidth: 400 }); // this option seams to doesn't work
+                    /* paint the country red on mouseover */
+                    multiPolygon.on("mouseover", function(countryData){
+                        return(function(e){
+                            this.setStyle({
+                                fillColor: "#333"
+                            });
+
+                            L.popup({
+                                closeButton: false,
+                                offset: new L.Point(0, -10)
+                            }).setLatLng(e.latlng)
+                                .setContent(countryData.country)
+                                .openOn(map);
+
+                            $(countryhover._wrapper).addClass("quickpop")
+                        })
+                    }(countryData),multiPolygon);
 
                     $('.modal_map_markers').show();
                     //set up markerCluster
