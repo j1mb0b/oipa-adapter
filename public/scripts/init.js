@@ -15,8 +15,6 @@ $(document).ready(function () {
         //Source: https://github.com/substack/point-in-polygon
         //Source: https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html
         function isMarkerInsidePolygon(marker, poly) {
-            console.log(marker);
-            console.log(poly);
             var polyPoints = poly.getLatLngs();
             var x = marker.getLatLng().lat, y = marker.getLatLng().lng;
             var inside = false;
@@ -75,8 +73,9 @@ $(document).ready(function () {
         var projectType = $("#projectType").val();
         var map;
 
-        var mapBox = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        var mapBox =  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+            maxZoom: 19
         });
 
         if (projectType == "global") {
@@ -90,7 +89,6 @@ $(document).ready(function () {
 
             if (countryBounds[countryCode][2] != null) {
                 zoomFactor = countryBounds[countryCode][2];
-                console.log(zoomFactor);
             }
             else zoomFactor = 6;
 
@@ -225,7 +223,6 @@ $(document).ready(function () {
                                     //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
                                     //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
                                     if (isMarkerInsidePolygon(marker, multiPolygon)) {
-                                        console.log('SUCCESS');
                                         //add to the map layer
                                         markers.addLayer(marker);
                                     }
