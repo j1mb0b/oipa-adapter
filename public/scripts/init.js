@@ -181,7 +181,7 @@ $(document).ready(function () {
                 layers: [mapBox]
             });
         } else if (countryCode) {
-            let bounds = regionBounds[countryCode];
+            let bounds = countryBounds[countryCode];
             let boundary = new L.LatLngBounds(
                 new L.LatLng(bounds.southwest.lat, bounds.southwest.lng),
                 new L.LatLng(bounds.northeast.lat, bounds.northeast.lng)
