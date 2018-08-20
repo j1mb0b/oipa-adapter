@@ -1,4 +1,5 @@
 // Initialize leaflet.js
+const url = require('url');
 const L = require('leaflet');
 const MC = require('leaflet.markercluster');
 const jsdom = require('jsdom');
@@ -150,9 +151,14 @@ $(document).ready(function () {
          * The code below this point is responsible for requesting OIPA data and rendering the map objects.
          * @type {jQuery}
          */
-        
+
+        // Check URL for Q param.
+        const url_parts = url.parse(request.url, true);
+        const country = url_parts.query.country;
+        console.log(country);
+
         let countryName = $("#countryName").val();
-        let countryCode = req.query.country ? req.query.country : $("#countryCode").val();
+        let countryCode = country ? country : $("#countryCode").val();
         let projectType = $("#projectType").val();
         let map;
 
@@ -204,14 +210,14 @@ $(document).ready(function () {
 
         // Get locations from OIPA API.
         let iati;
-        let url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
+        let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
             type: 'POST',
             url: "/query",
             headers: {
                 'Content-Type': 'application/json',
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
-                'x-url': url
+                'x-url': endpoint
             }
         }).done(function (data) {
             iati = data;
