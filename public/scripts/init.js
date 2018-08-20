@@ -1,13 +1,14 @@
 // Initialize leaflet.js
+const tools = require('./../../tools.js');
 const L = require('leaflet');
 const MC = require('leaflet.markercluster');
-let jsdom = require('jsdom');
+const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 const {window} = new JSDOM();
 const {document} = (new JSDOM('')).window;
 global.document = document;
 
-let $ = jQuery = require('jquery');
+const $ = jQuery = require('jquery');
 
 $(document).ready(function () {
     (function (global, undefined) {
@@ -120,17 +121,7 @@ $(document).ready(function () {
             return;
         }
 
-        //var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=" + reportingOrgs + "&hierarchy=1&recipient_country=&fields=title,iati_identifier,locations&page_size=500&activity_status=2";
-        var iati;
-        $.getJSON("/scripts/leaflet/activity.json", function (data) {
-            iati = data;
-        }).done(function () {
-            //$('.modal_map_markers').hide();
-        }).fail(function (jqxhr, textStatus, error) {
-            var err = textStatus + ", " + error;
-            console.log("Request Failed: " + err);
-        });
-
+        var iati = tools.query('http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations&page_size=1000');
         //get country locations from OIPA API
         // creates the country polygons
         $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {

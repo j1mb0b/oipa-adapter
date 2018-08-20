@@ -10,10 +10,20 @@ module.exports = {
             json: true,
             headers: {
                 'Connection': 'keep-alive',
+                'Content-Type': 'application/json',
+                'Content-Language': 'en',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Content-Language, Accept',
                 'Accept-Encoding': '',
                 'Accept-Language': 'en-US,en;q=0.8'
             }
         }
+    },
+    query: function (endpoint) {
+        return request(module.exports.getOptions(endpoint)).then(function (data) {
+            return data;
+        });
     },
     getActivity: function (url, output) {
         return request(module.exports.getOptions(url)).then(function (activities) {
