@@ -25,7 +25,7 @@ app.post('/query', function (req, res) {
     if (!req.headers['x-url'])
         return res.status(403).end('Please set "url" header in your request!');
 
-    return cacheProvider.instance().get(req.headers['url'], function(err, value) {
+    return cacheProvider.instance().get(req.headers['x-url'], function(err, value) {
         if (err) console.error(err);
         if (value === undefined) {
             console.log('Creating new cache entry and fetching results...');
