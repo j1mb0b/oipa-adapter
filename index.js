@@ -17,8 +17,37 @@ app.get('/datasets', function (req, res) {
     return res.status(200).json(datasets);
 });
 
-// 2. Retrieve data slices
+//2. Generic query handler to request via OIPA, with cache engine.
 app.post('/query', function (req, res) {
+    if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
+        return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
+
+    if (!req.body.id)
+        return res.status(403).end('Please set "id" in the body of your request!');
+
+    return cacheProvider.instance().get(req.headers['url'], function(err, value) {
+        if (err) console.error(err);
+        if (value === undefined) {
+            console.log('Creating new cache entry and fetching results...');
+            tools.query(url).then(function (result) {
+                tools.setCache(url, result);
+                return res.status(200).json(result);
+            });
+        }
+        else {
+            console.log('Results fetched from cache entry using key: ' + url);
+            return res.status(200).json(value);
+        }
+    });
+});
+
+
+
+
+
+/**** TESTS ****/
+// 2. Retrieve data slices
+app.post('/test', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 

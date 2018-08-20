@@ -1,4 +1,4 @@
-let request = require('request-promise-native');
+let request = require('request-promise');
 let Promise = require("bluebird");
 let cacheProvider = require('./cache-provider');
 
