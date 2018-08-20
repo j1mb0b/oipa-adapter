@@ -162,6 +162,7 @@ $(document).ready(function () {
          */
 
         let countryParam = getQueryStringValue("country");
+        console.log(countryParam);
         let countryName = $("#countryName").val();
         // Check webserver.js to see QP definition.
         let countryCode = countryParam ? countryParam : $("#countryCode").val();
