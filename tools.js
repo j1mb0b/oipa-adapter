@@ -59,7 +59,7 @@ module.exports = {
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
                         if (countries.indexOf(country.country.url) === -1) {
-                            let obj;
+                            let obj = {};
                             obj[country.country.code] = {
                                 "country": country.country.name,
                                 "id": country.country.code,
