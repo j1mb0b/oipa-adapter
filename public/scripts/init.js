@@ -1,7 +1,7 @@
 // Initialize leaflet.js
 const L = require('leaflet');
 const MC = require('leaflet.markercluster');
-let jsdom = require('jsdom');
+const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 const {window} = new JSDOM();
 const {document} = (new JSDOM('')).window;
@@ -11,18 +11,23 @@ let $ = jQuery = require('jquery');
 
 $(document).ready(function () {
     (function (global, undefined) {
-        //The following method is created based on Ray casting algorithm
-        //Source: https://github.com/substack/point-in-polygon
-        //Source: https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html
+        /**
+         * The following method is created based on Ray casting algorithm
+         * Source: https://github.com/substack/point-in-polygon
+         * Source: https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html
+         * @param marker
+         * @param poly
+         * @returns {boolean}
+         */
         function isMarkerInsidePolygon(marker, poly) {
-            var polyPoints = poly.getLatLngs();
-            var x = marker.getLatLng().lat, y = marker.getLatLng().lng;
-            var inside = false;
-            for (var a = 0; a < polyPoints.length; a++) {
-                for (var i = 0, j = polyPoints[a].length - 1; i < polyPoints[a].length; j = i++) {
-                    var xi = polyPoints[a][i].lat, yi = polyPoints[a][i].lng;
-                    var xj = polyPoints[a][j].lat, yj = polyPoints[a][j].lng;
-                    var intersect = ((yi > y) != (yj > y))
+            let polyPoints = poly.getLatLngs();
+            let x = marker.getLatLng().lat, y = marker.getLatLng().lng;
+            let inside = false;
+            for (let a = 0; a < polyPoints.length; a++) {
+                for (let i = 0, j = polyPoints[a].length - 1; i < polyPoints[a].length; j = i++) {
+                    let xi = polyPoints[a][i].lat, yi = polyPoints[a][i].lng;
+                    let xj = polyPoints[a][j].lat, yj = polyPoints[a][j].lng;
+                    let intersect = ((yi > y) != (yj > y))
                         && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
                     if (intersect) {
                         inside = !inside;
@@ -32,7 +37,12 @@ $(document).ready(function () {
             return inside;
         };
 
-        //helpers for the markers
+        /**
+         * Helpers for the markers
+         * @param id
+         * @param title
+         * @returns {{radius: number, fillColor: string, color: string, weight: number, opacity: number, fillOpacity: number, id: *, title: *}}
+         */
         function markerOptions(id, title) {
             return geojsonMarkerOptionsStuff = {
                 radius: 6,
@@ -46,11 +56,16 @@ $(document).ready(function () {
             };
         }
 
+        /**
+         * Callback for popup markup.
+         * @param locations
+         * @returns {string}
+         */
         function buildClusterPopupHtml(locations) {
             //alert(iatiTitle + iatiId);
-            var items = [];
-            for (var i = 0; i < locations.length; i++) {
-                var location = locations[i];
+            let items = [];
+            for (let i = 0; i < locations.length; i++) {
+                let location = locations[i];
                 items.push([
                     "<div class='row'>",
                     "<div class='five columns location-label'>",
@@ -68,10 +83,31 @@ $(document).ready(function () {
             ].join("")
         }
 
-        // creates the HTML for the popup when a country is clicked
+        /**
+         * Function used for number formatting (100000 becomes 100,000)
+         * @param nStr
+         * @returns {*}
+         */
+        function addCommas(nStr){
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            let rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+
+        /**
+         * Creates the HTML for the popup when a country is clicked
+         * @param countryData
+         * @returns {string}
+         */
         function getPopupHTML(countryData){
-            var date = new Date();
-            var currentFY = "";
+            let date = new Date();
+            let currentFY = "";
             if (date.getMonth() < 3)
                 currentFY = "FY" + (date.getFullYear() - 1) + "/" + date.getFullYear();
             else
@@ -114,12 +150,17 @@ $(document).ready(function () {
                 "</div>";
         }
 
-        var countryName = $("#countryName").val();
-        var countryCode = $("#countryCode").val();
-        var projectType = $("#projectType").val();
-        var map;
+        /**
+         * The code below this point is responsible for requesting OIPA data and rendering the map objects.
+         * @type {jQuery}
+         */
+        
+        let countryName = $("#countryName").val();
+        let countryCode = $("#countryCode").val();
+        let projectType = $("#projectType").val();
+        let map;
 
-        var mapBox = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        let mapBox = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
             maxZoom: 19
         });
@@ -144,8 +185,8 @@ $(document).ready(function () {
                 layers: [mapBox]
             });
         } else if (countryCode) {
-            var bounds = regionBounds[countryCode];
-            var boundary = new L.LatLngBounds(
+            let bounds = regionBounds[countryCode];
+            let boundary = new L.LatLngBounds(
                 new L.LatLng(bounds.southwest.lat, bounds.southwest.lng),
                 new L.LatLng(bounds.northeast.lat, bounds.northeast.lng)
             );
@@ -166,8 +207,8 @@ $(document).ready(function () {
             return;
         }
 
-        var iati;
-        var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
+        let iati;
+        let url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
             type: 'POST',
             url: "/query",
@@ -181,23 +222,23 @@ $(document).ready(function () {
             //get country locations from OIPA API
             // creates the country polygons
             $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
-                for (var countryDataIndex in countriesData) {
-                    var countryData = countriesData[countryDataIndex];
-                    var multiVertices = new Array();
-                    for (var countryPolygonesDefArrayIndex = 0; countryPolygonesDefArrayIndex < polygonsData[countryData.id].length; countryPolygonesDefArrayIndex++) {
-                        var countryPolygoneDefString = polygonsData[countryData.id][countryPolygonesDefArrayIndex];
-                        var verticesDefArray = countryPolygoneDefString.split(" ");
-                        var vertices = new Array();
-                        for (var vertexDefStringIndex = 0; vertexDefStringIndex < verticesDefArray.length; vertexDefStringIndex++) {
-                            var vertexDefString = verticesDefArray[vertexDefStringIndex].split(",");
-                            var longitude = vertexDefString[0];
-                            var latitude = vertexDefString[1];
-                            var latLng = new L.LatLng(latitude, longitude);
+                for (let countryDataIndex in countriesData) {
+                    let countryData = countriesData[countryDataIndex];
+                    let multiVertices = new Array();
+                    for (let countryPolygonesDefArrayIndex = 0; countryPolygonesDefArrayIndex < polygonsData[countryData.id].length; countryPolygonesDefArrayIndex++) {
+                        let countryPolygoneDefString = polygonsData[countryData.id][countryPolygonesDefArrayIndex];
+                        let verticesDefArray = countryPolygoneDefString.split(" ");
+                        let vertices = new Array();
+                        for (let vertexDefStringIndex = 0; vertexDefStringIndex < verticesDefArray.length; vertexDefStringIndex++) {
+                            let vertexDefString = verticesDefArray[vertexDefStringIndex].split(",");
+                            let longitude = vertexDefString[0];
+                            let latitude = vertexDefString[1];
+                            let latLng = new L.LatLng(latitude, longitude);
                             vertices[vertices.length] = latLng;
                         }
                         multiVertices[multiVertices.length] = vertices;
                     }
-                    var multiPolygon = L.polygon(multiVertices, {
+                    let multiPolygon = L.polygon(multiVertices, {
                         stroke: true, /* draws the border when true */
                         color: 'red', /* border color */
                         weight: 1, /* stroke width in pixels */
@@ -228,15 +269,15 @@ $(document).ready(function () {
 
                     $('.modal_map_markers').show();
                     //set up markerCluster
-                    var markers = new L.MarkerClusterGroup({
+                    let markers = new L.MarkerClusterGroup({
                         spiderfyOnMaxZoom: true,
                         showCoverageOnHover: false,
                         singleMarkerMode: true,
                         maxClusterRadius: 40,
                         removeOutsideVisibleBounds: false,
                         iconCreateFunction: function (cluster) {
-                            var count = cluster.getChildCount();
-                            var additional = ""
+                            let count = cluster.getChildCount();
+                            let additional = ""
                             if (count > 99) {
                                 count = "+";
                                 additional = "large-value";
@@ -248,15 +289,15 @@ $(document).ready(function () {
 
                     markers.on('clusterclick', function (a) {
                         //alert("clusterclick" +  a.target._zoom + " "  + a.target._maxZoom);
-                        var atMax = a.target._zoom == a.target._maxZoom
+                        let atMax = a.target._zoom == a.target._maxZoom
                         if (atMax) {
-                            var clusterLocations = [];
-                            for (var i = 0; i < a.layer._markers.length; i++) {
+                            let clusterLocations = [];
+                            for (let i = 0; i < a.layer._markers.length; i++) {
                                 clusterLocations.push(a.layer._markers[i].options);
                             }
 
-                            var html = buildClusterPopupHtml(clusterLocations)
-                            var popup = L.popup()
+                            let html = buildClusterPopupHtml(clusterLocations)
+                            let popup = L.popup()
                                 .setLatLng(a.layer._latlng)
                                 .setContent(html)
                                 .openOn(map);
@@ -266,17 +307,17 @@ $(document).ready(function () {
 
                     //iterate through every activity
                     iati.results.forEach(function (d) {
-                        var iatiIdentifier = d.iati_identifier;
-                        var dtUrl = siteName + "/" + iatiIdentifier;
-                        var title = (d.title.narratives != null) ? d.title.narratives[0].text : "";
+                        let iatiIdentifier = d.iati_identifier;
+                        let dtUrl = siteName + "/" + iatiIdentifier;
+                        let title = (d.title.narratives != null) ? d.title.narratives[0].text : "";
                         //iterate over each location
                         d.locations.forEach(function (p) {
                             if (p.point.pos !== null) {
                                 try {
-                                    var latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
-                                    var marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
+                                    let latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
+                                    let marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
                                     //create popup text
-                                    var locationName = "No narrative text at location level.";//p.name[0].narratives[0].text;
+                                    let locationName = "No narrative text at location level.";//p.name[0].narratives[0].text;
                                     marker.bindPopup("<a href='" + dtUrl + "'>" + title + " (" + iatiIdentifier + ")</a>" + "<br />" + locationName);
                                     //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
                                     //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
@@ -297,11 +338,11 @@ $(document).ready(function () {
                     map.addLayer(markers);
                 }
             }).fail(function (jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
+                let err = textStatus + ", " + error;
                 console.log("Request Failed: " + err);
             });
         }).fail(function (jqxhr, textStatus, error) {
-            var err = textStatus + ", " + error;
+            let err = textStatus + ", " + error;
             console.log("Request Failed: " + err);
         });
 
