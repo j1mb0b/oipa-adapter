@@ -62,6 +62,8 @@ module.exports = {
                             countries[country.country.code] = {
                                 "country": country.country.name,
                                 "id": country.country.code,
+                                //"projects": 10,
+                                "budget": response.budgets[0].value.value,
                                 "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/"+country.country.code.toLowerCase()+".svg"
                             };
                             return countries;
