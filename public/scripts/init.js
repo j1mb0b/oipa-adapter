@@ -116,12 +116,11 @@ $(document).ready(function () {
                 "   <h1><img class='flag' alt='Country Flag' src='" + countryData.flag + "' /> " + countryData.country + "</h1>";
 
             countryData.budget.forEach(function (d) {
-                let key = Object.keys(d)[0];
                 output +=
                     "   <div class='row'>" +
                     "       <div class='six columns'>" +
                     "           <div class='stat'>" +
-                    "               <h3>Country budget " + key; + "</h3>" +
+                    "               <h3>Country budget FY " + d[year]; + "</h3>" +
                     "           </div>"  +
                     "       </div>" +
                     "   </div>";
@@ -129,7 +128,7 @@ $(document).ready(function () {
                     "   <div class='row'>" +
                     "       <div class='six columns'>" +
                     "           <div class='stat'>" +
-                    "               <p>\u00A3" + addCommas(d[key]) + "</p>"  +
+                    "               <p>\u00A3" + addCommas(d[value]) + "</p>"  +
                     "           </div>"  +
                     "       </div>" +
                     "   </div>";
