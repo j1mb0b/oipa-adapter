@@ -152,12 +152,10 @@ $(document).ready(function () {
          * @type {jQuery}
          */
 
-        let matches = window.location.href.match(/country=([^&]*)/);
-        let countryParam = matches[1];
+        let countryParam = window.location.href.match(/country=([^&]*)/);
         console.log(countryParam);
         let countryName = $("#countryName").val();
-        // Check webserver.js to see QP definition.
-        let countryCode = countryParam ? countryParam : $("#countryCode").val();
+        let countryCode = countryParam[0] ? countryParam[0] : $("#countryCode").val();
         let projectType = $("#projectType").val();
         let map;
 
