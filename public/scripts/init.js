@@ -129,7 +129,7 @@ $(document).ready(function () {
                         "   <div class='row'>" +
                         "       <div class='six columns'>" +
                         "           <div class='stat'>" +
-                        "               <p>\u00A3" + addCommas(d.value) + "</p>" +
+                        "               <p>&euro;" + addCommas(d.value) + "</p>" +
                         "           </div>" +
                         "       </div>" +
                         "   </div>";
