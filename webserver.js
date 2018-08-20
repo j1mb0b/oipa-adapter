@@ -35,7 +35,6 @@ module.exports = function () {
     app.use(express.static(__dirname + '/public/'));
     app.use('/scripts/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
     app.get('/', function(req, res) {
-        const countryParam = req.query.country;
         res.sendFile(path.join(__dirname + '/public/index.html'));
     });
 

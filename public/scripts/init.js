@@ -148,10 +148,20 @@ $(document).ready(function () {
         }
 
         /**
+         * Helper function to get query parameter
+         * @param key
+         * @returns {string}
+         */
+        function getQueryStringValue(key) {
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        }
+
+        /**
          * The code below this point is responsible for requesting OIPA data and rendering the map objects.
          * @type {jQuery}
          */
 
+        let countryParam = getQueryStringValue("country");
         let countryName = $("#countryName").val();
         // Check webserver.js to see QP definition.
         let countryCode = countryParam ? countryParam : $("#countryCode").val();
