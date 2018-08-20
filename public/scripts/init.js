@@ -250,7 +250,7 @@ $(document).ready(function () {
                     multiPolygon.addTo(map);
                     /* paint the country red on mouseover */
                     /* polygon events: click (popup), mouseover, mouseout */
-                    multiPolygon.bindPopup(getPopupHTML(countryData), { minWidth: 400 }); // this option seams to doesn't work
+                    multiPolygon.bindPopup(getPopupHTML(countryData), { minWidth: 200 }); // this option seams to doesn't work
                     /* paint the country red on mouseover */
                     multiPolygon.on("mouseover", function(countryData){
                         return(function(e){
