@@ -152,7 +152,7 @@ $(document).ready(function () {
          * @type {jQuery}
          */
 
-        let params = (new URL(document.location)).searchParams;
+        let params = (new URL(window.location)).searchParams;
         let countryParam = params.get("country");
         console.log(countryParam);
         let countryName = $("#countryName").val();
