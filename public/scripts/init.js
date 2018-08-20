@@ -207,7 +207,9 @@ $(document).ready(function () {
             // Creates the country polygons
             $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
                 if (countryCode) {
-                    countriesData[countryCode] = countriesData[countryCode];
+                    let cdata = {};
+                    cdata[countryCode] = countriesData[countryCode];
+                    countriesData = cdata;
                 }
 
                 for (let countryDataIndex in countriesData) {
