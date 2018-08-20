@@ -152,7 +152,7 @@ $(document).ready(function () {
          */
         
         let countryName = $("#countryName").val();
-        let countryCode = $("#countryCode").val();
+        let countryCode = req.query.country ? req.query.country : $("#countryCode").val();
         let projectType = $("#projectType").val();
         let map;
 
@@ -161,7 +161,7 @@ $(document).ready(function () {
             maxZoom: 19
         });
 
-        if (projectType == "global") {
+        if (!countryCode && projectType == "global") {
             map = new L.Map('countryMap', {
                 center: new L.LatLng(7.79, 21.28),
                 zoom: 2,
