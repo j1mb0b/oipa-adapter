@@ -59,11 +59,12 @@ module.exports = {
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
                         if (!countries.hasOwnProperty('country.country.code')) {
+                            let obj = {};
                             countries[country.country.code] = {
                                 "country": country.country.name,
                                 "id": country.country.code,
                                 //"projects": 10,
-                                "budget": response.budgets.map(function (budget) {return {[budget.period_start]:[budget.value.value]}}),
+                                "budget": response.budgets.map(function (budget) {return obj[budget.period_start] = budget.value.value}),
                                 "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/"+country.country.code.toLowerCase()+".svg"
                             };
                             return countries;

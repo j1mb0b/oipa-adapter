@@ -112,42 +112,37 @@ $(document).ready(function () {
                 currentFY = "FY" + (date.getFullYear() - 1) + "/" + date.getFullYear();
             else
                 currentFY = "FY" + date.getFullYear() + "/" + (date.getFullYear() + 1);
-            return "" +
-                "<div class='popup' style='min-width:350px;'>" +
-                "   <h1><img class='flag' alt='Country Flag' src='" + countryData.flag + "' /> " + countryData.country + "</h1>"  +
-                "   <div class='row'>" +
-                "       <div class='six columns'>" +
-                "           <div class='stat'>" +
-                "               <h3>Country budget " + currentFY + "</h3>" +
-                "           </div>"  +
-                "       </div>" +
-                "       <div class='six columns'>" +
-                "           <div class='stat'>" +
-                "              <h3>Number of Active Project(s)</h3>" +
-                "          </div>" +
-                "       </div>"  +
-                "   </div>" +
-                "   <div class='row'>" +
-                "       <div class='six columns'>" +
-                "           <div class='stat'>" +
-                "               <p>\u00A3" + addCommas(countryData.budget) + "</p>"  +
-                "           </div>"  +
-                "       </div>" +
-                "       <div class='six columns'>" +
-                "           <div class='stat'>" +
-                "              <p>" + countryData.projects + "</p>"  +
-                "          </div>" +
-                "       </div>"  +
-                "   </div>" +
-                "   <div class='row'>" +
-                "       <div class='six columns'>" +
-                "           <div class='stat'><a href='/countries/" + countryData.id + "'>View country info</a></div>"  +
-                "       </div>" +
+            let output = "<div class='popup' style='min-width:350px;'>" +
+                "   <h1><img class='flag' alt='Country Flag' src='" + countryData.flag + "' /> " + countryData.country + "</h1>";
+
+            countryData.budget.forEach(function (d) {
+                let key = Object.keys(d)[0];
+                output +=
+                    "   <div class='row'>" +
+                    "       <div class='six columns'>" +
+                    "           <div class='stat'>" +
+                    "               <h3>Country budget " + key; + "</h3>" +
+                    "           </div>"  +
+                    "       </div>" +
+                    "   </div>";
+                output +=
+                    "   <div class='row'>" +
+                    "       <div class='six columns'>" +
+                    "           <div class='stat'>" +
+                    "               <p>\u00A3" + addCommas(d[key]) + "</p>"  +
+                    "           </div>"  +
+                    "       </div>" +
+                    "   </div>";
+            });
+
+            output += "   <div class='row'>" +
                 "       <div class='six columns'> " +
-                "          <div class='stat'><a href='/countries/" + countryData.id + "/projects'>View projects list</a></div>"  +
+                "          <div class='stat'><a href='?country=" + countryData.id + "'>Filter by this country</a></div>"  +
                 "        </div>"  +
                 "   </div>" +
                 "</div>";
+
+            return output;
         }
 
         /**

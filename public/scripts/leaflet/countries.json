@@ -2,96 +2,198 @@
   "CD": {
     "country": "Congo, The Democratic Republic Of The",
     "id": "CD",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/cd.svg"
   },
   "ML": {
     "country": "Mali",
     "id": "ML",
+    "budget": [
+      {
+        "2020-01-01": [
+          178000
+        ]
+      },
+      {
+        "2019-01-01": [
+          178000
+        ]
+      }
+    ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ml.svg"
   },
   "NE": {
     "country": "Niger (The)",
     "id": "NE",
+    "budget": [
+      {
+        "2020-01-01": [
+          407610
+        ]
+      },
+      {
+        "2019-01-01": [
+          529410
+        ]
+      },
+      {
+        "2018-01-01": [
+          484940
+        ]
+      }
+    ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ne.svg"
-  },
-  "ZA": {
-    "country": "South Africa",
-    "id": "ZA",
-    "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/za.svg"
   },
   "BF": {
     "country": "Burkina Faso",
     "id": "BF",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/bf.svg"
+  },
+  "ZA": {
+    "country": "South Africa",
+    "id": "ZA",
+    "budget": [],
+    "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/za.svg"
   },
   "GN": {
     "country": "Guinea",
     "id": "GN",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/gn.svg"
-  },
-  "VN": {
-    "country": "Viet Nam",
-    "id": "VN",
-    "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/vn.svg"
   },
   "BO": {
     "country": "Bolivia (Plurinational State Of)",
     "id": "BO",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/bo.svg"
+  },
+  "VN": {
+    "country": "Viet Nam",
+    "id": "VN",
+    "budget": [
+      {
+        "2019-01-01": [
+          508730
+        ]
+      },
+      {
+        "2018-01-01": [
+          1000000
+        ]
+      }
+    ],
+    "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/vn.svg"
   },
   "RW": {
     "country": "Rwanda",
     "id": "RW",
+    "budget": [
+      {
+        "2018-01-01": [
+          204427
+        ]
+      }
+    ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/rw.svg"
   },
   "UG": {
     "country": "Uganda",
     "id": "UG",
+    "budget": [
+      {
+        "2020-01-01": [
+          236000
+        ]
+      },
+      {
+        "2019-01-01": [
+          5157450
+        ]
+      },
+      {
+        "2018-01-01": [
+          390848
+        ]
+      }
+    ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ug.svg"
   },
   "MZ": {
     "country": "Mozambique",
     "id": "MZ",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/mz.svg"
   },
   "TZ": {
     "country": "Tanzania, United Republic Of",
     "id": "TZ",
+    "budget": [
+      {
+        "2018-01-01": [
+          57056
+        ]
+      }
+    ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/tz.svg"
   },
   "BI": {
     "country": "Burundi",
     "id": "BI",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/bi.svg"
   },
   "DZ": {
     "country": "Algeria",
     "id": "DZ",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/dz.svg"
   },
   "MA": {
     "country": "Morocco",
     "id": "MA",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ma.svg"
   },
   "BJ": {
     "country": "Benin",
     "id": "BJ",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/bj.svg"
   },
   "PS": {
     "country": "Palestinian Territory, Occupied",
     "id": "PS",
+    "budget": [
+      {
+        "2019-01-01": [
+          244000
+        ]
+      },
+      {
+        "2018-01-01": [
+          18500
+        ]
+      }
+    ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ps.svg"
   },
   "SN": {
     "country": "Senegal",
     "id": "SN",
+    "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/sn.svg"
   },
   "PE": {
     "country": "Peru",
     "id": "PE",
+    "budget": [
+      {
+        "2018-01-01": [
+          1592317
+        ]
+      }
+    ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/pe.svg"
   }
 }
