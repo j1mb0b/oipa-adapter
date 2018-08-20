@@ -115,24 +115,26 @@ $(document).ready(function () {
             let output = "<div class='popup' style='min-width:350px;'>" +
                 "   <h1><img class='flag' alt='Country Flag' src='" + countryData.flag + "' /> " + countryData.country + "</h1>";
 
-            countryData.budget.forEach(function (d) {
-                output +=
-                    "   <div class='row'>" +
-                    "       <div class='six columns'>" +
-                    "           <div class='stat'>" +
-                    "               <h3>Country budget FY " + d[year]; + "</h3>" +
-                    "           </div>"  +
-                    "       </div>" +
-                    "   </div>";
-                output +=
-                    "   <div class='row'>" +
-                    "       <div class='six columns'>" +
-                    "           <div class='stat'>" +
-                    "               <p>\u00A3" + addCommas(d[value]) + "</p>"  +
-                    "           </div>"  +
-                    "       </div>" +
-                    "   </div>";
-            });
+            if (countryData.budget !== null) {
+                countryData.budget.forEach(function (d) {
+                    output +=
+                        "   <div class='row'>" +
+                        "       <div class='six columns'>" +
+                        "           <div class='stat'>" +
+                        "               <h3>Country budget FY " + d.year +"</h3>" +
+                        "           </div>" +
+                        "       </div>" +
+                        "   </div>";
+                    output +=
+                        "   <div class='row'>" +
+                        "       <div class='six columns'>" +
+                        "           <div class='stat'>" +
+                        "               <p>\u00A3" + addCommas(d.value) + "</p>" +
+                        "           </div>" +
+                        "       </div>" +
+                        "   </div>";
+                });
+            }
 
             output += "   <div class='row'>" +
                 "       <div class='six columns'> " +
