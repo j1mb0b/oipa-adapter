@@ -58,14 +58,17 @@ module.exports = {
                 // This is used to determine the polygon for valid locations.
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
-                        if (countries.indexOf(country.country.url) === -1)
-                            countries.push(country.country.code = {
+                        if (countries.indexOf(country.country.url) === -1) {
+                            let obj;
+                            obj[country.country.code] = {
                                 "country": country.country.name,
                                 "id": country.country.code,
                                 "projects": 10,
                                 "budget": 4234742.0,
                                 "flag": "/images/flags/ba.png"
-                            });
+                            };
+                            countries.push(obj);
+                        }
                     });
                 }
             }).catch(function (err) {
