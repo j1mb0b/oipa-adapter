@@ -153,9 +153,10 @@ $(document).ready(function () {
          */
 
         let countryParam = window.location.href.match(/country=([^&]*)/);
-        console.log(countryParam);
+        console.log(window);
+        console.log(document);
         let countryName = $("#countryName").val();
-        let countryCode = countryParam[0] ? countryParam[0] : $("#countryCode").val();
+        let countryCode = countryParam ? countryParam : $("#countryCode").val();
         let projectType = $("#projectType").val();
         let map;
 
