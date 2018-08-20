@@ -257,13 +257,6 @@ $(document).ready(function () {
                             this.setStyle({
                                 fillColor: "#333"
                             });
-
-                            L.popup({
-                                closeButton: false,
-                                offset: new L.Point(0, -10)
-                            }).setLatLng(e.latlng)
-                                .setContent(countryData.country)
-                                .openOn(map);
                         })
                     }(countryData),multiPolygon);
 
