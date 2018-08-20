@@ -168,7 +168,7 @@ $(document).ready(function () {
                 zoom: 2,
                 layers: [mapBox]
             });
-        } else if (countryName && countryCode) {
+        } else if (countryCode) {
 
             if (countryBounds[countryCode][2] != null) {
                 zoomFactor = countryBounds[countryCode][2];
@@ -180,19 +180,6 @@ $(document).ready(function () {
                 zoom: zoomFactor,
                 layers: [mapBox]
             });
-        } else if (countryCode) {
-            let bounds = countryBounds[countryCode];
-            let boundary = new L.LatLngBounds(
-                new L.LatLng(bounds.southwest.lat, bounds.southwest.lng),
-                new L.LatLng(bounds.northeast.lat, bounds.northeast.lng)
-            );
-
-            map = new L.Map('countryMap',
-                {
-                    layers: [mapBox]
-                });
-            map.fitBounds(boundary);
-            map.panInsideBounds(boundary);
         } else {
             $('#countryMap').hide();
             $('#countryMapDisclaimer').hide();
