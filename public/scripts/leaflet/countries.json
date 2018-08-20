@@ -10,14 +10,12 @@
     "id": "ML",
     "budget": [
       {
-        "2020-01-01": [
-          178000
-        ]
+        "year": "2020-01-01",
+        "value": 178000
       },
       {
-        "2019-01-01": [
-          178000
-        ]
+        "year": "2019-01-01",
+        "value": 178000
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ml.svg"
@@ -27,34 +25,31 @@
     "id": "NE",
     "budget": [
       {
-        "2020-01-01": [
-          407610
-        ]
+        "year": "2020-01-01",
+        "value": 286930
       },
       {
-        "2019-01-01": [
-          529410
-        ]
+        "year": "2019-01-01",
+        "value": 557020
       },
       {
-        "2018-01-01": [
-          484940
-        ]
+        "year": "2018-01-01",
+        "value": 343440
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ne.svg"
-  },
-  "BF": {
-    "country": "Burkina Faso",
-    "id": "BF",
-    "budget": [],
-    "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/bf.svg"
   },
   "ZA": {
     "country": "South Africa",
     "id": "ZA",
     "budget": [],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/za.svg"
+  },
+  "BF": {
+    "country": "Burkina Faso",
+    "id": "BF",
+    "budget": [],
+    "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/bf.svg"
   },
   "GN": {
     "country": "Guinea",
@@ -73,14 +68,12 @@
     "id": "VN",
     "budget": [
       {
-        "2019-01-01": [
-          508730
-        ]
+        "year": "2019-01-01",
+        "value": 508730
       },
       {
-        "2018-01-01": [
-          1000000
-        ]
+        "year": "2018-01-01",
+        "value": 1000000
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/vn.svg"
@@ -90,9 +83,8 @@
     "id": "RW",
     "budget": [
       {
-        "2018-01-01": [
-          204427
-        ]
+        "year": "2018-01-01",
+        "value": 204427
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/rw.svg"
@@ -102,19 +94,16 @@
     "id": "UG",
     "budget": [
       {
-        "2020-01-01": [
-          236000
-        ]
+        "year": "2020-01-01",
+        "value": 236000
       },
       {
-        "2019-01-01": [
-          5157450
-        ]
+        "year": "2019-01-01",
+        "value": 5157450
       },
       {
-        "2018-01-01": [
-          390848
-        ]
+        "year": "2018-01-01",
+        "value": 390848
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ug.svg"
@@ -130,9 +119,8 @@
     "id": "TZ",
     "budget": [
       {
-        "2018-01-01": [
-          57056
-        ]
+        "year": "2018-01-01",
+        "value": 57056
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/tz.svg"
@@ -166,14 +154,12 @@
     "id": "PS",
     "budget": [
       {
-        "2019-01-01": [
-          244000
-        ]
+        "year": "2019-01-01",
+        "value": 244000
       },
       {
-        "2018-01-01": [
-          18500
-        ]
+        "year": "2018-01-01",
+        "value": 18500
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/ps.svg"
@@ -189,9 +175,8 @@
     "id": "PE",
     "budget": [
       {
-        "2018-01-01": [
-          1592317
-        ]
+        "year": "2018-01-01",
+        "value": 1592317
       }
     ],
     "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/pe.svg"
