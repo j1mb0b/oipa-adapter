@@ -22,10 +22,11 @@ app.post('/query', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
-    if (!req.headers['x-url'])
+    let url = req.headers['x-url'];
+    if (!url)
         return res.status(403).end('Please set "url" header in your request!');
 
-    return cacheProvider.instance().get(req.headers['x-url'], function(err, value) {
+    return cacheProvider.instance().get(url, function(err, value) {
         if (err) console.error(err);
         if (value === undefined) {
             console.log('Creating new cache entry and fetching results...');
