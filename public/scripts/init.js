@@ -1,14 +1,13 @@
 // Initialize leaflet.js
-const tools = require('./../../tools.js');
 const L = require('leaflet');
 const MC = require('leaflet.markercluster');
-const jsdom = require('jsdom');
+let jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 const {window} = new JSDOM();
 const {document} = (new JSDOM('')).window;
 global.document = document;
 
-const $ = jQuery = require('jquery');
+let $ = jQuery = require('jquery');
 
 $(document).ready(function () {
     (function (global, undefined) {
@@ -121,7 +120,23 @@ $(document).ready(function () {
             return;
         }
 
-        var iati = tools.query('http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations&page_size=1000');
+        var iati;
+        var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations&page_size=1000";
+        $.ajaxSetup({
+            headers : {
+                'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ',
+                'url' : url
+            }
+        });
+        $.getJSON("/query", function (data) {
+            iati = data;
+        }).done(function () {
+            //$('.modal_map_markers').hide();
+        }).fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+            console.log("Request Failed: " + err);
+        });
+
         //get country locations from OIPA API
         // creates the country polygons
         $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
