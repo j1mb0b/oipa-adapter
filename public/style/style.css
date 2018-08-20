@@ -4,7 +4,7 @@
     height: 500px;
 }
 .marker.cluster {
-    background-image: url(/images/mapmarker_s.png);
+    background-image: url(images/mapmarker_s.png);
     font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
     height: 30px;
     width: 15px;
