@@ -82,7 +82,7 @@ $(document).ready(function () {
 
             map = new L.Map('countryMap', {
                 center: new L.LatLng(7.79, 21.28),
-                zoom: 1,
+                zoom: 2,
                 layers: [mapBox]
             });
         } else if (countryName && countryCode) {
