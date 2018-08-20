@@ -152,8 +152,8 @@ $(document).ready(function () {
          * @type {jQuery}
          */
 
-        let params = (new URL(window.location)).searchParams;
-        let countryParam = params.get("country");
+        let matches = window.location.href.match(/country=([^&]*)/);
+        let countryParam = matches[1];
         console.log(countryParam);
         let countryName = $("#countryName").val();
         // Check webserver.js to see QP definition.
