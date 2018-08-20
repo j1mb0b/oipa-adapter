@@ -51,7 +51,6 @@ module.exports = {
         });
     },
     getLocations: function (urls) {
-        let items = [];
         let countries = [];
         return Promise.map(urls, function(item) {
             return request(module.exports.getOptions(item)).then(response => {
@@ -60,7 +59,7 @@ module.exports = {
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
                         if (countries.indexOf(country.country.url) === -1)
-                            countries[country.country.code] = {
+                            return countries[country.country.code] = {
                                 "country": country.country.name,
                                 "id": country.country.code,
                                 "projects": 10,
@@ -69,17 +68,6 @@ module.exports = {
                             };
                     });
                 }
-
-                let locations = [];
-                response.locations.map(function (loc) {
-                    if (loc.point.pos !== null && Object.keys(loc.point.pos).length > 0) {
-                        locations.push({
-                            "latitude": loc.point.pos.latitude,
-                            "longitude": loc.point.pos.longitude
-                        });
-                    }
-                });
-                return locations;
             }).catch(function (err) {
                 if(err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
@@ -90,11 +78,7 @@ module.exports = {
                 }
             });
         }, { concurrency: 10}).then(function(data) {
-            items.push({
-                countries,
-            });
-
-            return items;
+            return data;
         });
     },
     getPolygon: function (items) {
