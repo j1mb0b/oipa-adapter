@@ -62,8 +62,6 @@ module.exports = {
                             countries[country.country.code] = {
                                 "country": country.country.name,
                                 "id": country.country.code,
-                                "projects": 10,
-                                "budget": 4234742.0,
                                 "flag": "/images/flags/ba.png"
                             };
                             return countries;
