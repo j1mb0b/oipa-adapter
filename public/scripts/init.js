@@ -124,7 +124,7 @@ $(document).ready(function () {
         var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations&page_size=1000";
         $.ajax({
             type: 'POST',
-            url: url,
+            url: "/query",
             headers : {
                 'Content-Type':'application/json',
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ',
