@@ -122,16 +122,15 @@ $(document).ready(function () {
 
         var iati;
         var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations&page_size=1000";
-        $.ajaxSetup({
+        $.ajax({
+            type: 'POST',
+            url: url,
             headers : {
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ',
                 'x-url' : url
             }
-        });
-        $.getJSON("/query", function (data) {
+        }).done(function(data) {
             iati = data;
-        }).done(function () {
-            //$('.modal_map_markers').hide();
         }).fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
             console.log("Request Failed: " + err);
