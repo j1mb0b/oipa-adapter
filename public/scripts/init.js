@@ -166,7 +166,6 @@ $(document).ready(function () {
         });
 
         if (projectType == "global") {
-
             map = new L.Map('countryMap', {
                 center: new L.LatLng(7.79, 21.28),
                 zoom: 2,
@@ -202,11 +201,12 @@ $(document).ready(function () {
             $('#countryMapDisclaimer').hide();
         }
 
-        // create the geopoints if any are defined
+        // Create the geopoints if any are defined
         if (!map) {
             return;
         }
 
+        // Get locations from OIPA API.
         let iati;
         let url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
@@ -214,13 +214,13 @@ $(document).ready(function () {
             url: "/query",
             headers: {
                 'Content-Type': 'application/json',
-                'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ',
+                'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
                 'x-url': url
             }
         }).done(function (data) {
             iati = data;
-            //get country locations from OIPA API
-            // creates the country polygons
+            // Get country locations from OIPA
+            // Creates the country polygons
             $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
                 for (let countryDataIndex in countriesData) {
                     let countryData = countriesData[countryDataIndex];
@@ -239,23 +239,27 @@ $(document).ready(function () {
                         multiVertices[multiVertices.length] = vertices;
                     }
                     let multiPolygon = L.polygon(multiVertices, {
-                        stroke: true, /* draws the border when true */
-                        color: 'red', /* border color */
-                        weight: 1, /* stroke width in pixels */
+                        stroke: true,
+                        color: 'red',
+                        weight: 1,
                         fill: true,
-                        fillColor: '#204B63',//"#204B63",
+                        fillColor: '#204B63',
                         fillOpacity: 0.4
                     });
 
                     multiPolygon.addTo(map);
-                    /* paint the country red on mouseover */
-                    /* polygon events: click (popup), mouseover, mouseout */
-                    multiPolygon.bindPopup(getPopupHTML(countryData), { minWidth: 200 }); // this option seams to doesn't work
-                    /* paint the country red on mouseover */
+                    multiPolygon.bindPopup(getPopupHTML(countryData), { minWidth: 200 });
                     multiPolygon.on("mouseover", function(countryData){
                         return(function(e){
                             this.setStyle({
                                 fillColor: "#333"
+                            });
+                        })
+                    }(countryData),multiPolygon);
+                    multiPolygon.on("mouseout", function(countryData){
+                        return(function(e){
+                            this.setStyle({
+                                fillColor: '#204B63'
                             });
                         })
                     }(countryData),multiPolygon);
@@ -281,7 +285,6 @@ $(document).ready(function () {
                     });
 
                     markers.on('clusterclick', function (a) {
-                        //alert("clusterclick" +  a.target._zoom + " "  + a.target._maxZoom);
                         let atMax = a.target._zoom == a.target._maxZoom
                         if (atMax) {
                             let clusterLocations = [];
@@ -298,22 +301,20 @@ $(document).ready(function () {
                     });
 
 
-                    //iterate through every activity
+                    // Iterate through every activity
                     iati.results.forEach(function (d) {
                         let iatiIdentifier = d.iati_identifier;
                         let dtUrl = siteName + "/" + iatiIdentifier;
                         let title = (d.title.narratives != null) ? d.title.narratives[0].text : "";
-                        //iterate over each location
+                        // Iterate over each location
                         d.locations.forEach(function (p) {
                             if (p.point.pos !== null) {
                                 try {
                                     let latlng = L.latLng(p.point.pos.latitude, p.point.pos.longitude);
                                     let marker = new L.circleMarker(latlng, markerOptions(iatiIdentifier, title));
                                     //create popup text
-                                    let locationName = "No narrative text at location level.";//p.name[0].narratives[0].text;
+                                    let locationName = (p.name != null) ? p.name[0].narratives[0].text : "No narrative text at location level.";
                                     marker.bindPopup("<a href='" + dtUrl + "'>" + title + " (" + iatiIdentifier + ")</a>" + "<br />" + locationName);
-                                    //if(tempBreaker == 0 && (p.administrative[0].code == countryCode || p.name[0].narratives[0].text)){
-                                    //if(tempBreaker == 0 && (p.name[0].narratives[0].text.includes(countryName) || p.description[0].narratives[0].text.includes(countryName))){
                                     if (isMarkerInsidePolygon(marker, multiPolygon)) {
                                         //add to the map layer
                                         markers.addLayer(marker);
@@ -322,7 +323,7 @@ $(document).ready(function () {
                                 catch (e) {
                                     console.log(e);
                                     console.log(iatiIdentifier);
-                                    console.log("variable doesn't exist");
+                                    console.log("Variable doesn't exist");
                                 }
                             }
                         });
