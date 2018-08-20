@@ -126,6 +126,7 @@ $(document).ready(function () {
             type: 'POST',
             url: url,
             headers : {
+                'Content-Type':'application/json',
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ',
                 'x-url' : url
             }
