@@ -22,8 +22,8 @@ app.post('/query', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
-    if (!req.body.id)
-        return res.status(403).end('Please set "id" in the body of your request!');
+    if (!req.headers['x-url'])
+        return res.status(403).end('Please set "url" header in your request!');
 
     return cacheProvider.instance().get(req.headers['url'], function(err, value) {
         if (err) console.error(err);

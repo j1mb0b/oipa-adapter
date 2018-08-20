@@ -125,7 +125,7 @@ $(document).ready(function () {
         $.ajaxSetup({
             headers : {
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ',
-                'url' : url
+                'x-url' : url
             }
         });
         $.getJSON("/query", function (data) {
