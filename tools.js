@@ -60,7 +60,13 @@ module.exports = {
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
                         if (countries.indexOf(country.country.url) === -1)
-                            countries.push(country.country.url);
+                            countries[country.country.code] = {
+                                "country": country.country.name,
+                                "id": country.country.code,
+                                "projects": 10,
+                                "budget": 4234742.0,
+                                "flag": "/images/flags/ba.png"
+                            };
                     });
                 }
 
@@ -85,8 +91,7 @@ module.exports = {
             });
         }, { concurrency: 10}).then(function(data) {
             items.push({
-                countries:countries,
-                locations:data
+                countries,
             });
 
             return items;
@@ -125,7 +130,7 @@ module.exports = {
     },
     main: function(endpoint) {
         return module.exports.getActivity(endpoint)
-            .then(module.exports.getLocations)
-            .then(module.exports.getPolygon);
+            .then(module.exports.getLocations);
+            //.then(module.exports.getPolygon);
     }
 };
