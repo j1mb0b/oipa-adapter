@@ -3,3 +3,15 @@
     width: 1000px;
     height: 500px;
 }
+.marker.cluster {
+    background-image: url(/images/mapmarker_s.png);
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    height: 30px;
+    width: 15px;
+    border: none;
+    text-align: center;
+    font-size: 0.6em;
+    line-height: 1.8em;
+    font-weight: bold;
+    color: #fff;
+}
