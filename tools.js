@@ -59,13 +59,13 @@ module.exports = {
                 if (response.recipient_countries.length > 0) {
                     response.recipient_countries.map(function (country) {
                         if (countries.indexOf(country.country.url) === -1)
-                            return countries[country.country.code] = {
+                            countries.push(country.country.code = {
                                 "country": country.country.name,
                                 "id": country.country.code,
                                 "projects": 10,
                                 "budget": 4234742.0,
                                 "flag": "/images/flags/ba.png"
-                            };
+                            });
                     });
                 }
             }).catch(function (err) {
@@ -78,7 +78,7 @@ module.exports = {
                 }
             });
         }, { concurrency: 10}).then(function(data) {
-            return data;
+            return countries;
         });
     },
     getPolygon: function (items) {
