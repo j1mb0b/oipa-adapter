@@ -152,13 +152,9 @@ $(document).ready(function () {
          * @type {jQuery}
          */
 
-        // Check URL for Q param.
-        const url_parts = url.parse(request.url, true);
-        const country = url_parts.query.country;
-        console.log(country);
-
         let countryName = $("#countryName").val();
-        let countryCode = country ? country : $("#countryCode").val();
+        // Check webserver.js to see QP definition.
+        let countryCode = countryParam ? countryParam : $("#countryCode").val();
         let projectType = $("#projectType").val();
         let map;
 
