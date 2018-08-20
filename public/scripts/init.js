@@ -121,7 +121,7 @@ $(document).ready(function () {
         }
 
         var iati;
-        var url = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
+        var url = api + "/api/activities/?format=json&reporting_organisation=" + reportingOrgs + "&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
             type: 'POST',
             url: "/query",
@@ -209,7 +209,7 @@ $(document).ready(function () {
                     //iterate through every activity
                     iati.results.forEach(function (d) {
                         var iatiIdentifier = d.iati_identifier;
-                        var dtUrl = "https://devtracker.dfid.gov.uk/projects/" + iatiIdentifier;
+                        var dtUrl = siteName + "/" + iatiIdentifier;
                         var title = (d.title.narratives != null) ? d.title.narratives[0].text : "";
                         //iterate over each location
                         d.locations.forEach(function (p) {
