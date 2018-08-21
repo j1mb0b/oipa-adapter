@@ -128,7 +128,7 @@ $(document).ready(function () {
                 });
             }
 
-            output += "<div class='row'>" +
+            output += "<div class='row'>";
             if (!countryCode) {
                 output += "<div class='btn'><a href='?country=" + countryData.id + "'>Filter by this country</a></div>";
             }
