@@ -234,7 +234,7 @@ $(document).ready(function () {
                     });
 
                     multiPolygon.addTo(map);
-                    multiPolygon.bindPopup(getPopupHTML(countryData), { minWidth: 200 });
+                    multiPolygon.bindPopup(getPopupHTML(countryData, countryCode), { minWidth: 200 });
                     multiPolygon.on("mouseover", function(countryData){
                         return(function(e){
                             this.setStyle({
