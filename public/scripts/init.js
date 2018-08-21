@@ -231,10 +231,10 @@ $(document).ready(function () {
                     }
                     let multiPolygon = L.polygon(multiVertices, {
                         stroke: true,
-                        color: 'red',
+                        color: 'white',
                         weight: 1,
                         fill: true,
-                        fillColor: '#80CFE3',
+                        fillColor: '#3BBCE0',
                         fillOpacity: 0.4
                     });
 
@@ -250,7 +250,7 @@ $(document).ready(function () {
                     multiPolygon.on("mouseout", function(countryData){
                         return(function(e){
                             this.setStyle({
-                                fillColor: '#80CFE3'
+                                fillColor: '#3BBCE0'
                             });
                         })
                     }(countryData),multiPolygon);
