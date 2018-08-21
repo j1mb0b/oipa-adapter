@@ -47,8 +47,8 @@ $(document).ready(function () {
         function markerOptions(id, title) {
             return geojsonMarkerOptionsStuff = {
                 radius: 6,
-                fillColor: "#a04567",
-                color: "#000",
+                fillColor: "#C2585C",
+                color: "#fff",
                 weight: 1,
                 opacity: 1,
                 fillOpacity: 0.8,
