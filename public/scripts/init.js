@@ -106,7 +106,7 @@ $(document).ready(function () {
          * @param countryData
          * @returns {string}
          */
-        function getPopupHTML(countryData){
+        function getPopupHTML(countryData, countryCode){
             let date = new Date();
             let currentFY = "";
             if (date.getMonth() < 3)
@@ -114,34 +114,29 @@ $(document).ready(function () {
             else
                 currentFY = "FY" + date.getFullYear() + "/" + (date.getFullYear() + 1);
             let output = "<div class='popup' style='min-width:350px;'>" +
-                "   <h1><img class='flag' alt='Country Flag' src='" + countryData.flag + "' /> " + countryData.country + "</h1>";
+                "<h1><img class='flag' alt='Country Flag' src='" + countryData.flag + "' /> " + countryData.country + "</h1>";
 
             if (countryData.budget !== null) {
                 countryData.budget.forEach(function (d) {
                     output +=
-                        "   <div class='row'>" +
-                        "       <div class='six columns'>" +
-                        "           <div class='stat'>" +
-                        "               <h3>Country budget FY " + d.year +"</h3>" +
-                        "           </div>" +
-                        "       </div>" +
-                        "   </div>";
-                    output +=
-                        "   <div class='row'>" +
-                        "       <div class='six columns'>" +
-                        "           <div class='stat'>" +
-                        "               <p>&euro;" + addCommas(d.value) + "</p>" +
-                        "           </div>" +
-                        "       </div>" +
-                        "   </div>";
+                        "<div class='col'>" +
+                        "<h3>Country budget FY " + d.year +"</h3>" +
+                        "</div>" +
+                        "<div class='val'>" +
+                        "<p>&euro;" + addCommas(d.value) + "</p>" +
+                        "</div>";
                 });
             }
 
-            output += "   <div class='row'>" +
-                "       <div class='six columns'> " +
-                "          <div class='stat'><a href='?country=" + countryData.id + "'>Filter by this country</a></div>"  +
-                "        </div>"  +
-                "   </div>" +
+            output += "<div class='row'>" +
+            if (!countryCode) {
+                output += "<div class='btn'><a href='?country=" + countryData.id + "'>Filter by this country</a></div>";
+            }
+            else {
+                output += "<div class='btn'><a href='/'>Back to all countries</a></div>";
+            }
+            output +=
+                "</div>" +
                 "</div>";
 
             return output;
