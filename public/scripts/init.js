@@ -205,6 +205,7 @@ $(document).ready(function () {
             iati = data;
             // Get country locations from OIPA
             // Creates the country polygons
+            let select = document.getElementById("countryFilter");
             $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
                 if (countryCode) {
                     let cdata = {};
@@ -233,7 +234,7 @@ $(document).ready(function () {
                         color: 'red',
                         weight: 1,
                         fill: true,
-                        fillColor: '#204B63',
+                        fillColor: '#80CFE3',
                         fillOpacity: 0.4
                     });
 
@@ -242,14 +243,14 @@ $(document).ready(function () {
                     multiPolygon.on("mouseover", function(countryData){
                         return(function(e){
                             this.setStyle({
-                                fillColor: "#333"
+                                fillColor: "#0F9EC9"
                             });
                         })
                     }(countryData),multiPolygon);
                     multiPolygon.on("mouseout", function(countryData){
                         return(function(e){
                             this.setStyle({
-                                fillColor: '#204B63'
+                                fillColor: '#80CFE3'
                             });
                         })
                     }(countryData),multiPolygon);
