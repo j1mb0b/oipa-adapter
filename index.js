@@ -44,7 +44,7 @@ app.get('/query', function (req, res) {
 
 
 // 3. Retrieve country data slices for activites.
-app.post('/getCountryData', function (req, res) {
+app.get('/getCountryData', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
