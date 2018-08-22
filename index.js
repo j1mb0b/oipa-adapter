@@ -18,7 +18,7 @@ app.get('/datasets', function (req, res) {
 });
 
 // 2. Generic query handler to request via OIPA, with cache engine.
-app.post('/query', function (req, res) {
+app.get('/query', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
