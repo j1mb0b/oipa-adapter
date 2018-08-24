@@ -8,6 +8,9 @@ const request = require('request');
 const tools = require('./tools.js');
 // Load cache provider.
 const cacheProvider = require('./cache-provider');
+// Cumul.io
+const Cumulio = require('./cumulio');
+
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {
@@ -66,7 +69,28 @@ app.get('/getCountryData', function (req, res) {
     });
 });
 
-// 2. Retrieve data slices
+// 4. Cumul.io embed dashboard.
+app.get('/dashboard', function (req, res) {
+    let dashboardId = '1d5db81a-3f88-4c17-bb4c-d796b2093dac';
+    // Connect to Cumul.io API
+    let client = new Cumulio({
+        api_key: '8408de9a-5bfa-458e-ae93-b9232378e6b6',
+        api_token: '4HSDajppVifHvvL7iBMXN3RNcWTZBhjbVzur4DPY7AG9EGnX7WyAL8ugAzoPP7pYRq88er4sRY9vAi29VlHbjMkY76C8KvqklOkyvL8jgF53R8KkPfJU65AvjVZxqBan5AjnD6TNuaaj9cBBhe6arV'
+    });
+    let promise = client.create('authorization', {
+        type: 'temporary',
+        securables: [
+            'c02d8fb0-3814-4d94-9800-a3a46d447662',
+            '0112d3cd-7002-4965-8a2f-35ef2326e5a2'
+        ]
+    });
+
+    promise.then(function(result){
+        res.render(path.join(__dirname + '/public/dashboard.html'),{authorization:result, dashboardId:dashboardId});
+    })
+});
+
+// 5. Retrieve data slices
 app.post('/query', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
