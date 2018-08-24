@@ -4,6 +4,7 @@ const domain = 'http://18.221.72.54:8000';
 const app = require('./webserver')();
 const datasets = require('./datasets')();
 const request = require('request');
+let path = require('path');
 // Load tools API.
 const tools = require('./tools.js');
 // Load cache provider.
