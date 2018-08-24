@@ -69,7 +69,7 @@ app.get('/getCountryData', function (req, res) {
 app.post('/query', function (req, res) {
     let endpoint = '/api/transactions/aggregations/';
     let groupOrderBy = 'transaction_date_year';
-    let country_code = (typeof req.body.country_code !== "undefined") ? req.body.country_code : "MA";
+    let country_code = "MA";
     // Get the key used for logic, filtering and getting a property from the response.
     let aggr_type = req.body.id.match(/country-(.*)/)[1];
     // Handle "country-value" since it uses a different endpoint, group, and order by.
