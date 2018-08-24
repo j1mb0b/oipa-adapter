@@ -4,6 +4,7 @@ const domain = 'http://18.221.72.54:8000';
 const app = require('./webserver')();
 const datasets = require('./datasets')();
 const request = require('request');
+let express = require('express');
 let path = require('path');
 // Load tools API.
 const tools = require('./tools.js');
@@ -87,7 +88,7 @@ app.get('/dashboard', function (req, res) {
     });
 
     promise.then(function(result){
-        res.render(path.join(__dirname + '/public/dashboard.html'),{authorization:result, dashboardId:dashboardId});
+        res.render(express.static(path.join(__dirname + '/public/dashboard.html'),{authorization:result, dashboardId:dashboardId}));
     })
 });
 
