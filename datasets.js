@@ -4,16 +4,12 @@ module.exports = function () {
     return [
         {
             id: 'activities',
-            name: {en: 'Map country transactions data'},
-            description: {en: 'Country map placement for transaction data'},
+            name: {en: 'Activities'},
+            description: {en: 'Activities data'},
             columns: [
                 {id: 'name', name: {en: 'Country name'}, type: 'hierarchy'},
                 {id: 'activity_count', name: {en: 'Total projects'}, type: 'numeric'},
                 {id: 'disbursement', name: {en: 'Total disbursement'}, type: 'numeric'},
-                {id: 'latitude', name: {en: 'Latitude'}, type: 'numeric'},
-                {id: 'longitude', name: {en: 'Longitude'}, type: 'numeric'},
-                {id: 'region', name: {en: 'Region'}, type: 'hierarchy'},
-                {id: 'polygon', name: {en: 'Polygon'}, type: 'hierarchy'},
             ]
         },
         {

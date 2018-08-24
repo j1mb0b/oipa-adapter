@@ -190,7 +190,7 @@ $(document).ready(function () {
         let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
             type: 'GET',
-            url: "/query",
+            url: "/oipa",
             headers: {
                 'Content-Type': 'application/json',
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
