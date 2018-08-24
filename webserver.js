@@ -32,11 +32,15 @@ module.exports = function () {
         res.status(204);
     });
 
-    app.use(express.static(__dirname + '/public/'));
-    app.use('/scripts/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
-    app.get('/', function(req, res) {
-        res.sendFile(path.join(__dirname + '/public/index.html'));
-    });
+    //app.use(express.static(__dirname + '/public/'));
+    //app.use('/scripts/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
+    //app.get('/', function(req, res) {
+        //res.sendFile(path.join(__dirname + '/public/index.html'));
+    //});
+
+    app.engine('.html', require('ejs').__express);
+    app.set('public', __dirname + '/public');
+    app.set('view engine', 'html');
 
     let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(process.env.PORT, function () {
