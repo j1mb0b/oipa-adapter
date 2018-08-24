@@ -118,10 +118,11 @@ app.post('/query', function (req, res) {
         }
     });
 
+    console.log(filters);
+
     // Default variables.
     let default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     let endpoint = "";
-    let query = filters;
     switch (req.body.id) {
         case 'country-disbursement':
         case 'country-commitment':
@@ -138,8 +139,8 @@ app.post('/query', function (req, res) {
                 groupOrderBy = 'budget_period_end_year';
             }
             // Build query string.
-            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
-            let uri = domain + endpoint + query;
+            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
+            let uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
                 gzip: true,
