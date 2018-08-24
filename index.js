@@ -9,7 +9,7 @@ const tools = require('./tools.js');
 // Load cache provider.
 const cacheProvider = require('./cache-provider');
 // Cumul.io
-const Cumulio = require('./cumulio');
+const Cumulio = require('cumulio');
 
 
 // 1. List datasets
