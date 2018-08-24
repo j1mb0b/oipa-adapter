@@ -72,7 +72,8 @@ app.get('/getCountryData', function (req, res) {
 
 // 4. Cumul.io embed dashboard.
 app.get('/dashboard', function (req, res) {
-    res.headers['Content-Type'] = 'text/html';
+    console.log(req);
+    console.log(res);
 
     let dashboardId = '1d5db81a-3f88-4c17-bb4c-d796b2093dac';
     // Connect to Cumul.io API
