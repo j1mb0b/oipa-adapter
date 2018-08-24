@@ -86,7 +86,7 @@ app.get('/dashboard', function (req, res) {
         ]
     });
 
-    let qp = req.query.year;
+    let qp = "&year=" + req.query.year;
     let cid = 'dashboard_qp';
     cacheProvider.instance().get(cid, function (err, value) {
         if (err) console.error(err);
