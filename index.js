@@ -110,6 +110,7 @@ app.post('/query', function (req, res) {
         return res.status(403).end('Please set "id" in the body of your request!');
 
     // Get filters.
+    let cid = 'dashboard_qp';
     let filters = cacheProvider.instance().get(cid, function (err, value) {
         if (err) console.error(err);
         if (value !== undefined) {
