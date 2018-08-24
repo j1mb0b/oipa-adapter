@@ -48,6 +48,9 @@ app.get('/getCountryData', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
+    if (!req.body.id)
+        return res.status(403).end('Please set "id" in the body of your request!');
+
     // Default variables.
     let url = domain + '/api/activities/?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     return cacheProvider.instance().get(url, function (err, value) {
