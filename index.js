@@ -87,14 +87,10 @@ app.get('/dashboard', function (req, res) {
     });
 
     let qp = "&transaction_date_year=" + req.query.year;
-    console.log(req.query);
     let cid = 'dashboard_qp';
     cacheProvider.instance().get(cid, function (err, value) {
         if (err) console.error(err);
-        if (value === undefined) {
-            console.log('Creating new dashboard cache entry and fetching results...');
-            tools.setCache(cid, qp);
-        }
+        tools.setCache(cid, qp);
     });
 
     promise.then(function(result){
@@ -115,7 +111,6 @@ app.post('/query', function (req, res) {
     let filters = cacheProvider.instance().get(cid, function (err, value) {
         if (err) console.error(err);
         if (value !== undefined) {
-            console.log('Results fetched from cache entry using key: ' + cid);
             return value;
         }
         else {
