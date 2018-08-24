@@ -87,6 +87,7 @@ app.get('/dashboard', function (req, res) {
     });
 
     let qp = "&transaction_date_year=" + req.query.year;
+    console.log(req.query);
     let cid = 'dashboard_qp';
     cacheProvider.instance().get(cid, function (err, value) {
         if (err) console.error(err);
