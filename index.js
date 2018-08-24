@@ -75,7 +75,7 @@ app.get('/dashboard', function (req, res) {
     console.log(req);
     console.log(res);
 
-    let dashboardId = '1d5db81a-3f88-4c17-bb4c-d796b2093dac';
+    let dashboardId = 'c02d8fb0-3814-4d94-9800-a3a46d447662';
     // Connect to Cumul.io API
     let client = new Cumulio({
         api_key: '8408de9a-5bfa-458e-ae93-b9232378e6b6',
