@@ -72,9 +72,6 @@ app.get('/getCountryData', function (req, res) {
 
 // 4. Cumul.io embed dashboard.
 app.get('/dashboard', function (req, res) {
-    console.log(req);
-    console.log(res);
-
     let dashboardId = 'c02d8fb0-3814-4d94-9800-a3a46d447662';
     // Connect to Cumul.io API
     let client = new Cumulio({
@@ -84,14 +81,24 @@ app.get('/dashboard', function (req, res) {
     let promise = client.create('authorization', {
         type: 'temporary',
         securables: [
-            'c02d8fb0-3814-4d94-9800-a3a46d447662',
+            dashboardId,
             '0112d3cd-7002-4965-8a2f-35ef2326e5a2'
         ]
     });
 
+    let qp = req.query.year;
+    let cid = 'dashboard_qp';
+    cacheProvider.instance().get(cid, function (err, value) {
+        if (err) console.error(err);
+        if (value === undefined) {
+            console.log('Creating new dashboard cache entry and fetching results...');
+            tools.setCache(cid, qp);
+        }
+    });
+
     promise.then(function(result){
         res.render(path.join(__dirname + '/public/dashboard.html'),{authorization:result, dashboardId:dashboardId});
-    })
+    });
 });
 
 // 5. Retrieve data slices
@@ -102,10 +109,22 @@ app.post('/query', function (req, res) {
     if (!req.body.id)
         return res.status(403).end('Please set "id" in the body of your request!');
 
+    // Get filters.
+    let filters = cacheProvider.instance().get(cid, function (err, value) {
+        if (err) console.error(err);
+        if (value !== undefined) {
+            console.log('Results fetched from cache entry using key: ' + cid);
+            return value;
+        }
+        else {
+            return false;
+        }
+    });
+
     // Default variables.
     let default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
     let endpoint = "";
-    let query = "";
+    let query = filters;
     switch (req.body.id) {
         case 'country-disbursement':
         case 'country-commitment':
