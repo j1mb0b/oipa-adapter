@@ -25,11 +25,8 @@
     });
     console.log(Cumulio);
     document.addEventListener('DOMContentLoaded', function() {
-        let cumulIo = document.getElementsByTagName("iframe");
+        let cumulIo = document.getElementsByTagName("iframe").contentWindow.document;
         console.log(cumulIo);
-        cumulIo.addEventListener("load", function() {
-            console.log(this.contentWindow.document);
-        });
     });
 </script>
 
