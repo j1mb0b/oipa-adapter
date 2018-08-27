@@ -13,20 +13,24 @@
 
 <div id="myDashboard"></div>
 <script type="text/javascript">
-    (function(d, a, s, h, b, oa, rd) {
-        if (!d[b]) {oa = a.createElement(s), oa.async = 1; oa.src = h; rd = a.getElementsByTagName(s)[0]; rd.parentNode.insertBefore(oa, rd);}
-        d[b] = d[b] || {}; d[b].addDashboard = d[b].addDashboard || function(v) { (d[b].list = d[b].list || []).push(v) };
-    })(window, document, 'script', 'https://cdn-a.cumul.io/js/embed.min.js', 'Cumulio');
+    async function main(){
+        await (function(d, a, s, h, b, oa, rd) {
+            if (!d[b]) {oa = a.createElement(s), oa.async = 1; oa.src = h; rd = a.getElementsByTagName(s)[0]; rd.parentNode.insertBefore(oa, rd);}
+            d[b] = d[b] || {}; d[b].addDashboard = d[b].addDashboard || function(v) { (d[b].list = d[b].list || []).push(v) };
+        })(window, document, 'script', 'https://cdn-a.cumul.io/js/embed.min.js', 'Cumulio');
+
+        let cumulIo = document.getElementsByTagName("iframe");
+        cumulIo.addEventListener("load", function() {
+            console.log(this.contentWindow.document);
+        });
+    }
     Cumulio.addDashboard({
         dashboardId: "<%= dashboardId %>",
         container: '#myDashboard',
         key: "<%= authorization.id %>",
         token: "<%= authorization.token %>"
     });
-    let cumulIo = document.getElementsByTagName("iframe");
-    cumulIo.addEventListener("load", function() {
-        console.log(this.contentWindow.document);
-    });
+    main();
 </script>
 
 </body>
