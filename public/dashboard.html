@@ -23,8 +23,9 @@
         key: "<%= authorization.id %>",
         token: "<%= authorization.token %>"
     });
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log(document.getElementById(window.frames.Cumulio.dashboardsRendered));
+    let cumulIo = document.getElementsByTagName("iframe");
+    cumulIo.addEventListener("load", function() {
+        console.log(this.contentWindow.document);
     });
 </script>
 
