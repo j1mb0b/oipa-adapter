@@ -100,29 +100,18 @@ app.get('/dashboard', function (req, res) {
 
 // 5. Retrieve data slices
 app.post('/query', function (req, res) {
+    console.log(req);
+
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
     if (!req.body.id)
         return res.status(403).end('Please set "id" in the body of your request!');
 
-    // Get filters.
-    let cid = 'dashboard_qp';
-    let filters = cacheProvider.instance().get(cid, function (err, value) {
-        if (err) console.error(err);
-        if (value !== undefined) {
-            return value;
-        }
-        else {
-            return false;
-        }
-    });
-
-    console.log(filters);
-
     // Default variables.
-    let default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10';
-    let endpoint = "";
+    let default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10',
+        endpoint = "",
+        filters = "";
     switch (req.body.id) {
         case 'country-disbursement':
         case 'country-commitment':
