@@ -23,8 +23,9 @@
         key: "<%= authorization.id %>",
         token: "<%= authorization.token %>"
     });
-
-    console.log(document.getElementById(window.frames.Cumulio.dashboardsRendered[0].iframeId).contentWindow.document);
+    (function(d) {
+        console.log(d.getElementById(window.frames.Cumulio.dashboardsRendered[0].iframeId).contentWindow.document);
+    })();
 </script>
 
 </body>
