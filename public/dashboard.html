@@ -24,10 +24,10 @@
         token: "<%= authorization.token %>"
     });
     console.log(Cumulio);
-    document.addEventListener('DOMContentLoaded', function() {
-        let cumulIo = document.getElementsByTagName("iframe")[0].document;
-        console.log(cumulIo);
-    });
+    Cumulio.dashboardsRendered[0].iframe.onload = function(){
+        console.log(this);
+        alert("Iframe is now loaded.");
+    };
 </script>
 
 </body>
