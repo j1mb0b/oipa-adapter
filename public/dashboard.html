@@ -23,9 +23,9 @@
         key: "<%= authorization.id %>",
         token: "<%= authorization.token %>"
     });
-    (function(d) {
+    document.addEventListener('DOMContentLoaded', function() {
         console.log(d.getElementById(window.frames.Cumulio.dashboardsRendered[0].iframeId).contentWindow.document);
-    })(document);
+    });
 </script>
 
 </body>
