@@ -26,6 +26,7 @@
     console.log(Cumulio);
     document.addEventListener('DOMContentLoaded', function() {
         let cumulIo = document.getElementsByTagName("iframe");
+        console.log(cumulIo);
         cumulIo.addEventListener("load", function() {
             console.log(this.contentWindow.document);
         });
