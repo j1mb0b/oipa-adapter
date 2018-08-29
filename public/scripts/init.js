@@ -89,7 +89,7 @@ $(document).ready(function () {
          * @param nStr
          * @returns {*}
          */
-        function addCommas(nStr){
+        function addCommas(nStr) {
             nStr += '';
             x = nStr.split('.');
             x1 = x[0];
@@ -106,7 +106,7 @@ $(document).ready(function () {
          * @param countryData
          * @returns {string}
          */
-        function getPopupHTML(countryData, countryCode){
+        function getPopupHTML(countryData, countryCode) {
             let date = new Date();
             let currentFY = "";
             if (date.getMonth() < 3)
@@ -120,7 +120,7 @@ $(document).ready(function () {
                 countryData.budget.forEach(function (d) {
                     output +=
                         "<div class='col'>" +
-                        "<h3>Country budget FY " + d.year +"</h3>" +
+                        "<h3>Country budget FY " + d.year + "</h3>" +
                         "</div>" +
                         "<div class='val'>" +
                         "<p>&euro;" + addCommas(d.value) + "</p>" +
@@ -147,7 +147,7 @@ $(document).ready(function () {
          * @type {jQuery}
          */
 
-        // Define filters.
+            // Define filters.
         let countryName = $("#countryName").val(),
             countryCode = country ? country : $("#countryCode").val(),
             y = year ? "&transaction_date_year=" + year : "",
@@ -203,7 +203,18 @@ $(document).ready(function () {
             // Get country locations from OIPA
             // Creates the country polygons
             let select = document.getElementById("countryFilter");
-            $.getJSON("/getCountryData?query=true&" + query, function (countriesData) {
+
+            $.ajax({
+                type: 'GET',
+                url: "/getCountryData?query=true" + query,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
+                },
+                success: function(){
+                    $(".modal_map_markers").hide();
+                }
+            }).done(function (countriesData) {
                 if (countryCode) {
                     let cdata = {};
                     cdata[countryCode] = countriesData[countryCode];
@@ -236,21 +247,21 @@ $(document).ready(function () {
                     });
 
                     multiPolygon.addTo(map);
-                    multiPolygon.bindPopup(getPopupHTML(countryData, countryCode), { minWidth: 200 });
-                    multiPolygon.on("mouseover", function(countryData){
-                        return(function(e){
+                    multiPolygon.bindPopup(getPopupHTML(countryData, countryCode), {minWidth: 200});
+                    multiPolygon.on("mouseover", function (countryData) {
+                        return (function (e) {
                             this.setStyle({
                                 fillColor: "#0F9EC9"
                             });
                         })
-                    }(countryData),multiPolygon);
-                    multiPolygon.on("mouseout", function(countryData){
-                        return(function(e){
+                    }(countryData), multiPolygon);
+                    multiPolygon.on("mouseout", function (countryData) {
+                        return (function (e) {
                             this.setStyle({
                                 fillColor: '#3BBCE0'
                             });
                         })
-                    }(countryData),multiPolygon);
+                    }(countryData), multiPolygon);
 
                     $('.modal_map_markers').show();
                     //set up markerCluster

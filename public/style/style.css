@@ -19,3 +19,25 @@
     width: 28px;
     height: 15px;
 }
+
+.modal_map_markers {
+    /*display:    none;*/
+    position:   relative;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     auto;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 );
+}
+
+.modal_map_markers div {
+    background: url("images/loading.gif") no-repeat scroll 50% 50% transparent;
+    display: block;
+    font-size: 24px;
+    font-size: 2.5vw;
+    height: auto;
+    margin: 200px auto;
+    text-align: center;
+    width: auto;
+}
