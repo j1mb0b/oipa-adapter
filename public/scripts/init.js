@@ -133,7 +133,7 @@ $(document).ready(function () {
                 output += "<div class='btn'><a href='?country=" + countryData.id + "'>Filter by this country</a></div>";
             }
             else {
-                output += "<div class='btn'><a href='/map'>Back to all countries</a></div>";
+                output += "<div class='btn'><a href='/'>Back to all countries</a></div>";
             }
             output +=
                 "</div>" +
@@ -206,14 +206,10 @@ $(document).ready(function () {
             let select = document.getElementById("countryFilter");
 
             $.ajax({
-                type: 'POST',
-                url: "/getCountryData?query=true" + query,
+                type: 'GET',
+                url: "countries.json",
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
-                },
-                body: {
-                    urls: iati.results
                 }
             }).done(function (countriesData) {
                 $('.modal_map_markers').remove();

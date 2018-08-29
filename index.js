@@ -49,6 +49,9 @@ app.get('/oipa', function (req, res) {
 
 // 3. Retrieve country data slices for activites.
 app.get('/getCountryData', function (req, res) {
+    if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
+        return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
+
     let c = req.query.country ? "&recipient_country=" + req.query.country : "",
         s = req.query.sector ? "&req.query.sector=" + req.query.sector : "",
         y = req.query.year ? "&transaction_date_year=" + req.query.year : "",
