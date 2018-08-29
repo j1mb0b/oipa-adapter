@@ -210,11 +210,10 @@ $(document).ready(function () {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
-                },
-                success: function(){
-                    $(".modal_map_markers").hide();
                 }
             }).done(function (countriesData) {
+                $(".modal_map_markers").hide();
+
                 if (countryCode) {
                     let cdata = {};
                     cdata[countryCode] = countriesData[countryCode];
