@@ -10,7 +10,7 @@ global.document = document;
 
 let $ = jQuery = require('jquery');
 
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function(event){
     /**
      * The following method is created based on Ray casting algorithm
      * Source: https://github.com/substack/point-in-polygon
@@ -325,4 +325,4 @@ window.onload = function () {
         let err = textStatus + ", " + error;
         console.log("Request Failed: " + err);
     });
-};
+});
