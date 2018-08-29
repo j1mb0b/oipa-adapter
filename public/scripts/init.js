@@ -213,7 +213,7 @@ $(document).ready(function () {
                     'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
                 }
             }).done(function (countriesData) {
-                $('.modal_map_markers').hide();
+                $('.modal_map_markers').remove();
 
                 if (countryCode) {
                     let cdata = {};
