@@ -201,7 +201,7 @@ $(document).ready(function () {
             // Get country locations from OIPA
             // Creates the country polygons
             let select = document.getElementById("countryFilter");
-            $.getJSON("/scripts/leaflet/countries.json", function (countriesData) {
+            $.getJSON("/countries.json", function (countriesData) {
                 if (countryCode) {
                     let cdata = {};
                     cdata[countryCode] = countriesData[countryCode];
