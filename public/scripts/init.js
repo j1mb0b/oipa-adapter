@@ -188,8 +188,8 @@ $(document).ready(function () {
         // Get locations from OIPA API.
         let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500",
             // Build filters.
-            year = "&transaction_date_year=" + year,
-            sector = "&sector=" + sector,
+            year = year !== undefined ? "&transaction_date_year=" + year : "",
+            sector = sector !== undefined ? "&sector=" + sector : "",
             query = sector + year;
         $.ajax({
             type: 'GET',
