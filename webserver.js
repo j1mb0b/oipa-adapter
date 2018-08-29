@@ -39,8 +39,8 @@ module.exports = function () {
     //});
 
 
-    app.use('/scripts/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
     app.engine('.html', require('ejs').__express);
+    app.set('leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
     app.set('public', __dirname + '/public');
     app.set('view engine', 'html');
 
