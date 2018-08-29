@@ -150,7 +150,7 @@ $(document).ready(function () {
             // Define filters.
         let countryName = $("#countryName").val(),
             countryCode = country ? country : $("#countryCode").val(),
-            y = year ? "&transaction_date_year=" + year : "",
+            y = year ? "&year=" + year : "",
             s = sector ? "&sector=" + sector : "",
             query = s + y,
             projectType = $("#projectType").val(),
@@ -190,6 +190,7 @@ $(document).ready(function () {
         }
 
         // Get locations from OIPA API.
+        $('.modal_map_markers').show();
         let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
             type: 'GET',
@@ -212,7 +213,7 @@ $(document).ready(function () {
                     'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
                 }
             }).done(function (countriesData) {
-                $(".modal_map_markers").hide();
+                $('.modal_map_markers').hide();
 
                 if (countryCode) {
                     let cdata = {};

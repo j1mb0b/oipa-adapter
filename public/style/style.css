@@ -21,7 +21,7 @@
 }
 
 .modal_map_markers {
-    /*display:    none;*/
+    display:    none;
     position:   relative;
     z-index:    1000;
     top:        0;
