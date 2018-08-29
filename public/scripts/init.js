@@ -8,7 +8,9 @@ const {window} = new JSDOM();
 const {document} = (new JSDOM('')).window;
 global.document = document;
 
-let $ = jQuery = require('jquery');
+let $ = jQuery = require('jquery'),
+    year = "",
+    sector = "";
 
 $(document).ready(function () {
     (function (global) {
@@ -186,7 +188,6 @@ $(document).ready(function () {
         }
 
         // Get locations from OIPA API.
-        console.log(year);
         let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500",
             // Build filters.
             year = year ? "&transaction_date_year=" + year : "",
