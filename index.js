@@ -12,6 +12,7 @@ const cacheProvider = require('./cache-provider');
 // Cumul.io
 const Cumulio = require('cumulio');
 
+let express = require('express');
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {
