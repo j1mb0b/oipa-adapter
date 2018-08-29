@@ -203,7 +203,7 @@ $(document).ready(function () {
             // Get country locations from OIPA
             // Creates the country polygons
             let select = document.getElementById("countryFilter");
-            $.getJSON("/getCountryData", function (countriesData) {
+            $.getJSON("/getCountryData?query=true&" + query, function (countriesData) {
                 if (countryCode) {
                     let cdata = {};
                     cdata[countryCode] = countriesData[countryCode];
