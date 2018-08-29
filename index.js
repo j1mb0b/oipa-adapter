@@ -79,6 +79,7 @@ app.get('/map', function (req, res) {
             year:req.query.year
         };
     res.render(path.join(__dirname + '/public/map.html'), qp);
+    return next();
 });
 
 // 5. Retrieve data slices
