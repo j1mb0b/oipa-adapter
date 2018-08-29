@@ -196,6 +196,7 @@ $(document).ready(function () {
                 'x-url': endpoint
             }
         }).done(function (iati) {
+            console.log(iati);
             // Get country locations from OIPA
             // Creates the country polygons
             let select = document.getElementById("countryFilter");
