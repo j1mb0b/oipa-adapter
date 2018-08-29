@@ -74,7 +74,7 @@ app.get('/getCountryData', function (req, res) {
 app.get('/countryMap', function (req, res) {
     let qp = [req.query.country, req.query.sector, req.query.year];
     promise.then(function(result){
-        res.render(path.join(__dirname + '/public/dashboard.html'),{query_params:qp});
+        res.render(path.join(__dirname + '/public/index.html'),{query_params:qp});
     });
 });
 
