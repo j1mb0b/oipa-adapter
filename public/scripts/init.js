@@ -284,7 +284,6 @@ $(document).ready(function () {
                         }
                     });
 
-
                     // Iterate through every activity
                     iati.results.forEach(function (d) {
                         let iatiIdentifier = d.iati_identifier;
