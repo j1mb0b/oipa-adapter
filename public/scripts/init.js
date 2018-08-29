@@ -186,14 +186,18 @@ $(document).ready(function () {
         }
 
         // Get locations from OIPA API.
-        let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
+        let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500",
+            // Build filters.
+            year = "&transaction_date_year=" + year,
+            sector = "&sector=" + sector,
+            query = sector + year;
         $.ajax({
             type: 'GET',
             url: "/oipa",
             headers: {
                 'Content-Type': 'application/json',
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
-                'x-url': endpoint
+                'x-url': endpoint + query
             }
         }).done(function (iati) {
             // Get country locations from OIPA
