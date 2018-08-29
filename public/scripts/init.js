@@ -149,8 +149,12 @@ $(document).ready(function () {
          * @type {jQuery}
          */
 
+        // Define filters.
         let countryName = $("#countryName").val();
         let countryCode = country ? country : $("#countryCode").val();
+        let y = year ? "&transaction_date_year=" + year : "";
+        let s = sector ? "&sector=" + sector : "";
+        let query = s + y;
         let projectType = $("#projectType").val();
         let map;
 
@@ -188,11 +192,7 @@ $(document).ready(function () {
         }
 
         // Get locations from OIPA API.
-        let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500",
-            // Build filters.
-            year = year ? "&transaction_date_year=" + year : "",
-            sector = sector ? "&sector=" + sector : "",
-            query = sector + year;
+        let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
             type: 'GET',
             url: "/oipa",
