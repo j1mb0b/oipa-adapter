@@ -205,13 +205,7 @@ $(document).ready(function () {
             // Creates the country polygons
             let select = document.getElementById("countryFilter");
 
-            $.ajax({
-                type: 'GET',
-                url: "countries.json",
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).done(function (countriesData) {
+            $.getJSON("/public/countries.json", function (countriesData) {
                 $('.modal_map_markers').remove();
 
                 if (countryCode) {
