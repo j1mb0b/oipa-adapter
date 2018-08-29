@@ -40,7 +40,7 @@ module.exports = function () {
 
 
     app.engine('.html', require('ejs').__express);
-    app.set('leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
+    app.use('leaflet', __dirname + '/node_modules/leaflet/dist/');
     app.set('public', __dirname + '/public');
     app.set('view engine', 'html');
 
