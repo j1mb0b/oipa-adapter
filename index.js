@@ -72,7 +72,7 @@ app.get('/getCountryData', function (req, res) {
 
 // 4. Cumul.io embed dashboard.
 app.get('/map', function (req, res) {
-    res.setHeader('Content-Type', 'text/html');
+    //res.setHeader('Content-Type', 'text/html');
     let qp = [req.query.country, req.query.sector, req.query.year];
     res.render(path.join(__dirname + '/public/map.html'),{query_params:qp});
 });
