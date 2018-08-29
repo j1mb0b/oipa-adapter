@@ -150,7 +150,7 @@ $(document).ready(function () {
             // Define filters.
         let countryName = $("#countryName").val(),
             countryCode = country ? country : $("#countryCode").val(),
-            y = year ? "&year=" + year : "",
+            y = year ? "&transaction_date_year=" + year : "",
             s = sector ? "&sector=" + sector : "",
             query = s + y,
             projectType = $("#projectType").val(),
