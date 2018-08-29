@@ -71,30 +71,10 @@ app.get('/getCountryData', function (req, res) {
 });
 
 // 4. Cumul.io embed dashboard.
-app.get('/dashboard', function (req, res) {
-    let dashboardId = 'c02d8fb0-3814-4d94-9800-a3a46d447662';
-    // Connect to Cumul.io API
-    let client = new Cumulio({
-        api_key: '8408de9a-5bfa-458e-ae93-b9232378e6b6',
-        api_token: '4HSDajppVifHvvL7iBMXN3RNcWTZBhjbVzur4DPY7AG9EGnX7WyAL8ugAzoPP7pYRq88er4sRY9vAi29VlHbjMkY76C8KvqklOkyvL8jgF53R8KkPfJU65AvjVZxqBan5AjnD6TNuaaj9cBBhe6arV'
-    });
-    let promise = client.create('authorization', {
-        type: 'temporary',
-        securables: [
-            dashboardId,
-            '0112d3cd-7002-4965-8a2f-35ef2326e5a2'
-        ]
-    });
-
-    let qp = "&transaction_date_year=" + req.query.year;
-    let cid = 'dashboard_qp';
-    cacheProvider.instance().get(cid, function (err, value) {
-        if (err) console.error(err);
-        tools.setCache(cid, qp);
-    });
-
+app.get('/countryMap', function (req, res) {
+    let qp = [req.query.country, req.query.sector, req.query.year];
     promise.then(function(result){
-        res.render(path.join(__dirname + '/public/dashboard.html'),{authorization:result, dashboardId:dashboardId});
+        res.render(path.join(__dirname + '/public/dashboard.html'),{query_params:qp});
     });
 });
 

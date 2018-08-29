@@ -148,7 +148,7 @@ $(document).ready(function () {
          */
 
         let countryName = $("#countryName").val();
-        let countryCode = countryParam ? countryParam : $("#countryCode").val();
+        let countryCode = qp["country"]  !== undefined ? qp["country"] : $("#countryCode").val();
         let projectType = $("#projectType").val();
         let map;
 

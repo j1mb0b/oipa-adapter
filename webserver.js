@@ -38,6 +38,8 @@ module.exports = function () {
         //res.sendFile(path.join(__dirname + '/public/index.html'));
     //});
 
+
+    app.use('/scripts/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
     app.engine('.html', require('ejs').__express);
     app.set('public', __dirname + '/public');
     app.set('view engine', 'html');
