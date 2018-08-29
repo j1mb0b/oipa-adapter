@@ -71,10 +71,10 @@ app.get('/getCountryData', function (req, res) {
 });
 
 // 4. Cumul.io embed dashboard.
-app.get('/dashboard', function (req, res) {
+app.get('/map', function (req, res) {
     let qp = [req.query.country, req.query.sector, req.query.year];
     promise.then(function(result){
-        res.render(path.join(__dirname + '/public/index.html'),{query_params:qp});
+        res.render(path.join(__dirname + '/public/map.html'),{query_params:qp});
     });
 });
 
