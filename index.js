@@ -12,7 +12,6 @@ const cacheProvider = require('./cache-provider');
 // Cumul.io
 const Cumulio = require('cumulio');
 
-let express = require('express');
 
 // 1. List datasets
 app.get('/datasets', function (req, res) {
@@ -72,7 +71,6 @@ app.get('/getCountryData', function (req, res) {
 });
 
 // 4. Cumul.io embed dashboard.
-app.use('leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
 app.get('/map', function (req, res) {
     let qp = [req.query.country, req.query.sector, req.query.year];
     res.render(path.join(__dirname + '/public/map.html'),{query_params:qp});
