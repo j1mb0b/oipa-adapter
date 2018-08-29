@@ -186,7 +186,6 @@ $(document).ready(function () {
         }
 
         // Get locations from OIPA API.
-        let iati;
         let endpoint = "http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,url&page_size=500";
         $.ajax({
             type: 'GET',
@@ -196,8 +195,7 @@ $(document).ready(function () {
                 'x-secret': 'TFXALAUc21Bc7iG0T3l1kdzOZ', // @TODO - remove and store securely.
                 'x-url': endpoint
             }
-        }).done(function (data) {
-            iati = data;
+        }).done(function (iati) {
             // Get country locations from OIPA
             // Creates the country polygons
             let select = document.getElementById("countryFilter");
