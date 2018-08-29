@@ -20,7 +20,7 @@ module.exports = function () {
     app.set('x-powered-by', false);
     app.use(compression());
     app.use(function (req, res, next) {
-        //res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Type', 'application/json');
         res.setHeader('Content-Language', 'en');
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -31,13 +31,6 @@ module.exports = function () {
     app.options('*', function (req, res) {
         res.status(204);
     });
-
-    //app.use(express.static(__dirname + '/public/'));
-    //app.use('/scripts/leaflet', express.static(__dirname + '/node_modules/leaflet/dist/'));
-    //app.get('/', function(req, res) {
-        //res.sendFile(path.join(__dirname + '/public/index.html'));
-    //});
-
 
     app.engine('.html', require('ejs').__express);
     app.use('/leaflet', express.static((path.join(__dirname, 'node_modules/leaflet/dist'))));
