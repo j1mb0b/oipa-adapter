@@ -41,6 +41,7 @@ module.exports = function () {
 
     app.engine('.html', require('ejs').__express);
     app.use('/leaflet', express.static((path.join(__dirname, 'node_modules/leaflet/dist'))));
+    app.use('/public', express.static((path.join(__dirname, 'public'))));
     app.set('public', __dirname + '/public');
     app.set('view engine', 'html');
 
