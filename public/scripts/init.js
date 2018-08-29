@@ -8,9 +8,7 @@ const {window} = new JSDOM();
 const {document} = (new JSDOM('')).window;
 global.document = document;
 
-let $ = jQuery = require('jquery'),
-    year = "",
-    sector = "";
+let $ = jQuery = require('jquery')
 
 $(document).ready(function () {
     (function (global) {
@@ -150,13 +148,13 @@ $(document).ready(function () {
          */
 
         // Define filters.
-        let countryName = $("#countryName").val();
-        let countryCode = country ? country : $("#countryCode").val();
-        let y = year ? "&transaction_date_year=" + year : "";
-        let s = sector ? "&sector=" + sector : "";
-        let query = s + y;
-        let projectType = $("#projectType").val();
-        let map;
+        let countryName = $("#countryName").val(),
+            countryCode = country ? country : $("#countryCode").val(),
+            y = year ? "&transaction_date_year=" + year : "",
+            s = sector ? "&sector=" + sector : "",
+            query = s + y,
+            projectType = $("#projectType").val(),
+            map;
 
         let mapBox = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
