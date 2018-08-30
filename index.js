@@ -179,13 +179,15 @@ app.post('/query', function (req, res) {
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
-        case 'sector-value':
+        case 'sector-disbursement':
             endpoint = '/api/transactions/aggregations/';
-            let groupOrderBy = 'transaction_date_year';
-            let country_code = (req.body.country_code) ? req.body.country_code : "MA";
-            // Get the key used for logic, filtering and getting a property from the response.
-            let country = req.body.id.match(/country-(.*)/),
+            let groupOrderBy = 'transaction_date_year',
+                country_code = (req.body.country_code) ? req.body.country_code : "MA",
+                aggr_type = req.body.id.match(/(.*)-(.*)/),
+                country = req.body.id.match(/country-(.*)/),
                 sector = req.body.id.match(/sector-(.*)/);
+
+            console.log(aggr_type);
             // Handle "country-value" since it uses a different endpoint, group, and order by.
             if (country && country[1] === 'value') {
                 endpoint = '/api/budgets/aggregations/';
@@ -196,7 +198,7 @@ app.post('/query', function (req, res) {
                 groupOrderBy = 'sector';
             }
             // Build query string.
-            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=value&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
+            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[1] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
             let uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
