@@ -182,7 +182,7 @@ app.post('/query', function (req, res) {
         case 'sector-disbursement':
             endpoint = '/api/transactions/aggregations/';
             let groupOrderBy = 'transaction_date_year',
-                country_code = (req.body.country_code) ? req.body.country_code : "MA",
+                country_code = (req.body.country_code) ? req.body.country_code : "",
                 aggr_type = req.body.id.match(/(.*)-(.*)/),
                 country = req.body.id.match(/country-(.*)/),
                 sector = req.body.id.match(/sector-(.*)/);
@@ -198,7 +198,7 @@ app.post('/query', function (req, res) {
                 groupOrderBy = 'sector';
             }
             // Build query string.
-            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[1] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
+            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[2] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
             let uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
