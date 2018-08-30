@@ -78,9 +78,9 @@ app.get('/getCountryData', function (req, res) {
 // 4. Cumul.io embed dashboard.
 app.get('/map', function (req, res) {
     let qp = {
-        country:req.query.country,
-        sector:req.query.sector,
-        year:req.query.year
+        country: req.query.country,
+        sector: req.query.sector,
+        year: req.query.year
     };
     res.render(path.join(__dirname + '/public/map.html'), qp);
 });
@@ -112,16 +112,17 @@ app.post('/query', function (req, res) {
                     return res.status(500).end('Internal Server Error');
                 }
 
-                let datasets = data.body.results.map(function (result) {
-                    return result.sectors.map(function (item) {
-                        return [
+                let datasets = [];
+                data.body.results.map(function (result) {
+                    result.sectors.map(function (item) {
+                        datasets.push([
                             result.iati_identifier,
                             item.sector.name,
                             item.sector.code,
                             item.sector.percentage,
                             item.vocabulary.name,
                             item.vocabulary.code
-                        ];
+                        ]);
                     });
                 });
                 return res.status(200).json(datasets);
