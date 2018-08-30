@@ -112,8 +112,8 @@ app.post('/query', function (req, res) {
                 let datasets = data.body.results.map(function (result) {
                     return [
                         result.iati_identifier,
-                        result.title.narratives.length > 0 ? result.title.narratives[0].text : "",
-                        result.descriptions.length > 0 ? result.descriptions[0].narratives[0].text : "",
+                        result.title.narratives ? result.title.narratives[0].text : "",
+                        result.descriptions ? result.descriptions[0].narratives[0].text : "",
                         result.activity_status.code,
                         result.activity_status.name
                     ];
