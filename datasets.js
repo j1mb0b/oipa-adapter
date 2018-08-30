@@ -75,6 +75,17 @@ module.exports = function () {
                 {id: 'sector-code', name: {en: 'Sector code'}, type: 'hierarchy'},
                 {id: 'sector-name', name: {en: 'Sector name'}, type: 'hierarchy'},
             ]
+        },
+        {
+            id: 'participating-org-disbursement',
+            name: {en: 'Participating organisation disbursement'},
+            description: {en: 'Aggregations of transactional data related to Participating organisation'},
+            columns: [
+                {id: 'activity-count', name: {en: 'Activity count'}, type: 'hierarchy'},
+                {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'},
+                {id: 'participating-org', name: {en: 'Participating org name'}, type: 'hierarchy'},
+                {id: 'participating-org-ref', name: {en: 'Participating org ref'}, type: 'hierarchy'},
+            ]
         }
     ];
 };

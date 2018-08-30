@@ -204,12 +204,14 @@ app.post('/query', function (req, res) {
         case 'country-commitment':
         case 'country-value':
         case 'sector-disbursement':
+        case 'participating-org-disbursement':
             endpoint = '/api/transactions/aggregations/';
             let groupOrderBy = 'transaction_date_year',
                 country_code = (req.body.country_code) ? req.body.country_code : "",
                 aggr_type = req.body.id.match(/(.*)-(.*)/),
                 country = req.body.id.match(/country-(.*)/),
-                sector = req.body.id.match(/sector-(.*)/);
+                sector = req.body.id.match(/sector-(.*)/),
+                part_org = req.body.id.match(/participating-org-(.*)/);
 
             // Handle "country-value" since it uses a different endpoint, group, and order by.
             if (country && country[1] === 'value') {
@@ -219,6 +221,9 @@ app.post('/query', function (req, res) {
             }
             else if (sector) {
                 groupOrderBy = 'sector';
+            }
+            else if (part_org) {
+                groupOrderBy = 'participating_organisation';
             }
             // Build query string.
             let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
@@ -239,6 +244,14 @@ app.post('/query', function (req, res) {
                             result.disbursement,
                             result.sector.code,
                             result.sector.name
+                        ];
+                    }
+                    else if (part_org) {
+                        return [
+                            result.activity_count,
+                            result.disbursement,
+                            result.participating_organisation,
+                            result.participating_organisation_ref
                         ];
                     }
                     else {
