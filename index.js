@@ -167,8 +167,8 @@ app.post('/query', function (req, res) {
                         datasets.push([
                             result.iati_identifier,
                             item.narratives[0].text,
-                            item.type,
-                            item.role
+                            item.type.code,
+                            item.role.code
                         ]);
                     });
                 });
