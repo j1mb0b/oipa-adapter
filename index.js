@@ -111,19 +111,21 @@ app.post('/query', function (req, res) {
                     console.log(uri);
                     return res.status(500).end('Internal Server Error');
                 }
-                let datasets = data.body.results.sectors.map(function (result) {
-                    return [
-                        results.iati_identifier,
-                        result.sector.name,
-                        result.sector.code,
-                        result.sector.percentage,
-                        result.vocabulary.name,
-                        result.vocabulary.code
-                    ];
+
+                let datasets = data.body.results.map(function (result) {
+                    return result.sectors.map(function (item) {
+                        return [
+                            result.iati_identifier,
+                            item.sector.name,
+                            item.sector.code,
+                            item.sector.percentage,
+                            item.vocabulary.name,
+                            item.vocabulary.code
+                        ];
+                    });
                 });
                 return res.status(200).json(datasets);
             });
-            break;
             break;
 
         case 'participating-organisations':
