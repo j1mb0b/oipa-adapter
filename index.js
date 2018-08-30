@@ -140,7 +140,7 @@ app.post('/query', function (req, res) {
                             result.iati_identifier,
                             item.sector.name,
                             item.sector.code,
-                            item.sector.percentage,
+                            item.percentage,
                             item.vocabulary.name,
                             item.vocabulary.code
                         ]);

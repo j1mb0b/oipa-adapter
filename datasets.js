@@ -24,7 +24,7 @@ module.exports = function () {
                 {id: 'sector-code', name: {en: 'Sector code'}, type: 'hierarchy'},
                 {id: 'percentage', name: {en: 'Percentage'}, type: 'numeric'},
                 {id: 'vocabulary', name: {en: 'Vocabulary'}, type: 'hierarchy'},
-                {id: 'vocabulary-code', name: {en: 'Vocabulary code'}, type: 'numeric'}
+                {id: 'vocabulary-code', name: {en: 'Vocabulary code'}, type: 'hierarchy'}
             ]
         },
         {
