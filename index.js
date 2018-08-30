@@ -187,7 +187,6 @@ app.post('/query', function (req, res) {
                 country = req.body.id.match(/country-(.*)/),
                 sector = req.body.id.match(/sector-(.*)/);
 
-            console.log(aggr_type);
             // Handle "country-value" since it uses a different endpoint, group, and order by.
             if (country && country[1] === 'value') {
                 endpoint = '/api/budgets/aggregations/';
@@ -198,7 +197,7 @@ app.post('/query', function (req, res) {
                 groupOrderBy = 'sector';
             }
             // Build query string.
-            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[2] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
+            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
             let uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
