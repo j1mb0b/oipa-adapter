@@ -2,19 +2,16 @@
 
 module.exports = function () {
     return [
-        {   //http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,activity_dates,policy_markers,activity_status,recipient_countries,recipient_regions&page_size=500
+        {   
             id: 'activities',
             name: {en: 'Activities'},
             description: {en: 'Activities data'},
             columns: [
+                {id: 'iati-identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
                 {id: 'title', name: {en: 'Title'}, type: 'hierarchy'},
-                {id: 'iati_identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
-                {id: 'locations', name: {en: 'Locations'}, type: 'hierarchy'},
-                {id: 'activity_dates', name: {en: 'Activity dates'}, type: 'hierarchy'},
-                {id: 'policy_markers', name: {en: 'Policy markers'}, type: 'hierarchy'},
-                {id: 'activity_status', name: {en: 'Activity status'}, type: 'hierarchy'},
-                {id: 'recipient_countries', name: {en: 'Recipient countries'}, type: 'hierarchy'},
-                {id: 'recipient_regions', name: {en: 'Recipient countries'}, type: 'hierarchy'},
+                {id: 'descriptions', name: {en: 'Descriptions'}, type: 'hierarchy'},
+                {id: 'activity-status', name: {en: 'Activity status'}, type: 'hierarchy'},
+                {id: 'activity-status-code', name: {en: 'Activity status code'}, type: 'hierarchy'}
             ]
         },
         {
@@ -22,12 +19,12 @@ module.exports = function () {
             name: {en: 'Sector'},
             description: {en: 'Sectors data'},
             columns: [
-                {id: 'iati_identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
+                {id: 'iati-identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
                 {id: 'sector', name: {en: 'Sector'}, type: 'hierarchy'},
-                {id: 'sector_code', name: {en: 'Sector code'}, type: 'numeric'},
+                {id: 'sector-code', name: {en: 'Sector code'}, type: 'numeric'},
                 {id: 'percentage', name: {en: 'Percentage'}, type: 'numeric'},
                 {id: 'vocabulary', name: {en: 'Vocabulary'}, type: 'hierarchy'},
-                {id: 'vocabulary_code', name: {en: 'Vocabulary code'}, type: 'numeric'},
+                {id: 'vocabulary-code', name: {en: 'Vocabulary code'}, type: 'numeric'}
             ]
         },
         {
@@ -35,8 +32,10 @@ module.exports = function () {
             name: {en: 'Participating organisations'},
             description: {en: 'Participating organisations data'},
             columns: [
-                {id: 'iati_identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
-                {id: 'participating_organisations', name: {en: 'Participating org'}, type: 'hierarchy'},
+                {id: 'iati-identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
+                {id: 'participating-organisations', name: {en: 'Participating org'}, type: 'hierarchy'},
+                {id: 'type', name: {en: 'Type'}, type: 'hierarchy'},
+                {id: 'role', name: {en: 'Role'}, type: 'hierarchy'}
             ]
         },
         {

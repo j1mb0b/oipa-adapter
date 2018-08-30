@@ -99,6 +99,27 @@ app.post('/query', function (req, res) {
         filters = "";
     switch (req.body.id) {
         case 'activities':
+            request.get({
+                uri: domain + "/api/activities/?" + default_params + "&hierarchy=1&fields=title,iati_identifier,locations,activity_dates,policy_markers,activity_status,recipient_countries,recipient_regions&page_size=500",
+                gzip: true,
+                json: true
+            }, function (error, data) {
+                if (error || !data.body.results) {
+                    console.log(uri);
+                    return res.status(500).end('Internal Server Error');
+                }
+
+                let datasets = data.body.results.map(function (result) {
+                    return [
+                        result.iati_identifier,
+                        result.title.narratives[0].text,
+                        result.descriptions[0].narratives[0].text,
+                        result.activity_status.code,
+                        result.activity_status.name
+                    ];
+                });
+                return res.status(200).json(datasets);
+            });
             break;
 
         case 'sectors':
@@ -145,7 +166,9 @@ app.post('/query', function (req, res) {
                     result.participating_organisations.map(function (item) {
                         datasets.push([
                             result.iati_identifier,
-                            item.narratives[0].text
+                            item.narratives[0].text,
+                            item.type,
+                            item.role
                         ]);
                     });
                 });
