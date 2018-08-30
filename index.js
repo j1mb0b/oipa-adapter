@@ -139,8 +139,15 @@ app.post('/query', function (req, res) {
                     console.log(uri);
                     return res.status(500).end('Internal Server Error');
                 }
-                let datasets = data.body.results.participating_organisations.map(function (result) {
-                    return [results.iati_identifier, result.narratives[0].text];
+
+                let datasets = [];
+                data.body.results.map(function (result) {
+                    result.participating_organisations.map(function (item) {
+                        datasets.push([
+                            result.iati_identifier,
+                            item.narratives[0].text
+                        ]);
+                    });
                 });
                 return res.status(200).json(datasets);
             });
