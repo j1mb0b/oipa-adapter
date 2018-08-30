@@ -21,7 +21,7 @@ module.exports = function () {
             columns: [
                 {id: 'iati-identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
                 {id: 'sector', name: {en: 'Sector'}, type: 'hierarchy'},
-                {id: 'sector-code', name: {en: 'Sector code'}, type: 'numeric'},
+                {id: 'sector-code', name: {en: 'Sector code'}, type: 'hierarchy'},
                 {id: 'percentage', name: {en: 'Percentage'}, type: 'numeric'},
                 {id: 'vocabulary', name: {en: 'Vocabulary'}, type: 'hierarchy'},
                 {id: 'vocabulary-code', name: {en: 'Vocabulary code'}, type: 'numeric'}
