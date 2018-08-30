@@ -184,10 +184,10 @@ app.post('/query', function (req, res) {
             let groupOrderBy = 'transaction_date_year';
             let country_code = (req.body.country_code) ? req.body.country_code : "MA";
             // Get the key used for logic, filtering and getting a property from the response.
-            let country = req.body.id.match(/country-(.*)/)[1],
-                sector = req.body.id.match(/sector-(.*)/)[1];
+            let country = req.body.id.match(/country-(.*)/),
+                sector = req.body.id.match(/sector-(.*)/);
             // Handle "country-value" since it uses a different endpoint, group, and order by.
-            if (country === 'value') {
+            if (country && country[1] === 'value') {
                 endpoint = '/api/budgets/aggregations/';
                 // Exception for Budget since it uses a different field to the others.
                 groupOrderBy = 'budget_period_end_year';
