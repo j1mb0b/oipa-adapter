@@ -2,14 +2,41 @@
 
 module.exports = function () {
     return [
-        {
+        {   //http://18.221.72.54:8000/api/activities/?format=json&reporting_organisation=XM-DAC-2-10&hierarchy=1&fields=title,iati_identifier,locations,activity_dates,policy_markers,activity_status,recipient_countries,recipient_regions&page_size=500
             id: 'activities',
             name: {en: 'Activities'},
             description: {en: 'Activities data'},
             columns: [
-                {id: 'name', name: {en: 'Country name'}, type: 'hierarchy'},
-                {id: 'activity_count', name: {en: 'Total projects'}, type: 'numeric'},
-                {id: 'disbursement', name: {en: 'Total disbursement'}, type: 'numeric'},
+                {id: 'title', name: {en: 'Title'}, type: 'hierarchy'},
+                {id: 'iati_identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
+                {id: 'locations', name: {en: 'Locations'}, type: 'hierarchy'},
+                {id: 'activity_dates', name: {en: 'Activity dates'}, type: 'hierarchy'},
+                {id: 'policy_markers', name: {en: 'Policy markers'}, type: 'hierarchy'},
+                {id: 'activity_status', name: {en: 'Activity status'}, type: 'hierarchy'},
+                {id: 'recipient_countries', name: {en: 'Recipient countries'}, type: 'hierarchy'},
+                {id: 'recipient_regions', name: {en: 'Recipient countries'}, type: 'hierarchy'},
+            ]
+        },
+        {
+            id: 'sectors',
+            name: {en: 'Sector'},
+            description: {en: 'Sectors data'},
+            columns: [
+                {id: 'iati_identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
+                {id: 'sector', name: {en: 'Sector'}, type: 'hierarchy'},
+                {id: 'sector_code', name: {en: 'Sector code'}, type: 'numeric'},
+                {id: 'percentage', name: {en: 'Percentage'}, type: 'numeric'},
+                {id: 'vocabulary', name: {en: 'Vocabulary'}, type: 'hierarchy'},
+                {id: 'vocabulary_code', name: {en: 'Vocabulary code'}, type: 'numeric'},
+            ]
+        },
+        {
+            id: 'participating-organisations',
+            name: {en: 'Participating organisations'},
+            description: {en: 'Participating organisations data'},
+            columns: [
+                {id: 'iati_identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
+                {id: 'participating_organisations', name: {en: 'Participating org'}, type: 'hierarchy'},
             ]
         },
         {

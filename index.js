@@ -98,6 +98,51 @@ app.post('/query', function (req, res) {
         endpoint = "",
         filters = "";
     switch (req.body.id) {
+        case 'activities':
+            break;
+
+        case 'sectors':
+            request.get({
+                uri: domain + "/api/activities/?" + default_params + "&hierarchy=1&fields=iati_identifier,sectors&page_size=500",
+                gzip: true,
+                json: true
+            }, function (error, data) {
+                if (error || !data.body.results) {
+                    console.log(uri);
+                    return res.status(500).end('Internal Server Error');
+                }
+                let datasets = data.body.results.sectors.map(function (result) {
+                    return [
+                        results.iati_identifier,
+                        result.sector.name,
+                        result.sector.code,
+                        result.sector.percentage,
+                        result.vocabulary.name,
+                        result.vocabulary.code
+                    ];
+                });
+                return res.status(200).json(datasets);
+            });
+            break;
+            break;
+
+        case 'participating-organisations':
+            request.get({
+                uri: domain + "/api/activities/?" + default_params + "&hierarchy=1&fields=iati_identifier,participating_organisations&page_size=500",
+                gzip: true,
+                json: true
+            }, function (error, data) {
+                if (error || !data.body.results) {
+                    console.log(uri);
+                    return res.status(500).end('Internal Server Error');
+                }
+                let datasets = data.body.results.participating_organisations.map(function (result) {
+                    return [results.iati_identifier, result.narratives[0].text];
+                });
+                return res.status(200).json(datasets);
+            });
+            break;
+
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
