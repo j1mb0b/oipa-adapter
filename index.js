@@ -119,6 +119,14 @@ app.post('/query', function (req, res) {
                     ];
                 });
                 return res.status(200).json(datasets);
+            }).catch(function (err) {
+                if(err.message === 'read ECONNRESET'){
+                    console.log('Timed out :(');
+                    return false;
+                } else {
+                    console.log('Error.');
+                    throw err;
+                }
             });
             break;
 
@@ -147,6 +155,14 @@ app.post('/query', function (req, res) {
                     });
                 });
                 return res.status(200).json(datasets);
+            }).catch(function (err) {
+                if(err.message === 'read ECONNRESET'){
+                    console.log('Timed out :(');
+                    return false;
+                } else {
+                    console.log('Error.');
+                    throw err;
+                }
             });
             break;
 
@@ -173,6 +189,14 @@ app.post('/query', function (req, res) {
                     });
                 });
                 return res.status(200).json(datasets);
+            }).catch(function (err) {
+                if(err.message === 'read ECONNRESET'){
+                    console.log('Timed out :(');
+                    return false;
+                } else {
+                    console.log('Error.');
+                    throw err;
+                }
             });
             break;
 
@@ -226,6 +250,14 @@ app.post('/query', function (req, res) {
                     }
                 });
                 return res.status(200).json(datasets);
+            }).catch(function (err) {
+                if(err.message === 'read ECONNRESET'){
+                    console.log('Timed out :(');
+                    return false;
+                } else {
+                    console.log('Error.');
+                    throw err;
+                }
             });
             break;
 
