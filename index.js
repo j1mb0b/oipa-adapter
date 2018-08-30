@@ -196,7 +196,7 @@ app.post('/query', function (req, res) {
                 groupOrderBy = 'sector';
             }
             // Build query string.
-            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
+            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=value&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
             let uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
