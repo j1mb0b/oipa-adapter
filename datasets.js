@@ -66,8 +66,8 @@ module.exports = function () {
             ]
         },
         {
-            id: 'sector-value',
-            name: {en: 'Sector value'},
+            id: 'sector-disbursement',
+            name: {en: 'Sector disbursement'},
             description: {en: 'Aggregations of transactional data related to sectors'},
             columns: [
                 {id: 'activity-count', name: {en: 'Activity count'}, type: 'hierarchy'},
