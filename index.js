@@ -179,16 +179,21 @@ app.post('/query', function (req, res) {
         case 'country-disbursement':
         case 'country-commitment':
         case 'country-value':
+        case 'sector-value':
             endpoint = '/api/transactions/aggregations/';
             let groupOrderBy = 'transaction_date_year';
             let country_code = (req.body.country_code) ? req.body.country_code : "MA";
             // Get the key used for logic, filtering and getting a property from the response.
-            let aggr_type = req.body.id.match(/country-(.*)/)[1];
+            let country = req.body.id.match(/country-(.*)/)[1],
+                sector = req.body.id.match(/sector-(.*)/)[1];
             // Handle "country-value" since it uses a different endpoint, group, and order by.
-            if (aggr_type === 'value') {
+            if (country === 'value') {
                 endpoint = '/api/budgets/aggregations/';
                 // Exception for Budget since it uses a different field to the others.
                 groupOrderBy = 'budget_period_end_year';
+            }
+            else if (sector) {
+                groupOrderBy = 'sector';
             }
             // Build query string.
             let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
@@ -203,11 +208,21 @@ app.post('/query', function (req, res) {
                     return res.status(500).end('Internal Server Error');
                 }
                 let datasets = data.body.results.map(function (result) {
-                    let obj = Object.keys(result);
-                    // We assume the order of keys are first: transaction year, second: amount.
-                    // Also that it remains the same for the other "cases", if not we are forced to
-                    // hard code the string to get the value which won't work well with this generic code.
-                    return [result[obj[0]], result[obj[1]]];
+                    if (sector) {
+                        return [
+                            result.activity_count,
+                            result.disbursement,
+                            result.sector.code,
+                            result.sector.name
+                        ];
+                    }
+                    else {
+                        let obj = Object.keys(result);
+                        // We assume the order of keys are first: transaction year, second: amount.
+                        // Also that it remains the same for the other "cases", if not we are forced to
+                        // hard code the string to get the value which won't work well with this generic code.
+                        return [result[obj[0]], result[obj[1]]];
+                    }
                 });
                 return res.status(200).json(datasets);
             });

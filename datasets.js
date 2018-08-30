@@ -64,7 +64,17 @@ module.exports = function () {
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
                 {id: 'budget', name: {en: 'Budget'}, type: 'numeric'}
             ]
+        },
+        {
+            id: 'sector-value',
+            name: {en: 'Sector value'},
+            description: {en: 'Aggregations of transactional data related to sectors'},
+            columns: [
+                {id: 'activity-count', name: {en: 'Activity count'}, type: 'hierarchy'},
+                {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'},
+                {id: 'sector-code', name: {en: 'Sector code'}, type: 'hierarchy'},
+                {id: 'sector-name', name: {en: 'Sector name'}, type: 'hierarchy'},
+            ]
         }
-
     ];
 };
