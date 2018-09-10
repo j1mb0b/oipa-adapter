@@ -27,9 +27,7 @@ module.exports = {
                     case "sectors":
                         let output = {};
                         data.results.map(function (result) {
-                            console.log(result.sector.url);
-                            let parent = module.exports.query(result.sector.url, "");
-                            console.log(parent);
+                            return module.exports.query(result.sector.url, "");
                             output.push({"parent": parent.category.code});
                         });
                         console.log(output);
@@ -39,6 +37,14 @@ module.exports = {
             }
 
             return data;
+        }).catch(function (err) {
+            if(err.message === 'read ECONNRESET'){
+                console.log('Timed out :(');
+                return false;
+            } else {
+                console.log('Error.');
+                throw err;
+            }
         });
     },
     getActivity: function (url, output)  {
