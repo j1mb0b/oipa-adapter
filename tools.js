@@ -31,6 +31,7 @@ module.exports = {
                             let parent = module.exports.query(result.url);
                             output.push({"parent": parent.category.code});
                         });
+                        console.log(output);
                         data.push(output);
                         break;
                 }
