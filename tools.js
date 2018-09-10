@@ -22,7 +22,7 @@ module.exports = {
     },
     query: function (endpoint, type) {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
-
+            console.log(type);
             if (type) {
                 switch (type) {
                     case "sectors":
