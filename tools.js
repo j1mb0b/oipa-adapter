@@ -25,13 +25,9 @@ module.exports = {
             if (type) {
                 switch (type) {
                     case "sectors":
-                        let output = {};
-                        data.results.map(function (result) {
+                        data.push(results.map(function (result) {
                             return module.exports.query(result.sector.url, "");
-                            output.push({"parent": parent.category.code});
-                        });
-                        console.log(output);
-                        data.push(output);
+                        }));
                         break;
                 }
             }
