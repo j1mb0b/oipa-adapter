@@ -28,12 +28,12 @@ module.exports = {
                         return Promise.map(data.results, function (result) {
                             return Promise.all([module.exports.query(result.sector.url, "")]);
                         }, { concurrency: 5}).then(function(data) {
-                            return data;
+                            return data.flat(2);
                         });
                 }
             }
 
-            return data.flat(2);
+            return data;
         }).catch(function (err) {
             if(err.message === 'read ECONNRESET'){
                 console.log('Timed out :(');
