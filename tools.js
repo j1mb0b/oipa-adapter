@@ -26,7 +26,7 @@ module.exports = {
                 switch (type) {
                     case "sectors":
                         return Promise.map(data.results, function (result) {
-                            return Promise.all([module.exports.query(result.sector.url, "")]);
+                            return new Promise(module.exports.query(result.sector.url, ""));
                         }, { concurrency: 5}).then(function(data) {
                             return data;
                         });
