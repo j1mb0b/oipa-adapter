@@ -25,9 +25,9 @@ module.exports = {
             if (type) {
                 switch (type) {
                     case "sectors":
-                        data.push(Promise.map(data.results, function (result) {
+                        data.push({"parent", Promise.map(data.results, function (result) {
                             return module.exports.query(result.sector.url, "");
-                        }));
+                        })});
                         break;
                 }
             }
