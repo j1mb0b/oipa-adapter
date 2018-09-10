@@ -25,10 +25,10 @@ module.exports = {
             if (type) {
                 switch (type) {
                     case "sectors":
-                        return Promise.map(data.results, function (result) {
+                        return Promise.all(Promise.map(data.results, function (result) {
                             result.parent = module.exports.query(result.sector.url, "");
                             return result;
-                        });
+                        }));
                 }
             }
 
