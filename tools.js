@@ -33,7 +33,7 @@ module.exports = {
                 }
             }
 
-            return data;
+            return data.flat(2);
         }).catch(function (err) {
             if(err.message === 'read ECONNRESET'){
                 console.log('Timed out :(');
