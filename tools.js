@@ -20,8 +20,18 @@ module.exports = {
             }
         }
     },
-    query: function (endpoint) {
+    query: function (endpoint, type) {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
+
+            if (type) {
+                switch (type) {
+                    case "sectors":
+                        let parent = module.exports.query(data.url);
+                        data.push({parent: parent.category.code});
+                        break;
+                }
+            }
+
             return data;
         });
     },

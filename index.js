@@ -26,7 +26,9 @@ app.get('/oipa', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
 
-    let url = req.headers['x-url'];
+    let url = req.headers['x-url'],
+        type = req.headers['x-type'];
+
     if (!url)
         return res.status(403).end('Please set "url" header in your request!');
 
@@ -34,7 +36,7 @@ app.get('/oipa', function (req, res) {
         if (err) console.error(err);
         if (value === undefined) {
             console.log('Creating new cache entry and fetching results...');
-            tools.query(url).then(function (result) {
+            tools.query(url, type).then(function (result) {
                 tools.setCache(url, result);
                 return res.status(200).json(result);
             });
@@ -78,9 +80,9 @@ app.get('/getCountryData', function (req, res) {
 // 4. Cumul.io embed dashboard.
 app.get('/map', function (req, res) {
     let qp = {
-        country: req.query.country,
+        country: req.query.recipient_country,
         sector: req.query.sector,
-        year: req.query.year
+        year: req.query.transaction_date_year
     };
     res.render(path.join(__dirname + '/public/map.html'), qp);
 });
