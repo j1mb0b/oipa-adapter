@@ -26,14 +26,14 @@ module.exports = {
                 switch (type) {
                     case "sectors":
                         return Promise.map(data.results, function (result) {
-                            return new Promise(module.exports.query(result.sector.url, ""));
+                            return Promise.all([module.exports.query(result.sector.url, "")]);
                         }, { concurrency: 5}).then(function(data) {
                             return data;
                         });
                 }
             }
 
-            return data;
+            return data[0];
         }).catch(function (err) {
             if(err.message === 'read ECONNRESET'){
                 console.log('Timed out :(');
