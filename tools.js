@@ -26,8 +26,12 @@ module.exports = {
             if (type) {
                 switch (type) {
                     case "sectors":
-                        let parent = module.exports.query(data.url);
-                        data.push({parent: parent.category.code});
+                        let output = {};
+                        data.results.map(function (result) {
+                            let parent = module.exports.query(result.url);
+                            output.push({"parent": parent.category.code});
+                        });
+                        data.push(output);
                         break;
                 }
             }
@@ -35,7 +39,7 @@ module.exports = {
             return data;
         });
     },
-    getActivity: function (url, output) {
+    getActivity: function (url, output)  {
         return request(module.exports.getOptions(url)).then(function (activities) {
             if (!output) {
                 output = [];
