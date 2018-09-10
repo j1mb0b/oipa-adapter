@@ -26,8 +26,7 @@ module.exports = {
                 switch (type) {
                     case "sectors":
                         return Promise.map(data.results, function (result) {
-                            let parent = module.exports.query(result.sector.url, "");
-                            result.push({"parent":parent});
+                            result.parent = module.exports.query(result.sector.url, "");
                             return result;
                         });
                 }
