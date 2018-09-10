@@ -26,7 +26,9 @@ module.exports = {
                 switch (type) {
                     case "sectors":
                         let output = {};
+                        console.log(data);
                         data.results.map(function (result) {
+                            console.log(result);
                             let parent = module.exports.query(result.url, "");
                             output.push({"parent": parent.category.code});
                         });
