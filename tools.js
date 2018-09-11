@@ -28,6 +28,7 @@ module.exports = {
                         return Promise.map(data.results, function (result) {
                             return Promise.all([module.exports.query(result.sector.url, "")]);
                         }, { concurrency: 5}).then(function(data) {
+                            console.log(data);
                             return data;
                         });
                 }
