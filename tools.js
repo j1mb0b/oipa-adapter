@@ -30,6 +30,13 @@ module.exports = {
                         }, { concurrency: 5}).then(function(data) {
                             return data;
                         });
+
+                    case "documents":
+                        let output = [];
+                        data.results.map(function (docs){
+                            output.push(docs)
+                        });
+                        return output;
                 }
             }
 
