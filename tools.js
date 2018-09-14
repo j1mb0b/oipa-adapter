@@ -33,9 +33,9 @@ module.exports = {
 
                     case "documents":
                         let output = [],
-                            documents = [];
+                            documents;
                         data.results.map(function (docs){
-                            documents.push(output.concat(docs.document_links));
+                            documents[docs.iati_identifier] = output.concat(docs.document_links);
                         });
                         return documents;
                 }
