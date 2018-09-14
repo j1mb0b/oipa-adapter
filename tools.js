@@ -32,9 +32,9 @@ module.exports = {
                         });
 
                     case "documents":
-                        let output = "";
+                        let output = {};
                         data.results.map(function (docs){
-                            output.push({"document_links":docs.document_links})
+                            output.push(docs.document_links);
                         });
                         return output;
                 }
