@@ -32,12 +32,11 @@ module.exports = {
                         });
 
                     case "documents":
-                        let output = [],
-                            documents = [];
+                        let output = [];
                         data.results.map(function (docs){
-                            documents[docs.iati_identifier] = output.concat(docs.document_links);
+                            output[docs.iati_identifier] = docs.document_links;
                         });
-                        return documents;
+                        return output;
                 }
             }
 
