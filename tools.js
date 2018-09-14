@@ -32,10 +32,11 @@ module.exports = {
                         });
 
                     case "documents":
-                        let output = data.results.map(function (docs){
-                            return docs.document_links;
+                        return data.results.map(function (docs){
+                            return docs.document_links.map(function (doc) {
+                                return doc;
+                            });
                         });
-                        return output;
                 }
             }
 
