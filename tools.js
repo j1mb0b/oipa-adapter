@@ -32,7 +32,7 @@ module.exports = {
                         });
 
                     case "documents":
-                        let output;
+                        let output = [];
                         data.results.map(function (docs){
                             for (let i = 0; i < docs.document_links.length; i++) {
                                 output[i] = (docs.document_links);
