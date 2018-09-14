@@ -32,11 +32,11 @@ module.exports = {
                         });
 
                     case "documents":
+                        let output;
                         data.results.map(function (docs){
-                            data[docs.document_links.id] = docs.document_links;
+                            output[docs.document_links.id] = docs.document_links;
                         });
-                        delete data.results;
-                        return data;
+                        return output;
                 }
             }
 
