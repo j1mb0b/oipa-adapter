@@ -32,9 +32,8 @@ module.exports = {
                         });
 
                     case "documents":
-                        let output = [];
-                        data.results.map(function (docs){
-                            output[docs.iati_identifier] = docs.document_links;
+                        let output = data.results.map(function (docs){
+                            return docs.document_links;
                         });
                         return output;
                 }
