@@ -32,13 +32,11 @@ module.exports = {
                         });
 
                     case "documents":
-                        let output = [];
+                        let docs = [];
                         data.results.map(function (docs){
-                            for (const value of docs.document_links.values()) {
-                                output.push(value);
-                            }
+                            docs = concat(docs.document_links, docs)
                         });
-                        return output;
+                        return docs;
                 }
             }
 
