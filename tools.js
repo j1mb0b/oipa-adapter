@@ -33,7 +33,7 @@ module.exports = {
 
                     case "documents":
                         let output = [],
-                            documents;
+                            documents = [];
                         data.results.map(function (docs){
                             documents[docs.iati_identifier] = output.concat(docs.document_links);
                         });
