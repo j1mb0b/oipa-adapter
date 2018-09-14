@@ -34,9 +34,9 @@ module.exports = {
                     case "documents":
                         let output = [];
                         data.results.map(function (docs){
-                            output = output.concat(docs.document_links, output);
+                            let documents = output.concat(docs.document_links, output);
                         });
-                        return output;
+                        return documents;
                 }
             }
 
