@@ -34,7 +34,9 @@ module.exports = {
                     case "documents":
                         let output;
                         data.results.map(function (docs){
-                            output[docs.document_links.id] = docs.document_links;
+                            for (d in docs.document_links) {
+                                output[d.id] = d;
+                            }
                         });
                         return output;
                 }
