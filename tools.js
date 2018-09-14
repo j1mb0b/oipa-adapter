@@ -33,7 +33,7 @@ module.exports = {
 
                     case "documents":
                         data.results.map(function (docs){
-                            data.push({"document_links":docs.document_links});
+                            data.doucment_links[docs.document_links.id] = docs.document_links;
                         });
                         delete data.results;
                         return data;
