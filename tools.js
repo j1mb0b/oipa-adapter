@@ -34,7 +34,7 @@ module.exports = {
                     case "documents":
                         let output = [];
                         data.results.map(function (docs){
-                            output.push(docs)
+                            output.push({"document_links":docs.document_links})
                         });
                         return output;
                 }
