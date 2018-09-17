@@ -43,7 +43,7 @@ module.exports = {
             }
 
             return data;
-        }).catch(function (err) {
+        }).catch(module.exports.ClientError, function(err) {
             return module.exports.errorHandler(err, endpoint);
         });
     },
@@ -62,7 +62,7 @@ module.exports = {
             }
 
             return output;
-        }).catch(function (err) {
+        }).catch(module.exports.ClientError, function(err) {
             return module.exports.errorHandler(err, url);
         });
     },
@@ -129,6 +129,9 @@ module.exports = {
                 console.log('Error on request: ' + url);
                 throw error;
         }
+    },
+    ClientError: function(e) {
+        return e.code >= 400 && e.code < 500;
     },
     main: function(endpoint) {
         return module.exports.getActivity(endpoint)
