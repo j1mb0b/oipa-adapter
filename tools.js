@@ -36,13 +36,11 @@ module.exports = {
                         });
 
                     case "documents":
-                        let docList = [];
                         data.results.map(function (docs){
                             docs.document_links.map(function (doc) {
-                                docList.push(doc);
+                                output.push(doc);
                             });
                         });
-                        output.push(docList);
                 }
             }
             else {
