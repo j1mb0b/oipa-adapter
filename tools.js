@@ -20,29 +20,40 @@ module.exports = {
             }
         }
     },
-    query: function (endpoint, type) {
+    query: function (endpoint, type, output) {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
+            if (!output) {
+                output = [];
+            }
+
             if (type) {
                 switch (type) {
                     case "sectors":
                         return Promise.map(data.results, function (result) {
                             return Promise.resolve(module.exports.query(result.sector.url, ""));
                         }, { concurrency: 5}).then(function(data) {
-                            return data;
+                            output.push(data);
                         });
 
                     case "documents":
-                        let output = [];
+                        let docList = [];
                         data.results.map(function (docs){
                             docs.document_links.map(function (doc) {
-                                output.push(doc);
+                                docList.push(doc);
                             });
                         });
-                        return output;
+                        output.push(docList);
                 }
             }
+            else {
+                output.push(data);
+            }
 
-            return data;
+            if (data.next !== null) {
+                return module.exports.query(data.next, type, output);
+            }
+
+            return output;
         }).catch(function(err) {
             return module.exports.errorHandler(err, endpoint);
         });
@@ -122,15 +133,12 @@ module.exports = {
         switch(err.message) {
             case '404 - {"detail":"Not found."}':
                 console.log('Detail not found on request: ' + url);
-                return false;
+                return;
 
             default:
                 console.log('Error on request: ' + url);
                 throw error;
         }
-    },
-    ClientError: function(e) {
-        return e.code >= 400 && e.code < 500;
     },
     main: function(endpoint) {
         return module.exports.getActivity(endpoint)
