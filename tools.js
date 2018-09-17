@@ -44,13 +44,7 @@ module.exports = {
 
             return data;
         }).catch(function (err) {
-            if(err.message === 'read ECONNRESET'){
-                console.log('Timed out :(');
-                return false;
-            } else {
-                console.log('Error on request: ' + endpoint);
-                throw err;
-            }
+            return module.exports.errorHandler(err, endpoint);
         });
     },
     getActivity: function (url, output)  {
@@ -69,13 +63,7 @@ module.exports = {
 
             return output;
         }).catch(function (err) {
-            if(err.message === 'read ECONNRESET'){
-                console.log('Timed out :(');
-                return false;
-            } else {
-                console.log('Error on request: ' + url);
-                throw err;
-            }
+            return module.exports.errorHandler(err, url);
         });
     },
     getLocations: function (urls) {
@@ -99,13 +87,7 @@ module.exports = {
                     });
                 }
             }).catch(function (err) {
-                if (err.message === 'read ECONNRESET'){
-                    console.log('Timed out :(');
-                    return false;
-                } else {
-                    console.log('Error on request: ' + item);
-                    throw err;
-                }
+                return module.exports.errorHandler(err, item);
             });
         }, { concurrency: 10}).then(function(data) {
             return countries;
@@ -121,13 +103,7 @@ module.exports = {
                 poly[item] = response.polygon.coordinates;
                 return poly;
             }).catch(function (err) {
-                if (err.message === 'read ECONNRESET') {
-                    console.log('Timed out :(');
-                    return false;
-                } else {
-                    console.log('Error on request: ' + item);
-                    throw err;
-                }
+                return module.exports.errorHandler(err, item);
             });
         }, {concurrency: 5}).then(function (data) {
             items[0].countries = data;
@@ -141,6 +117,18 @@ module.exports = {
                 console.log("Cache entry on " + key + " has been set.");
             }
         });
+    },
+    errorHandler: function(err, url) {
+        console.log(err.code);
+        switch(err.code) {
+            case '404':
+                console.log('Detail not found on request: ' + url);
+                return false;
+
+            default:
+                console.log('Error on request: ' + url);
+                throw error;
+        }
     },
     main: function(endpoint) {
         return module.exports.getActivity(endpoint)
