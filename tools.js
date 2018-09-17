@@ -48,7 +48,7 @@ module.exports = {
                 console.log('Timed out :(');
                 return false;
             } else {
-                console.log('Error.');
+                console.log('Error on request: ' + endpoint);
                 throw err;
             }
         });
@@ -73,7 +73,7 @@ module.exports = {
                 console.log('Timed out :(');
                 return false;
             } else {
-                console.log('Error.');
+                console.log('Error on request: ' + url);
                 throw err;
             }
         });
@@ -99,11 +99,11 @@ module.exports = {
                     });
                 }
             }).catch(function (err) {
-                if(err.message === 'read ECONNRESET'){
+                if (err.message === 'read ECONNRESET'){
                     console.log('Timed out :(');
                     return false;
                 } else {
-                    console.log('Error.');
+                    console.log('Error on request: ' + item);
                     throw err;
                 }
             });
@@ -125,7 +125,7 @@ module.exports = {
                     console.log('Timed out :(');
                     return false;
                 } else {
-                    console.log('Error.');
+                    console.log('Error on request: ' + item);
                     throw err;
                 }
             });
