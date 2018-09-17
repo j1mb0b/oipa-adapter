@@ -119,9 +119,8 @@ module.exports = {
         });
     },
     errorHandler: function(err, url) {
-        console.log(err.message);
-        switch(err.code) {
-            case '404':
+        switch(err.message) {
+            case '404 - {"detail":"Not found."}':
                 console.log('Detail not found on request: ' + url);
                 return false;
 
