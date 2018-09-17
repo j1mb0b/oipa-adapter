@@ -29,11 +29,11 @@ module.exports = {
             if (type) {
                 switch (type) {
                     case "sectors":
-                        return Promise.map(data.results, function (result) {
+                        output.push(Promise.map(data.results, function (result) {
                             return Promise.resolve(module.exports.query(result.sector.url, ""));
                         }, { concurrency: 5}).then(function(data) {
-                            output.push(data);
-                        });
+                            return data;
+                        }));
 
                     case "documents":
                         data.results.map(function (docs){
