@@ -137,7 +137,7 @@ module.exports = {
 
             default:
                 console.log('Error on request: ' + url);
-                throw error;
+                throw err;
         }
     },
     main: function(endpoint) {
