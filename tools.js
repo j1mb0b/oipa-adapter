@@ -29,14 +29,13 @@ module.exports = {
             if (type) {
                 switch (type) {
                     case "sectors":
-                        output.push(Promise.map(data.results, function (result) {
+                        return Promise.map(data.results, function (result) {
                             return Promise.resolve(module.exports.query(result.url, "").catch(function(err) {
                                 return module.exports.errorHandler(err, result.url);
                             }));
                         }, { concurrency: 5}).then(function(data) {
                             return data;
-                        }));
-                        break;
+                        });
 
                     case "documents":
                         data.results.map(function (docs){
