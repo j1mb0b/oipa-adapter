@@ -3,7 +3,7 @@ let Promise = require("bluebird");
 let cacheProvider = require('./cache-provider');
 
 module.exports = {
-    getOptions: function(url) {
+    getOptions: function (url) {
         return {
             method: 'GET',
             url: url,
@@ -21,32 +21,30 @@ module.exports = {
         }
     },
     query: function (endpoint, type, output) {
+        if (!output) {
+            output = [];
+        }
         return request(module.exports.getOptions(endpoint)).then(function (data) {
-            if (!output) {
-                output = [];
-            }
+            switch (type) {
+                case "sectors":
+                    return Promise.map(data.results, function (result) {
+                        return Promise.resolve(module.exports.query(result.url, "").catch(function (err) {
+                            return module.exports.errorHandler(err, result.url);
+                        }));
+                    }, {concurrency: 5}).then(function (data) {
+                        return data;
+                    });
 
-            if (type) {
-                switch (type) {
-                    case "sectors":
-                        return Promise.map(data.results, function (result) {
-                            return Promise.resolve(module.exports.query(result.url, "").catch(function(err) {
-                                return module.exports.errorHandler(err, result.url);
-                            }));
-                        }, { concurrency: 5}).then(function(data) {
-                            return data;
+                case "documents":
+                    data.results.map(function (docs) {
+                        docs.document_links.map(function (doc) {
+                            output.push(doc);
                         });
+                    });
+                    break;
 
-                    case "documents":
-                        data.results.map(function (docs){
-                            docs.document_links.map(function (doc) {
-                                output.push(doc);
-                            });
-                        });
-                }
-            }
-            else {
-                output.push(data);
+                default:
+                    return data;
             }
 
             if (data.next !== null) {
@@ -54,11 +52,11 @@ module.exports = {
             }
 
             return output;
-        }).catch(function(err) {
+        }).catch(function (err) {
             return module.exports.errorHandler(err, endpoint);
         });
     },
-    getActivity: function (url, output)  {
+    getActivity: function (url, output) {
         return request(module.exports.getOptions(url)).then(function (activities) {
             if (!output) {
                 output = [];
@@ -73,13 +71,13 @@ module.exports = {
             }
 
             return output;
-        }).catch(function(err) {
+        }).catch(function (err) {
             return module.exports.errorHandler(err, url);
         });
     },
     getLocations: function (urls) {
         let countries = {};
-        return Promise.map(urls, function(item) {
+        return Promise.map(urls, function (item) {
             return request(module.exports.getOptions(item)).then(response => {
                 // Get the countries at activity level and build a array.
                 // This is used to determine the polygon for valid locations.
@@ -90,8 +88,10 @@ module.exports = {
                                 "country": country.country.name,
                                 "id": country.country.code,
                                 //"projects": 10,
-                                "budget": response.budgets.map(function (budget) {return {year:budget.period_start, value:budget.value.value}}),
-                                "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/"+country.country.code.toLowerCase()+".svg"
+                                "budget": response.budgets.map(function (budget) {
+                                    return {year: budget.period_start, value: budget.value.value}
+                                }),
+                                "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
                             };
                             return countries;
                         }
@@ -100,7 +100,7 @@ module.exports = {
             }).catch(function (err) {
                 return module.exports.errorHandler(err, item);
             });
-        }, { concurrency: 10}).then(function(data) {
+        }, {concurrency: 10}).then(function (data) {
             return countries;
         });
     },
@@ -121,16 +121,16 @@ module.exports = {
             return items;
         });
     },
-    setCache: function(key, obj) {
+    setCache: function (key, obj) {
         const CACHE_DURATION = 86400;
-        cacheProvider.instance().set(key, obj, CACHE_DURATION, function(err, success) {
+        cacheProvider.instance().set(key, obj, CACHE_DURATION, function (err, success) {
             if (!err && success) {
                 console.log("Cache entry on " + key + " has been set.");
             }
         });
     },
-    errorHandler: function(err, url) {
-        switch(err.message) {
+    errorHandler: function (err, url) {
+        switch (err.message) {
             case '404 - {"detail":"Not found."}':
                 console.log('Detail not found on request: ' + url);
                 return;
@@ -140,9 +140,9 @@ module.exports = {
                 throw err;
         }
     },
-    main: function(endpoint) {
+    main: function (endpoint) {
         return module.exports.getActivity(endpoint)
             .then(module.exports.getLocations);
-            //.then(module.exports.getPolygon);
+        //.then(module.exports.getPolygon);
     }
 };
