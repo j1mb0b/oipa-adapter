@@ -36,6 +36,7 @@ module.exports = {
                         }, { concurrency: 5}).then(function(data) {
                             return data;
                         }));
+                        break;
 
                     case "documents":
                         data.results.map(function (docs){
