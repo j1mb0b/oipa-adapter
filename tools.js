@@ -30,7 +30,9 @@ module.exports = {
                 switch (type) {
                     case "sectors":
                         output.push(Promise.map(data.results, function (result) {
-                            return Promise.resolve(module.exports.query(result.url, ""));
+                            return Promise.resolve(module.exports.query(result.url, "").catch(function(err) {
+                                return module.exports.errorHandler(err, result.url);
+                            }));
                         }, { concurrency: 5}).then(function(data) {
                             return data;
                         }));
