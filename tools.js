@@ -43,7 +43,7 @@ module.exports = {
             }
 
             return data;
-        }).catch(module.exports.ClientError, function(err) {
+        }).catch(function(err) {
             return module.exports.errorHandler(err, endpoint);
         });
     },
@@ -62,7 +62,7 @@ module.exports = {
             }
 
             return output;
-        }).catch(module.exports.ClientError, function(err) {
+        }).catch(function(err) {
             return module.exports.errorHandler(err, url);
         });
     },
@@ -119,7 +119,7 @@ module.exports = {
         });
     },
     errorHandler: function(err, url) {
-        console.log(err.code);
+        console.log(err.message);
         switch(err.code) {
             case '404':
                 console.log('Detail not found on request: ' + url);
