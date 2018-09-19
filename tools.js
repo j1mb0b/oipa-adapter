@@ -43,6 +43,31 @@ module.exports = {
                     });
                     break;
 
+                case "countries":
+                    data.results.map(function (result) {
+                        // Get the countries at activity level and build a array.
+                        // This is used to determine the polygon for valid locations.
+                        if (result.recipient_countries.length > 0) {
+                            let countries = {};
+                            result.recipient_countries.map(function (country) {
+                                if (!countries.hasOwnProperty('country.country.code')) {
+                                    countries[country.country.code] = {
+                                        "country": country.country.name,
+                                        "id": country.country.code,
+                                        //"projects": 10,
+                                        "budget": response.budgets.map(function (budget) {
+                                            return {year: budget.period_start, value: budget.value.value}
+                                        }),
+                                        "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
+                                    };
+                                }
+                            });
+                            result.recipient_countries = countries;
+                            output.push(result);
+                        }
+                    });
+                    break;
+
                 default:
                     data.results.map(function (result) {
                         output.push(result);
