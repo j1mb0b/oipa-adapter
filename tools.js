@@ -47,7 +47,7 @@ module.exports = {
                     let countries = {},
                         projects = {};
                     countries["country_data"] = {};
-                    projects["results"] = [];
+                    projects["results"] = {};
                     data.results.map(function (result) {
                         // Get the countries at activity level and build a array.
                         // This is used to determine the polygon for valid locations.
@@ -65,7 +65,7 @@ module.exports = {
                                     };
                                 }
                             });
-                            projects["results"].push(result);
+                            projects["results"][iati_identifier] = result;
                         }
                     });
                     output.push(countries);
