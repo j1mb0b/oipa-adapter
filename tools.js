@@ -50,6 +50,7 @@ module.exports = {
                         output["country_data"] = [];
                     }
                     data.results.map(function (result) {
+                        output["results"].push(result);
                         // Get the countries at activity level and build a array.
                         // This is used to determine the polygon for valid locations.
                         if (result.recipient_countries.length > 0) {
@@ -68,10 +69,9 @@ module.exports = {
 
                                 }
                             });
-                            output["results"].push(result);
                         }
                     });
-                    //output["country_data"].push(cc);
+                    output["country_data"].push(cc);
                     break;
 
                 default:
