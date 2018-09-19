@@ -44,7 +44,9 @@ module.exports = {
                     break;
 
                 default:
-                    output.push(data.results);
+                    data.results.map(function (result) {
+                        output.push(result);
+                    });
             }
 
             if (data.next !== null) {
