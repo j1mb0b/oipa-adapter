@@ -45,10 +45,6 @@ module.exports = {
 
                 case "countries":
                     let cc = {};
-                    if (!output["results"] && !output["country_data"]) {
-                        output["results"] = [];
-                        output["country_data"] = [];
-                    }
                     data.results.map(function (result) {
                         // Get the countries at activity level and build a array.
                         // This is used to determine the polygon for valid locations.
