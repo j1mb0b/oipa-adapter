@@ -48,7 +48,7 @@ module.exports = {
                         // Get the countries at activity level and build a array.
                         // This is used to determine the polygon for valid locations.
                         if (result.recipient_countries.length > 0) {
-                            let countries = {};
+                            let countries = {"recipient_countries":""};
                             result.recipient_countries.map(function (country) {
                                 if (!countries.hasOwnProperty('country.country.code')) {
                                     countries["recipient_countries"][country.country.code] = {
