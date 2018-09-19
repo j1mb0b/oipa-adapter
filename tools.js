@@ -44,8 +44,8 @@ module.exports = {
                     break;
 
                 case "countries":
-                    let countries = {},
-                        projects = {};
+                    let countries = "",
+                        projects = "";
                     countries["country_data"] = {};
                     projects["results"] = {};
                     data.results.map(function (result) {
