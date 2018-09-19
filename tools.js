@@ -44,7 +44,8 @@ module.exports = {
                     break;
 
                 case "countries":
-                    let countries = {};
+                    let countries = {},
+                        cc = {};
                     countries["country_data"] = [];
                     countries["results"] = [];
                     data.results.map(function (result) {
@@ -53,19 +54,19 @@ module.exports = {
                         if (result.recipient_countries.length > 0) {
                             result.recipient_countries.map(function (country) {
                                 if (!countries.hasOwnProperty('country.country.code')) {
-                                    let cc = {};
                                     cc[country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         //"projects": 10,
+                                        // @todo - get globa budget for country instead of project budget.
                                         "budget": result.budgets.map(function (budget) {
                                             return {year: budget.period_start, value: budget.value.value}
                                         }),
                                         "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
                                     };
-                                    countries["country_data"].push(cc);
                                 }
                             });
+                            countries["country_data"].push(cc);
                             countries["results"].push(result);
                         }
                     });
