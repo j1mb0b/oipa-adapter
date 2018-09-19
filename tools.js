@@ -44,14 +44,16 @@ module.exports = {
                     break;
 
                 case "countries":
+                    let countries = {};
+                        results = {};
                     data.results.map(function (result) {
                         // Get the countries at activity level and build a array.
                         // This is used to determine the polygon for valid locations.
                         if (result.recipient_countries.length > 0) {
-                            let countries = {"recipient_countries":""};
+
                             result.recipient_countries.map(function (country) {
                                 if (!countries.hasOwnProperty('country.country.code')) {
-                                    countries["recipient_countries"][country.country.code] = {
+                                    countries[country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         //"projects": 10,
@@ -62,10 +64,11 @@ module.exports = {
                                     };
                                 }
                             });
-                            output.push(countries);
-                            output.push(result);
+                            results.push(result);
                         }
                     });
+                    output.push({"country_data":countries});
+                    output.push({"results":results});
                     break;
 
                 default:
