@@ -55,7 +55,7 @@ module.exports = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         //"projects": 10,
-                                        "budget": response.budgets.map(function (budget) {
+                                        "budget": result.budgets.map(function (budget) {
                                             return {year: budget.period_start, value: budget.value.value}
                                         }),
                                         "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
