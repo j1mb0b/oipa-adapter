@@ -46,7 +46,9 @@ module.exports = {
                 case "countries":
                     let countries = {},
                         cc = {};
-                    countries["results"] = [];
+                    if (countries["results"] === undefined && countries["country_data"] === undefined)
+                        countries["results"] = [];
+                        countries["country_data"] = [];
                     data.results.map(function (result) {
                         // Get the countries at activity level and build a array.
                         // This is used to determine the polygon for valid locations.
@@ -66,10 +68,10 @@ module.exports = {
 
                                 }
                             });
+                            countries["country_data"].push(cc);
                             countries["results"].push(result);
                         }
                     });
-                    countries["country_data"] = cc;
                     output.push(countries);
                     break;
 
