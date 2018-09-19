@@ -46,14 +46,13 @@ module.exports = {
                 case "countries":
                     let countries = {},
                         cc = {};
-                    countries["country_data"] = [];
                     countries["results"] = [];
                     data.results.map(function (result) {
                         // Get the countries at activity level and build a array.
                         // This is used to determine the polygon for valid locations.
                         if (result.recipient_countries.length > 0) {
                             result.recipient_countries.map(function (country) {
-                                if (!cc.hasOwnProperty('country.country.code')) {
+                                if (cc[country.country.code] === undefined) {
                                     cc[country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
@@ -64,12 +63,13 @@ module.exports = {
                                         }),
                                         "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
                                     };
+
                                 }
                             });
                             countries["results"].push(result);
                         }
                     });
-                    countries["country_data"].push(cc);
+                    countries["country_data"] = cc;
                     output.push(countries);
                     break;
 
