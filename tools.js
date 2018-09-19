@@ -53,7 +53,7 @@ module.exports = {
                         // This is used to determine the polygon for valid locations.
                         if (result.recipient_countries.length > 0) {
                             result.recipient_countries.map(function (country) {
-                                if (!cc.hasOwnProperty(country.country.code)) {
+                                if (!cc.hasOwnProperty('country.country.code')) {
                                     cc[country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
