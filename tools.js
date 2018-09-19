@@ -53,7 +53,8 @@ module.exports = {
                         if (result.recipient_countries.length > 0) {
                             result.recipient_countries.map(function (country) {
                                 if (!countries.hasOwnProperty('country.country.code')) {
-                                    countries["country_data"][country.country.code] = {
+                                    let country = {};
+                                    country[country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         //"projects": 10,
@@ -62,6 +63,7 @@ module.exports = {
                                         }),
                                         "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
                                     };
+                                    countries["country_data"].push(country);
                                 }
                             });
                             countries["results"].push(result);
