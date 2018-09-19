@@ -51,7 +51,7 @@ module.exports = {
                             let countries = {};
                             result.recipient_countries.map(function (country) {
                                 if (!countries.hasOwnProperty('country.country.code')) {
-                                    countries[country.country.code] = {
+                                    countries["recipient_countries"][country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         //"projects": 10,
@@ -62,7 +62,7 @@ module.exports = {
                                     };
                                 }
                             });
-                            result.recipient_countries = countries;
+                            output.push(countries);
                             output.push(result);
                         }
                     });
