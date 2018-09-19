@@ -65,7 +65,7 @@ module.exports = {
                                     };
                                 }
                             });
-                            projects["results"][iati_identifier] = result;
+                            projects["results"][result.iati_identifier] = result;
                         }
                     });
                     output.push(countries);
@@ -85,54 +85,6 @@ module.exports = {
             return output;
         }).catch(function (err) {
             return module.exports.errorHandler(err, endpoint);
-        });
-    },
-    getActivity: function (url, output) {
-        return request(module.exports.getOptions(url)).then(function (activities) {
-            if (!output) {
-                output = [];
-            }
-
-            activities.results.map(function (result) {
-                output.push(result.url);
-            });
-
-            if (activities.next !== null) {
-                return module.exports.getActivity(activities.next, output);
-            }
-
-            return output;
-        }).catch(function (err) {
-            return module.exports.errorHandler(err, url);
-        });
-    },
-    getLocations: function (urls) {
-        let countries = {};
-        return Promise.map(urls, function (item) {
-            return request(module.exports.getOptions(item)).then(response => {
-                // Get the countries at activity level and build a array.
-                // This is used to determine the polygon for valid locations.
-                if (response.recipient_countries.length > 0) {
-                    response.recipient_countries.map(function (country) {
-                        if (!countries.hasOwnProperty('country.country.code')) {
-                            countries[country.country.code] = {
-                                "country": country.country.name,
-                                "id": country.country.code,
-                                //"projects": 10,
-                                "budget": response.budgets.map(function (budget) {
-                                    return {year: budget.period_start, value: budget.value.value}
-                                }),
-                                "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
-                            };
-                            return countries;
-                        }
-                    });
-                }
-            }).catch(function (err) {
-                return module.exports.errorHandler(err, item);
-            });
-        }, {concurrency: 10}).then(function (data) {
-            return countries;
         });
     },
     getPolygon: function (items) {
@@ -170,10 +122,5 @@ module.exports = {
                 console.log('Error on request: ' + url);
                 throw err;
         }
-    },
-    main: function (endpoint) {
-        return module.exports.getActivity(endpoint)
-            .then(module.exports.getLocations);
-        //.then(module.exports.getPolygon);
     }
 };

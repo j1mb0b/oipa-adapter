@@ -48,35 +48,6 @@ app.get('/oipa', function (req, res) {
     });
 });
 
-
-// 3. Retrieve country data slices for activites.
-app.get('/getCountryData', function (req, res) {
-    if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
-        return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
-
-    let c = req.query.country ? "&recipient_country=" + req.query.country : "",
-        s = req.query.sector ? "&req.query.sector=" + req.query.sector : "",
-        y = req.query.year ? "&transaction_date_year=" + req.query.year : "",
-        query = c + s + y;
-
-    // Default variables.
-    let url = domain + '/api/activities/?format=json&reporting_organisation_identifier=XM-DAC-2-10' + query;
-    return cacheProvider.instance().get(url, function (err, value) {
-        if (err) console.error(err);
-        if (value === undefined) {
-            console.log('Creating new cache entry and fetching results...');
-            tools.main(url).then(function (result) {
-                tools.setCache(url, result);
-                return res.status(200).json(result);
-            });
-        }
-        else {
-            console.log('Results fetched from cache entry using key: ' + url);
-            return res.status(200).json(value);
-        }
-    });
-});
-
 // 4. Cumul.io embed dashboard.
 app.get('/map', function (req, res) {
     let qp = {
