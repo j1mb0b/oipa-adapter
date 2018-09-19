@@ -44,7 +44,7 @@ module.exports = {
                     break;
 
                 default:
-                    return data;
+                    output.push(data);
             }
 
             if (data.next !== null) {
