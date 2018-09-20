@@ -72,6 +72,7 @@ module.exports = {
                         }
                     });
                     output["country_data"].push(cc);
+                    return output;
                     break;
 
                 default:
