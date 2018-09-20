@@ -76,7 +76,6 @@ module.exports = {
                             });
                         }
                     });
-                    output["country_data"].push(cc);
                     break;
 
                 default:
