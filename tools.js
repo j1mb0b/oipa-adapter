@@ -21,9 +21,6 @@ module.exports = {
         }
     },
     query: function (endpoint, type, output) {
-        if (!output) {
-            output = [];
-        }
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "sectors":
@@ -36,6 +33,10 @@ module.exports = {
                     });
 
                 case "documents":
+                    if (!output) {
+                        output = [];
+                    }
+
                     data.results.map(function (docs) {
                         docs.document_links.map(function (doc) {
                             output.push(doc);
@@ -44,6 +45,10 @@ module.exports = {
                     break;
 
                 case "countries":
+                    if (!output) {
+                        output = {};
+                    }
+
                     let cc = {};
                     if (!output["results"] && !output["country_data"]) {
                         output["results"] = [];
@@ -72,10 +77,13 @@ module.exports = {
                         }
                     });
                     output["country_data"].push(cc);
-                    return output;
                     break;
 
                 default:
+                    if (!output) {
+                        output = [];
+                    }
+
                     data.results.map(function (result) {
                         output.push(result);
                     });
