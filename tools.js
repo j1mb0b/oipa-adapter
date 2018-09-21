@@ -67,7 +67,7 @@ module.exports = {
                                         //"projects": 10,
                                         // @todo - get globa budget for country instead of project budget.
                                         "budget": module.exports.query(url + "&recipient_country=" + country.country.code).then(function (data) {
-                                            if (data.results.length <= 0)
+                                            if (data.results === undefined || data.results.length <= 0)
                                                 return;
                                             return {"budget":data.results[0].disbursement_expenditure, "activity_count":data.activity_count}
                                         }),
