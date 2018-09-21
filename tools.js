@@ -69,6 +69,7 @@ module.exports = {
                                         // @todo - get globa budget for country instead of project budget.
                                         "budget": new Promise(function (resolve, reject) {
                                             return module.exports.query(budget_url).then(function (data) {
+                                                console.log(data);
                                                 if (data.results === undefined || data.results.length <= 0)
                                                     return reject("No data for - " + budget_url);
 
