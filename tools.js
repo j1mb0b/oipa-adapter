@@ -40,6 +40,14 @@ module.exports = {
                     });
                     break;
 
+                case "actors":
+                    data.results.map(function (docs) {
+                        docs.participating_organisations.map(function (doc) {
+                            output.push(doc);
+                        });
+                    });
+                    break;
+
                 case "countries":
                     if (output.length <= 0) {
                         output = {};
