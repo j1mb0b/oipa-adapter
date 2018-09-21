@@ -69,7 +69,7 @@ module.exports = {
                                         "budget": new Promise(function (resolve, reject) {
                                             return module.exports.query(url + "&recipient_country=" + country.country.code).then(function (data) {
                                                 if (data.results === undefined || data.results.length <= 0)
-                                                    return reject("No data.");
+                                                    return reject("No data for - " + url);
 
                                                 return resolve({
                                                     "budget": data.results[0].disbursement_expenditure,
