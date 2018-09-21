@@ -74,7 +74,7 @@ module.exports = {
 
                                                 return resolve({
                                                     "budget": budget_data.results[0].disbursement_expenditure,
-                                                    "activity_count": budget_data.activity_count
+                                                    "activity_count": budget_data.results[0].activity_count
                                                 });
                                             });
                                         }),
