@@ -61,15 +61,16 @@ module.exports = {
                         if (result.recipient_countries.length > 0) {
                             result.recipient_countries.map(function (country) {
                                 if (output["country_data"].length <= 0 || output["country_data"][country.country.code] === undefined) {
+                                    let budget_url = url + "&recipient_country=" + country.country.code;
                                     output["country_data"][country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         //"projects": 10,
                                         // @todo - get globa budget for country instead of project budget.
                                         "budget": new Promise(function (resolve, reject) {
-                                            return module.exports.query(url + "&recipient_country=" + country.country.code).then(function (data) {
+                                            return module.exports.query(budget_url).then(function (data) {
                                                 if (data.results === undefined || data.results.length <= 0)
-                                                    return reject("No data for - " + url);
+                                                    return reject("No data for - " + budget_url);
 
                                                 return resolve({
                                                     "budget": data.results[0].disbursement_expenditure,
