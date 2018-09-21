@@ -41,9 +41,9 @@ module.exports = {
                     break;
 
                 case "actors":
-                    data.results.map(function (docs) {
-                        docs.participating_organisations.map(function (doc) {
-                            output.push(doc);
+                    data.results.map(function (actors) {
+                        actors.participating_organisations.map(function (actor) {
+                            output.push(actor);
                         });
                     });
                     break;
