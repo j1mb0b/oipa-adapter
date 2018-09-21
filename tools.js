@@ -40,21 +40,6 @@ module.exports = {
                     });
                     break;
 
-                case "actors":
-                    let actor_id = {};
-                    data.results.map(function (actors) {
-                        actors.participating_organisations.map(function (actor) {
-                            let uuid = actor.narratives[0].text;
-                            if (!actor_id || actor_id[uuid] === undefined)
-                                actor_id[uuid] = true;
-                            else if (actor_id[uuid])
-                                return null;
-
-                            output.push(actor);
-                        });
-                    });
-                    break;
-
                 case "countries":
                     if (output.length <= 0) {
                         output = {};
