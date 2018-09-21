@@ -68,14 +68,13 @@ module.exports = {
                                         //"projects": 10,
                                         // @todo - get globa budget for country instead of project budget.
                                         "budget": new Promise(function (resolve, reject) {
-                                            return module.exports.query(budget_url).then(function (data) {
-                                                console.log(data);
-                                                if (data.results === undefined || data.results.length <= 0)
+                                            return module.exports.query(budget_url).then(function (budget_data) {
+                                                if (budget_data.results === undefined || budget_data.results.length <= 0)
                                                     return reject("No data for - " + budget_url);
 
                                                 return resolve({
-                                                    "budget": data.results[0].disbursement_expenditure,
-                                                    "activity_count": data.activity_count
+                                                    "budget": budget_data.results[0].disbursement_expenditure,
+                                                    "activity_count": budget_data.activity_count
                                                 });
                                             });
                                         }),
@@ -88,7 +87,7 @@ module.exports = {
                     break;
 
                 default:
-                    return output;
+                    return data;
             }
 
             if (data.next !== null) {
