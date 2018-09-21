@@ -20,12 +20,12 @@ module.exports = {
             }
         }
     },
-    query: function (endpoint, type, output) {
+    query: function (endpoint, type = "", output = []) {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "sectors":
                     return Promise.map(data.results, function (result) {
-                        return Promise.resolve(module.exports.query(result.url, "").catch(function (err) {
+                        return Promise.resolve(module.exports.query(result.url).catch(function (err) {
                             return module.exports.errorHandler(err, result.url);
                         }));
                     }, {concurrency: 5}).then(function (data) {
@@ -33,10 +33,6 @@ module.exports = {
                     });
 
                 case "documents":
-                    if (!output) {
-                        output = [];
-                    }
-
                     data.results.map(function (docs) {
                         docs.document_links.map(function (doc) {
                             output.push(doc);
@@ -45,11 +41,15 @@ module.exports = {
                     break;
 
                 case "countries":
-                    if (!output) {
+                    if (output.length <= 0) {
                         output = {};
                     }
 
-                    let cc = {};
+                    let cc = {},
+                        current_year = (new Date()).getFullYear(),
+                        domain = endpoint.substr(0, endpoint.indexOf('/api')),
+                        url = domain + "/api/transactions/aggregations/?format=json&group_by=recipient_country&aggregations=activity_count,disbursement_expenditure&order_by=recipient_country&page_size=500&transaction_date_year=" + current_year;
+
                     if (!output["results"] && !output["country_data"]) {
                         output["results"] = [];
                         output["country_data"] = {};
@@ -66,9 +66,7 @@ module.exports = {
                                         "id": country.country.code,
                                         //"projects": 10,
                                         // @todo - get globa budget for country instead of project budget.
-                                        "budget": result.budgets.map(function (budget) {
-                                            return {year: budget.period_start, value: budget.value.value}
-                                        }),
+                                        "budget": module.exports.query(url + "&recipient_country=" + country.country.code).then(function (data) { return {"budget":data.results[0].disbursement_expenditure, "activity_count":data.activity_count} }),
                                         "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
                                     };
                                 }
@@ -78,13 +76,7 @@ module.exports = {
                     break;
 
                 default:
-                    if (!output) {
-                        output = [];
-                    }
-
-                    data.results.map(function (result) {
-                        output.push(result);
-                    });
+                    return output;
             }
 
             if (data.next !== null) {
