@@ -66,11 +66,11 @@ module.exports = {
                                         "id": country.country.code,
                                         //"projects": 10,
                                         // @todo - get globa budget for country instead of project budget.
-                                        "budget": module.exports.query(url + "&recipient_country=" + country.country.code).then(function (data) {
+                                        "budget": Promise.resolve(module.exports.query(url + "&recipient_country=" + country.country.code).then(function (data) {
                                             if (data.results === undefined || data.results.length <= 0)
                                                 return;
                                             return {"budget":data.results[0].disbursement_expenditure, "activity_count":data.activity_count}
-                                        }),
+                                        })),
                                         "flag": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/flags/1x1/" + country.country.code.toLowerCase() + ".svg"
                                     };
                                 }
