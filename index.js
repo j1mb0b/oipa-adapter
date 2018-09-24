@@ -149,30 +149,14 @@ app.post('/query', function (req, res) {
             });
             break;
 
-        case 'country-disbursement':
-        case 'country-commitment':
-        case 'country-value':
-        case 'sector-disbursement':
-        case 'participating-org-disbursement':
+        case 'year-disbursement':
+        case 'year-commitment':
+        case 'year-value':
             endpoint = '/api/transactions/aggregations/';
-            let aggr_type = req.body.id.match(/(.*)-(.*)/);
-                //country = req.body.id.match(/country-(.*)/),
-
-            // Handle "country-value" since it uses a different endpoint, group, and order by.
-            //if (country && country[1] === 'value') {
-                //endpoint = '/api/budgets/aggregations/';
-                // Exception for Budget since it uses a different field to the others.
-                //groupOrderBy = 'budget_period_end_year';
-            //}
-            let groupOrderBy = 'transaction_date_year';
-            if (req.body.id === "sector-disbursement")
-                groupOrderBy = 'sector';
-            else if (req.body.id === "participating-org-disbursement")
-                groupOrderBy = 'participating_organisation';
-
-            // Build query string.
-            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy;
-            let uri = domain + endpoint + query + filters;
+            let aggr_type = req.body.id.match(/(.*)-(.*)/),
+                groupOrderBy = 'transaction_date_year',
+                query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
+                uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
                 gzip: true,
@@ -183,29 +167,68 @@ app.post('/query', function (req, res) {
                     return res.status(500).end('Internal Server Error');
                 }
                 let datasets = data.body.results.map(function (result) {
-                    if (sector) {
-                        return [
-                            result.activity_count,
-                            result.disbursement,
-                            result.sector.code,
-                            result.sector.name
-                        ];
-                    }
-                    else if (part_org) {
-                        return [
-                            result.activity_count,
-                            result.disbursement,
-                            result.participating_organisation,
-                            result.participating_organisation_ref
-                        ];
-                    }
-                    else {
-                        let obj = Object.keys(result);
-                        // We assume the order of keys are first: transaction year, second: amount.
-                        // Also that it remains the same for the other "cases", if not we are forced to
-                        // hard code the string to get the value which won't work well with this generic code.
-                        return [result[obj[0]], result[obj[1]]];
-                    }
+                    let obj = Object.keys(result);
+                    // We assume the order of keys are first: transaction year, second: amount.
+                    // Also that it remains the same for the other "cases", if not we are forced to
+                    // hard code the string to get the value which won't work well with this generic code.
+                    return [result[obj[0]], result[obj[1]]];
+
+                });
+                return res.status(200).json(datasets);
+            });
+            break;
+
+        case 'sector-disbursement':
+            endpoint = '/api/transactions/aggregations/';
+            let aggr_type = req.body.id.match(/(.*)-(.*)/),
+                groupOrderBy = 'sector',
+                query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
+                uri = domain + endpoint + query + filters;
+            request.get({
+                uri: uri,
+                gzip: true,
+                json: true
+            }, function (error, data) {
+                if (error || !data.body.results) {
+                    console.log(uri);
+                    return res.status(500).end('Internal Server Error');
+                }
+                let datasets = data.body.results.map(function (result) {
+                    return [
+                        result.activity_count,
+                        result.disbursement,
+                        result.sector.code,
+                        result.sector.name
+                    ];
+
+                });
+                return res.status(200).json(datasets);
+            });
+            break;
+
+        case 'participating-org-disbursement':
+            endpoint = '/api/transactions/aggregations/';
+            let aggr_type = req.body.id.match(/(.*)-(.*)/),
+                groupOrderBy = 'participating_organisation',
+                query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
+                uri = domain + endpoint + query + filters;
+            request.get({
+                uri: uri,
+                gzip: true,
+                json: true
+            }, function (error, data) {
+                if (error || !data.body.results) {
+                    console.log(uri);
+                    return res.status(500).end('Internal Server Error');
+                }
+                let datasets = data.body.results.map(function (result) {
+
+                    return [
+                        result.activity_count,
+                        result.disbursement,
+                        result.participating_organisation,
+                        result.participating_organisation_ref
+                    ];
                 });
                 return res.status(200).json(datasets);
             });
