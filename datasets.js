@@ -39,27 +39,27 @@ module.exports = function () {
             ]
         },
         {
-            id: 'country-disbursement',
-            name: {en: 'Country year disbursement'},
-            description: {en: 'Aggregations of transactional data related to countries grouped by year'},
+            id: 'year-disbursement',
+            name: {en: 'Year disbursement'},
+            description: {en: 'Aggregations of transactional data grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
                 {id: 'disbursement', name: {en: 'Expenditure'}, type: 'numeric'}
             ]
         },
         {
-            id: 'country-commitment',
-            name: {en: 'Country year commitment'},
-            description: {en: 'Aggregations of transactional data related to countries grouped by year'},
+            id: 'year-commitment',
+            name: {en: 'Year commitment'},
+            description: {en: 'Aggregations of transactional data grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
                 {id: 'commitment', name: {en: 'Commitment'}, type: 'numeric'}
             ]
         },
         {
-            id: 'country-value',
-            name: {en: 'Country year budget'},
-            description: {en: 'Aggregations of transactional data related to countries grouped by year'},
+            id: 'year-value',
+            name: {en: 'Year budget'},
+            description: {en: 'Aggregations of transactional data grouped by year'},
             columns: [
                 {id: 'year', name: {en: 'Year'}, type: 'hierarchy'},
                 {id: 'budget', name: {en: 'Budget'}, type: 'numeric'}
