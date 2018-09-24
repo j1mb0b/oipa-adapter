@@ -155,7 +155,7 @@ app.post('/query', function (req, res) {
             endpoint = '/api/transactions/aggregations/';
             let aggr_type = req.body.id.match(/(.*)-(.*)/),
                 groupOrderBy = 'transaction_date_year',
-                query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
+                query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[2] + '&order_by=' + groupOrderBy,
                 uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
