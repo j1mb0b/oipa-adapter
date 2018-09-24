@@ -40,6 +40,13 @@ module.exports = {
                     });
                     break;
 
+                case "orginisation":
+                    data.results.map(function (result) {
+                       let id = result.participating_organisation.length + result.participating_organisation_type.code;
+                       result["id"] = id;
+                    });
+                    return results;
+
                 case "countries":
                     if (output.length <= 0) {
                         output = {};
@@ -65,8 +72,6 @@ module.exports = {
                                     output["country_data"][country.country.code] = {
                                         "country": country.country.name,
                                         "id": country.country.code,
-                                        //"projects": 10,
-                                        // @todo - get globa budget for country instead of project budget.
                                         "budget": new Promise(function (resolve, reject) {
                                             return module.exports.query(budget_url).then(function (budget_data) {
                                                 if (budget_data.results === undefined || budget_data.results.length <= 0)
