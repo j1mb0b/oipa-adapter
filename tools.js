@@ -40,7 +40,7 @@ module.exports = {
                     });
                     break;
 
-                case "organisation":
+                case "actors":
                     data.results.map(function (result) {
                        let id = result.participating_organisation.length + result.participating_organisation_type.code;
                        result["id"] = id;
