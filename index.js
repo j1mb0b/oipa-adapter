@@ -171,7 +171,7 @@ app.post('/query', function (req, res) {
                 groupOrderBy = 'participating_organisation';
 
             // Build query string.
-            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
+            let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy;
             let uri = domain + endpoint + query + filters;
             request.get({
                 uri: uri,
