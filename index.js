@@ -155,25 +155,21 @@ app.post('/query', function (req, res) {
         case 'sector-disbursement':
         case 'participating-org-disbursement':
             endpoint = '/api/transactions/aggregations/';
-            let groupOrderBy = 'transaction_date_year',
-                country_code = (req.body.country_code) ? req.body.country_code : "",
-                aggr_type = req.body.id.match(/(.*)-(.*)/),
-                country = req.body.id.match(/country-(.*)/),
-                sector = req.body.id.match(/sector-(.*)/),
-                part_org = req.body.id.match(/participating-org-(.*)/);
+            let aggr_type = req.body.id.match(/(.*)-(.*)/);
+                //country = req.body.id.match(/country-(.*)/),
 
             // Handle "country-value" since it uses a different endpoint, group, and order by.
-            if (country && country[1] === 'value') {
-                endpoint = '/api/budgets/aggregations/';
+            //if (country && country[1] === 'value') {
+                //endpoint = '/api/budgets/aggregations/';
                 // Exception for Budget since it uses a different field to the others.
-                groupOrderBy = 'budget_period_end_year';
-            }
-            else if (sector) {
+                //groupOrderBy = 'budget_period_end_year';
+            //}
+            let groupOrderBy = 'transaction_date_year';
+            if (req.body.id === "sector-disbursement")
                 groupOrderBy = 'sector';
-            }
-            else if (part_org) {
+            else if (req.body.id === "participating-org-disbursement")
                 groupOrderBy = 'participating_organisation';
-            }
+
             // Build query string.
             let query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy + '&recipient_country=' + country_code;
             let uri = domain + endpoint + query + filters;
