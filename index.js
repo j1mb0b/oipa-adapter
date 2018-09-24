@@ -152,10 +152,10 @@ app.post('/query', function (req, res) {
         case 'year-commitment':
         case 'year-value':
             endpoint = '/api/transactions/aggregations/';
-            aggr_type = req.body.id.match(/(.*)-(.*)/),
-            groupOrderBy = 'transaction_date_year',
-            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[2] + '&order_by=' + groupOrderBy,
-            uri = domain + endpoint + query + filters;
+            aggr_type = req.body.id.match(/(.*)-(.*)/);
+            groupOrderBy = 'transaction_date_year';
+            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[2] + '&order_by=' + groupOrderBy;
+            uri = domain + endpoint + query;
             request.get({
                 uri: uri,
                 gzip: true,
@@ -179,10 +179,10 @@ app.post('/query', function (req, res) {
 
         case 'sector-disbursement':
             endpoint = '/api/transactions/aggregations/';
-            aggr_type = req.body.id.match(/(.*)-(.*)/),
-            groupOrderBy = 'sector',
-            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
-            uri = domain + endpoint + query + filters;
+            aggr_type = req.body.id.match(/(.*)-(.*)/);
+            groupOrderBy = 'sector';
+            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy;
+            uri = domain + endpoint + query;
             request.get({
                 uri: uri,
                 gzip: true,
@@ -207,10 +207,10 @@ app.post('/query', function (req, res) {
 
         case 'participating-org-disbursement':
             endpoint = '/api/transactions/aggregations/';
-            aggr_type = req.body.id.match(/(.*)-(.*)/),
-            groupOrderBy = 'participating_organisation',
-            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
-            uri = domain + endpoint + query + filters;
+            aggr_type = req.body.id.match(/(.*)-(.*)/);
+            groupOrderBy = 'participating_organisation';
+            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy;
+            uri = domain + endpoint + query;
             request.get({
                 uri: uri,
                 gzip: true,
