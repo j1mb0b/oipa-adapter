@@ -180,7 +180,7 @@ app.post('/query', function (req, res) {
 
         case 'sector-disbursement':
             endpoint = '/api/transactions/aggregations/';
-            let aggr_type = req.body.id.match(/(.*)-(.*)/),
+                aggr_type = req.body.id.match(/(.*)-(.*)/),
                 groupOrderBy = 'sector',
                 query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
                 uri = domain + endpoint + query + filters;
@@ -208,7 +208,7 @@ app.post('/query', function (req, res) {
 
         case 'participating-org-disbursement':
             endpoint = '/api/transactions/aggregations/';
-            let aggr_type = req.body.id.match(/(.*)-(.*)/),
+                aggr_type = req.body.id.match(/(.*)-(.*)/),
                 groupOrderBy = 'participating_organisation',
                 query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy,
                 uri = domain + endpoint + query + filters;
