@@ -20,7 +20,7 @@ module.exports = {
             }
         }
     },
-    query: function (endpoint, type = "", output = []) {
+    query: function (endpoint, type, output) {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "sectors":
@@ -33,6 +33,7 @@ module.exports = {
                     });
 
                 case "documents":
+                    if (!output) output = [];
                     data.results.map(function (docs) {
                         docs.document_links.map(function (doc) {
                             output.push(doc);
@@ -47,15 +48,11 @@ module.exports = {
                     return data;
 
                 case "countries":
-                    if (output.length <= 0) {
-                        output = {};
-                    }
-
+                    if (!output) output = {};
                     let cc = {},
                         current_year = (new Date()).getFullYear(),
                         domain = endpoint.substr(0, endpoint.indexOf('/api')),
                         url = domain + "/api/transactions/aggregations/?format=json&group_by=recipient_country&aggregations=activity_count,disbursement_expenditure&order_by=recipient_country&page_size=500&transaction_date_year=" + current_year;
-
                     if (!output["results"] && !output["country_data"]) {
                         output["results"] = [];
                         output["country_data"] = {};
@@ -90,6 +87,12 @@ module.exports = {
                     });
                     break;
 
+                case "activties":
+                    if (!output) output = {};
+                    if (output.length <= 0) output = data.results;
+                    else output.concat(data.results);
+                    break;
+
                 default:
                     return data;
             }
@@ -101,23 +104,6 @@ module.exports = {
             return output;
         }).catch(function (err) {
             return module.exports.errorHandler(err, endpoint);
-        });
-    },
-    getPolygon: function (items) {
-        if (items[0].countries.length <= 0)
-            return false;
-
-        return Promise.map(items[0].countries, function (item) {
-            return request(module.exports.getOptions(item)).then(response => {
-                let poly = {};
-                poly[item] = response.polygon.coordinates;
-                return poly;
-            }).catch(function (err) {
-                return module.exports.errorHandler(err, item);
-            });
-        }, {concurrency: 5}).then(function (data) {
-            items[0].countries = data;
-            return items;
         });
     },
     setCache: function (key, obj) {
