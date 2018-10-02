@@ -88,7 +88,7 @@ module.exports = {
                     break;
 
                 case "activties":
-                    if (output.length <= 0) output = data.results;
+                    if (!output) output = data.results;
                     else output.concat(data.results);
                     break;
 
