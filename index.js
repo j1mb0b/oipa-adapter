@@ -12,32 +12,6 @@ const cacheProvider = require('./cache-provider');
 // Cumul.io
 const Cumulio = require('cumulio');
 
-// 1. Generic query handler to request via OIPA, with cache engine.
-app.get('/oipa', function (req, res) {
-    if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
-        return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
-
-    let url = req.headers['x-url'],
-        type = req.headers['x-type'];
-
-    if (!url)
-        return res.status(403).end('Please set "url" header in your request!');
-
-    return cacheProvider.instance().get(url, function (err, value) {
-        if (err) console.error(err);
-        if (value === undefined) {
-            console.log('Creating new cache entry and fetching results...');
-            tools.query(url, type).then(function (result) {
-                tools.setCache(url, result);
-                return res.status(200).json(result);
-            });
-        }
-        else {
-            console.log('Results fetched from cache entry using key: ' + url);
-            return res.status(200).json(value);
-        }
-    });
-});
 
 // 2. List datasets
 app.get('/datasets', function (req, res) {
@@ -47,7 +21,7 @@ app.get('/datasets', function (req, res) {
     return res.status(200).json(datasets);
 });
 
-// 3. Retrieve data slices
+// . Retrieve data slices
 app.post('/query', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');

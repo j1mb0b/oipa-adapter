@@ -23,6 +23,11 @@ module.exports = {
     query: function (endpoint, type, output) {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
+                case "pager":
+                    if (!output) output = data.results;
+                    output.concat(data.results);
+                    break;
+
                 case "sectors":
                     return Promise.map(data.results, function (result) {
                         return Promise.resolve(module.exports.query(result.url).catch(function (err) {
@@ -63,7 +68,7 @@ module.exports = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         "budget": new Promise(function (resolve, reject) {
-                                            return module.exports.query(budget_url).then(function (budget_data) {
+                                            return module.exports.query(budget_url, "pager").then(function (budget_data) {
                                                 if (budget_data.results === undefined || budget_data.results.length <= 0)
                                                     return reject("No data for - " + budget_url);
 
