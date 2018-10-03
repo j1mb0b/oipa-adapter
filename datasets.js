@@ -2,18 +2,6 @@
 
 module.exports = function () {
     return [
-        {   
-            id: 'activities',
-            name: {en: 'Activities'},
-            description: {en: 'Activities data'},
-            columns: [
-                {id: 'iati-identifier', name: {en: 'IATI Identifier'}, type: 'hierarchy'},
-                {id: 'title', name: {en: 'Title'}, type: 'hierarchy'},
-                {id: 'descriptions', name: {en: 'Descriptions'}, type: 'hierarchy'},
-                {id: 'activity-status', name: {en: 'Activity status'}, type: 'hierarchy'},
-                {id: 'activity-status-code', name: {en: 'Activity status code'}, type: 'hierarchy'}
-            ]
-        },
         {
             id: 'sectors',
             name: {en: 'Sector'},

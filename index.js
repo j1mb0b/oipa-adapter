@@ -59,30 +59,6 @@ app.post('/query', function (req, res) {
     let default_params = '?format=json&reporting_organisation=XM-DAC-2-10', endpoint, filters, aggr_type, groupOrderBy, query, uri;
     // Handle request based on the request body "value" sent.
     switch (req.body.id) {
-        case 'activities':
-            request.get({
-                uri: domain + "/api/activities/" + default_params + "&fields=title,iati_identifier,locations,activity_dates,policy_markers,activity_status,recipient_countries,recipient_regions&page_size=500",
-                gzip: true,
-                json: true
-            }, function (error, data) {
-                if (error || !data.body.results) {
-                    console.log(uri);
-                    return res.status(500).end('Internal Server Error');
-                }
-
-                let datasets = data.body.results.map(function (result) {
-                    return [
-                        result.iati_identifier,
-                        result.title.narratives ? result.title.narratives[0].text : "",
-                        result.descriptions ? result.descriptions[0].narratives[0].text : "",
-                        result.activity_status.code,
-                        result.activity_status.name
-                    ];
-                });
-                return res.status(200).json(datasets);
-            });
-            break;
-
         case 'sectors':
             return tools.query(
                 domain + "/api/activities/" + default_params + "&fields=iati_identifier,sectors&page_size=500",
@@ -105,18 +81,12 @@ app.post('/query', function (req, res) {
             });
 
         case 'participating-organisations':
-            request.get({
-                uri: domain + "/api/activities/" + default_params + "&fields=iati_identifier,participating_organisations&page_size=500",
-                gzip: true,
-                json: true
-            }, function (error, data) {
-                if (error || !data.body.results) {
-                    console.log(uri);
-                    return res.status(500).end('Internal Server Error');
-                }
-
+            return tools.query(
+                domain + "/api/activities/" + default_params + "&fields=iati_identifier,participating_organisations&page_size=500",
+                "pager"
+            ).then(function (response) {
                 let datasets = [];
-                data.body.results.map(function (result) {
+                response.map(function (result) {
                     result.participating_organisations.map(function (item) {
                         datasets.push([
                             result.iati_identifier,
@@ -128,7 +98,6 @@ app.post('/query', function (req, res) {
                 });
                 return res.status(200).json(datasets);
             });
-            break;
 
         case 'year-disbursement':
         case 'year-commitment':
