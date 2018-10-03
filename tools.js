@@ -90,7 +90,7 @@ module.exports = {
                     return data;
             }
 
-            console.log(type);
+            console.log(data);
 
             if (data.next !== null) {
                 console.log('called');
