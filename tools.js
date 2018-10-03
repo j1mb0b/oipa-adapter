@@ -91,6 +91,7 @@ module.exports = {
             }
 
             if (data.next !== null) {
+                console.log('called');
                 return module.exports.query(data.next, type, output);
             }
 
