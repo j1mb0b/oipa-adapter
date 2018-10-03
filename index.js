@@ -84,7 +84,7 @@ app.post('/query', function (req, res) {
             break;
 
         case 'sectors':
-            tools.query(
+            return tools.query(
                 domain + "/api/activities/" + default_params + "&fields=iati_identifier,sectors&page_size=500",
                 "pager"
             ).then(function (response) {
@@ -103,7 +103,6 @@ app.post('/query', function (req, res) {
                 });
                 return res.status(200).json(datasets);
             });
-            break;
 
         case 'participating-organisations':
             request.get({
