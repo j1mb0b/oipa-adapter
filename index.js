@@ -90,7 +90,7 @@ app.post('/query', function (req, res) {
             ).then(function (response) {
                 console.log(response);
                 let datasets = [];
-                response.results.map(function (result) {
+                response.map(function (result) {
                     result.sectors.map(function (item) {
                         datasets.push([
                             result.iati_identifier,
