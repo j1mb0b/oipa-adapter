@@ -12,16 +12,7 @@ const cacheProvider = require('./cache-provider');
 // Cumul.io
 const Cumulio = require('cumulio');
 
-
-// 1. List datasets
-app.get('/datasets', function (req, res) {
-    if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
-        return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
-
-    return res.status(200).json(datasets);
-});
-
-// 2. Generic query handler to request via OIPA, with cache engine.
+// 1. Generic query handler to request via OIPA, with cache engine.
 app.get('/oipa', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
@@ -48,17 +39,15 @@ app.get('/oipa', function (req, res) {
     });
 });
 
-// 4. Cumul.io embed dashboard.
-app.get('/map', function (req, res) {
-    let qp = {
-        country: req.query.recipient_country,
-        sector: req.query.sector,
-        year: req.query.transaction_date_year
-    };
-    res.render(path.join(__dirname + '/public/map.html'), qp);
+// 2. List datasets
+app.get('/datasets', function (req, res) {
+    if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
+        return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');
+
+    return res.status(200).json(datasets);
 });
 
-// 5. Retrieve data slices
+// 3. Retrieve data slices
 app.post('/query', function (req, res) {
     if (req.headers['x-secret'] !== process.env.CUMULIO_SECRET)
         return res.status(403).end('Given plugin secret does not match Cumul.io plugin secret.');

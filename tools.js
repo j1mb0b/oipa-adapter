@@ -41,12 +41,6 @@ module.exports = {
                     });
                     break;
 
-                case "actors":
-                    data.results.map(function (result) {
-                       result["id"] = result.participating_organisation.length + result.participating_organisation_type.code;
-                    });
-                    return data;
-
                 case "countries":
                     if (!output) output = {};
                     let cc = {},
@@ -85,11 +79,6 @@ module.exports = {
                             });
                         }
                     });
-                    break;
-
-                case "activties":
-                    if (!output) output = data.results;
-                    else output.concat(data.results);
                     break;
 
                 default:
