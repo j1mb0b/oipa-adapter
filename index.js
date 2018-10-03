@@ -56,7 +56,7 @@ app.post('/query', function (req, res) {
         return res.status(403).end('Please set "id" in the body of your request!');
 
     // Default variables.
-    let default_params = '?format=json&reporting_organisation_identifier=XM-DAC-2-10', endpoint, filters, aggr_type, groupOrderBy, query, uri;
+    let default_params = '?format=json&reporting_organisation=XM-DAC-2-10', endpoint, filters, aggr_type, groupOrderBy, query, uri;
     // Handle request based on the request body "value" sent.
     switch (req.body.id) {
         case 'activities':
