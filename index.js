@@ -90,7 +90,7 @@ app.post('/query', function (req, res) {
                     result.participating_organisations.map(function (item) {
                         datasets.push([
                             result.iati_identifier,
-                            item.narratives[0].text,
+                            item.narratives.length > 0 ? item.narratives[0].text : "",
                             item.type.code,
                             item.role.code
                         ]);
