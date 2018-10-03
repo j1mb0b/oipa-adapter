@@ -61,7 +61,7 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'activities':
             request.get({
-                uri: domain + "/api/activities/?" + default_params + "&fields=title,iati_identifier,locations,activity_dates,policy_markers,activity_status,recipient_countries,recipient_regions&page_size=500",
+                uri: domain + "/api/activities/" + default_params + "&fields=title,iati_identifier,locations,activity_dates,policy_markers,activity_status,recipient_countries,recipient_regions&page_size=500",
                 gzip: true,
                 json: true
             }, function (error, data) {
@@ -85,7 +85,7 @@ app.post('/query', function (req, res) {
 
         case 'sectors':
             tools.query(
-                domain + "/api/activities/?" + default_params + "&fields=iati_identifier,sectors&page_size=500",
+                domain + "/api/activities/" + default_params + "&fields=iati_identifier,sectors&page_size=500",
                 "pager"
             ).then(function (response) {
                 let datasets = [];
@@ -107,7 +107,7 @@ app.post('/query', function (req, res) {
 
         case 'participating-organisations':
             request.get({
-                uri: domain + "/api/activities/?" + default_params + "&fields=iati_identifier,participating_organisations&page_size=500",
+                uri: domain + "/api/activities/" + default_params + "&fields=iati_identifier,participating_organisations&page_size=500",
                 gzip: true,
                 json: true
             }, function (error, data) {
