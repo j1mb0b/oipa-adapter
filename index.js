@@ -88,6 +88,7 @@ app.post('/query', function (req, res) {
                 domain + "/api/activities/" + default_params + "&fields=iati_identifier,sectors&page_size=500",
                 "pager"
             ).then(function (response) {
+                console.log(response);
                 let datasets = [];
                 response.results.map(function (result) {
                     result.sectors.map(function (item) {
