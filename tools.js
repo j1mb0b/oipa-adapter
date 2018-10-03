@@ -21,6 +21,7 @@ module.exports = {
         }
     },
     query: function (endpoint, type, output) {
+        console.log(endpoint);
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "pager":
@@ -89,8 +90,6 @@ module.exports = {
                 default:
                     return data;
             }
-
-            console.log(data);
 
             if (data.next !== null) {
                 console.log('called');
