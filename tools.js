@@ -68,7 +68,7 @@ module.exports = {
                                         "country": country.country.name,
                                         "id": country.country.code,
                                         "budget": new Promise(function (resolve, reject) {
-                                            return module.exports.query(budget_url, "pager").then(function (budget_data) {
+                                            return module.exports.query(budget_url).then(function (budget_data) {
                                                 if (budget_data.results === undefined || budget_data.results.length <= 0)
                                                     return reject("No data for - " + budget_url);
 
