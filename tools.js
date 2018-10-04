@@ -24,8 +24,13 @@ module.exports = {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "pager":
-                    if (!output) output = [];
-                    output.concat(data.results);
+                    if (!output) {
+                        output = [];
+                        output.concat(data.results);
+                    }
+                    else {
+                        output.concat(data.results);
+                    }
                     break;
 
                 case "sectors":
