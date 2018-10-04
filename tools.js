@@ -24,7 +24,6 @@ module.exports = {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "pager":
-                    console.log(data.results.length);
                     if (!output) output = data.results;
                     else output.concat(data.results);
                     break;
@@ -94,6 +93,8 @@ module.exports = {
             if (data.next !== null) {
                 return module.exports.query(data.next, type, output);
             }
+
+            console.log(output.length);
 
             return output;
         }).catch(function (err) {
