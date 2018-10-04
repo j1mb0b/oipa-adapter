@@ -26,6 +26,7 @@ module.exports = {
                 case "pager":
                     if (!output) output = data.results;
                     else output.concat(data.results);
+                    console.log(output.length);
                     break;
 
                 case "sectors":
