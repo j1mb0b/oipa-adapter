@@ -65,6 +65,7 @@ app.post('/query', function (req, res) {
                 "pager"
             ).then(function (response) {
                 let datasets = [];
+                console.log(response.length);
                 response.map(function (result) {
                     result.sectors.map(function (item) {
                         datasets.push([
