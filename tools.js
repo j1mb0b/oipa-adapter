@@ -24,8 +24,7 @@ module.exports = {
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "pager":
-                    console.log(output.length);
-                    if (!output) output = data.results;
+                    if (!output) output = [];
                     else output.concat(data.results);
                     break;
 
