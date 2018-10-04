@@ -25,7 +25,7 @@ module.exports = {
             switch (type) {
                 case "pager":
                     if (!output) output = data.results;
-                    else output.concat(data.results, output);
+                    else output.push(data.results);
                     break;
 
                 case "sectors":
