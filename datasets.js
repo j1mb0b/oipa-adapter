@@ -62,6 +62,7 @@ module.exports = function () {
                 {id: 'disbursement', name: {en: 'Disbursement'}, type: 'numeric'},
                 {id: 'sector-code', name: {en: 'Sector code'}, type: 'hierarchy'},
                 {id: 'sector-name', name: {en: 'Sector name'}, type: 'hierarchy'},
+                {id: 'vocabulary-code', name: {en: 'Vocabulary code'}, type: 'hierarchy'}
             ]
         },
         {

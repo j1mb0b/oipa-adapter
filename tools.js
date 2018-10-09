@@ -94,8 +94,6 @@ module.exports = {
                 return module.exports.query(data.next, type, output);
             }
 
-            console.log(output.length);
-
             return output;
         }).catch(function (err) {
             return module.exports.errorHandler(err, endpoint);

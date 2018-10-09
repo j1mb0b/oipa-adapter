@@ -99,35 +99,6 @@ app.post('/query', function (req, res) {
                 return res.status(200).json(datasets);
             });
 
-        case 'year-disbursement':
-        case 'year-commitment':
-        case 'year-value':
-            endpoint = '/api/transactions/aggregations/';
-            aggr_type = req.body.id.match(/(.*)-(.*)/);
-            groupOrderBy = 'transaction_date_year';
-            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=' + aggr_type[2] + '&order_by=' + groupOrderBy;
-            uri = domain + endpoint + query;
-            request.get({
-                uri: uri,
-                gzip: true,
-                json: true
-            }, function (error, data) {
-                if (error || !data.body.results) {
-                    console.log(uri);
-                    return res.status(500).end('Internal Server Error');
-                }
-                let datasets = data.body.results.map(function (result) {
-                    let obj = Object.keys(result);
-                    // We assume the order of keys are first: transaction year, second: amount.
-                    // Also that it remains the same for the other "cases", if not we are forced to
-                    // hard code the string to get the value which won't work well with this generic code.
-                    return [result[obj[0]], result[obj[1]]];
-
-                });
-                return res.status(200).json(datasets);
-            });
-            break;
-
         case 'sector-disbursement':
             endpoint = '/api/transactions/aggregations/';
             aggr_type = req.body.id.match(/(.*)-(.*)/);
@@ -148,7 +119,8 @@ app.post('/query', function (req, res) {
                         result.activity_count,
                         result.disbursement,
                         result.sector.code,
-                        result.sector.name
+                        result.sector.name,
+                        result.vocabulary.name
                     ];
 
                 });
