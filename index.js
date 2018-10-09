@@ -119,8 +119,7 @@ app.post('/query', function (req, res) {
                         result.activity_count,
                         result.disbursement,
                         result.sector.code,
-                        result.sector.name,
-                        result.vocabulary.name
+                        result.sector.name
                     ];
 
                 });
