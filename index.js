@@ -2,6 +2,7 @@
 
 const domain = 'http://18.221.72.54:8000';
 const fs = require('fs');
+let path = require('path');
 const app = require('./webserver')();
 const datasets = require('./datasets')();
 // Load tools API.
@@ -58,7 +59,7 @@ app.post('/query', function (req, res) {
     switch (req.body.id) {
         case 'top-sectors':
             // Get content from file
-            let contents = fs.readFileSync("top-sectors.json");
+            let contents = fs.readFileSync(path.join(__dirname, "top-sectors.json"));
             // Define to JSON type
             let jsonContent = JSON.parse(contents);
             let datasets = [];
