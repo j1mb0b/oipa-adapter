@@ -1,10 +1,9 @@
 'use strict';
 
 const domain = 'http://18.221.72.54:8000';
+const fs = require('fs');
 const app = require('./webserver')();
 const datasets = require('./datasets')();
-const request = require('request');
-let path = require('path');
 // Load tools API.
 const tools = require('./tools.js');
 // Load cache provider.
@@ -55,105 +54,18 @@ app.post('/query', function (req, res) {
     if (!req.body.id)
         return res.status(403).end('Please set "id" in the body of your request!');
 
-    // Default variables.
-    let default_params = '?format=json&reporting_organisation=XM-DAC-2-10', endpoint, filters, aggr_type, groupOrderBy, query, uri;
     // Handle request based on the request body "value" sent.
     switch (req.body.id) {
-        case 'sectors':
-            return tools.query(
-                domain + "/api/activities/" + default_params + "&fields=iati_identifier,sectors&page_size=500",
-                "pager"
-            ).then(function (response) {
-                let datasets = [];
-                response.map(function (result) {
-                    result.sectors.map(function (item) {
-                        datasets.push([
-                            result.iati_identifier,
-                            item.sector.name,
-                            item.sector.code,
-                            item.percentage,
-                            item.vocabulary.name,
-                            item.vocabulary.code
-                        ]);
-                    });
-                });
-                return res.status(200).json(datasets);
+        case 'top-sectors':
+            // Get content from file
+            let contents = fs.readFileSync("top-sectors.json");
+            // Define to JSON type
+            let jsonContent = JSON.parse(contents);
+            let datasets = [];
+            jsonContent.map(function (item) {
+                datasets.push(item);
             });
-
-        case 'participating-organisations':
-            return tools.query(
-                domain + "/api/activities/" + default_params + "&fields=iati_identifier,participating_organisations&page_size=500",
-                "pager"
-            ).then(function (response) {
-                let datasets = [];
-                response.map(function (result) {
-                    result.participating_organisations.map(function (item) {
-                        datasets.push([
-                            result.iati_identifier,
-                            item.narratives.length > 0 ? item.narratives[0].text : "",
-                            item.type.code,
-                            item.role.code
-                        ]);
-                    });
-                });
-                return res.status(200).json(datasets);
-            });
-
-        case 'sector-disbursement':
-            endpoint = '/api/transactions/aggregations/';
-            aggr_type = req.body.id.match(/(.*)-(.*)/);
-            groupOrderBy = 'sector';
-            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy;
-            uri = domain + endpoint + query;
-            request.get({
-                uri: uri,
-                gzip: true,
-                json: true
-            }, function (error, data) {
-                if (error || !data.body.results) {
-                    console.log(uri);
-                    return res.status(500).end('Internal Server Error');
-                }
-                let datasets = data.body.results.map(function (result) {
-                    return [
-                        result.activity_count,
-                        result.disbursement,
-                        result.sector.code,
-                        result.sector.name
-                    ];
-
-                });
-                return res.status(200).json(datasets);
-            });
-            break;
-
-        case 'participating-org-disbursement':
-            endpoint = '/api/transactions/aggregations/';
-            aggr_type = req.body.id.match(/(.*)-(.*)/);
-            groupOrderBy = 'participating_organisation';
-            query = default_params + '&group_by=' + groupOrderBy + '&aggregations=activity_count,' + aggr_type[2] + '&order_by=' + groupOrderBy;
-            uri = domain + endpoint + query;
-            request.get({
-                uri: uri,
-                gzip: true,
-                json: true
-            }, function (error, data) {
-                if (error || !data.body.results) {
-                    console.log(uri);
-                    return res.status(500).end('Internal Server Error');
-                }
-                let datasets = data.body.results.map(function (result) {
-
-                    return [
-                        result.activity_count,
-                        result.disbursement,
-                        result.participating_organisation,
-                        result.participating_organisation_ref
-                    ];
-                });
-                return res.status(200).json(datasets);
-            });
-            break;
+            return res.status(200).json(datasets);
 
         default:
             return res.status(403).end('No match for data set ID: ' + req.body.id);
