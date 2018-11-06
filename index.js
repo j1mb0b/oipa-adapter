@@ -1,6 +1,6 @@
 'use strict';
 
-const domain = 'http://18.221.72.54:8000';
+const domain = 'https://dgd-oipa.blue4you.be';
 const fs = require('fs');
 let path = require('path');
 const app = require('./webserver')();
