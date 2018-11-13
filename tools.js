@@ -2,8 +2,9 @@
 
 const domain = 'https://dgd-oipa.blue4you.be';
 let request = require('request-promise');
-let Promise = require("bluebird");
+let Promise = require('bluebird');
 let cacheProvider = require('./cache-provider');
+let url = require('url');
 
 module.exports = {
     getOptions: function (url) {
