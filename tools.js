@@ -4,7 +4,7 @@ const domain = 'https://dgd-oipa.blue4you.be';
 let request = require('request-promise');
 let Promise = require('bluebird');
 let cacheProvider = require('./cache-provider');
-let url = require('url');
+let Url = require('url');
 
 module.exports = {
     getOptions: function (url) {
@@ -34,7 +34,7 @@ module.exports = {
 
                 case "sectors":
                     return Promise.map(data.results, function (result) {
-                        let url_parts = url.parse(result.url);
+                        let url_parts = Url.parse(result.url);
                         let sector_url = domain + url_parts.pathname;
                         return Promise.resolve(module.exports.query(sector_url).catch(function (err) {
                             return module.exports.errorHandler(err, sector_url);
