@@ -1,3 +1,6 @@
+'use strict';
+
+const domain = 'https://dgd-oipa.blue4you.be';
 let request = require('request-promise');
 let Promise = require("bluebird");
 let cacheProvider = require('./cache-provider');
@@ -31,7 +34,8 @@ module.exports = {
                 case "sectors":
                     return Promise.map(data.results, function (result) {
                         return Promise.resolve(module.exports.query(result.url).catch(function (err) {
-                            return module.exports.errorHandler(err, result.url);
+                            let url_parts = url.parse(result.url);
+                            return module.exports.errorHandler(err, domain + url_parts.pathname);
                         }));
                     }, {concurrency: 5}).then(function (data) {
                         return data;
@@ -50,7 +54,6 @@ module.exports = {
                     if (!output) output = {};
                     let cc = {},
                         current_year = (new Date()).getFullYear(),
-                        domain = endpoint.substr(0, endpoint.indexOf('/api')),
                         url = domain + "/api/transactions/aggregations/?format=json&group_by=recipient_country&aggregations=activity_count,disbursement_expenditure&order_by=recipient_country&page_size=500&transaction_date_year=" + current_year;
                     if (!output["results"] && !output["country_data"]) {
                         output["results"] = [];
@@ -109,6 +112,10 @@ module.exports = {
     },
     errorHandler: function (err, url) {
         switch (err.message) {
+            case '400 - {"detail":"Bad Request Error."}':
+                console.log('HTTP to HTTPS not supported: ' + url);
+                throw err;
+
             case '404 - {"detail":"Not found."}':
                 console.log('Detail not found on request: ' + url);
                 return;
