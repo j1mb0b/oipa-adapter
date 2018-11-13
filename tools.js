@@ -33,9 +33,10 @@ module.exports = {
 
                 case "sectors":
                     return Promise.map(data.results, function (result) {
-                        return Promise.resolve(module.exports.query(result.url).catch(function (err) {
-                            let url_parts = url.parse(result.url);
-                            return module.exports.errorHandler(err, domain + url_parts.pathname);
+                        let url_parts = url.parse(result.url);
+                        let sector_url = domain + url_parts.pathname;
+                        return Promise.resolve(module.exports.query(sector_url).catch(function (err) {
+                            return module.exports.errorHandler(err, sector_url);
                         }));
                     }, {concurrency: 5}).then(function (data) {
                         return data;
