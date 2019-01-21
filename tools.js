@@ -25,7 +25,7 @@ module.exports = {
         }
     },
     query: function (endpoint, type, output) {
-        let date = (new Date());
+        let date = new Date();
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "pager":
