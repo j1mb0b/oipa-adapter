@@ -36,7 +36,7 @@ module.exports = {
                 case "sectors":
                     return Promise.map(data.results, function (result) {
                         let url_parts = Url.parse(result.url);
-                        let sector_url = domain + url_parts.pathname + "&timestamp=" + date.getTime();
+                        let sector_url = domain + url_parts.pathname + "&date=" + date.getTime();
                         return Promise.resolve(module.exports.query(sector_url).catch(function (err) {
                             return module.exports.errorHandler(err, sector_url);
                         }));
