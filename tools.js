@@ -62,7 +62,7 @@ module.exports = {
                             "&order_by=recipient_country" +
                             "&page_size=400" +
                             "&transaction_date_year=" + date.getFullYear() +
-                            "&timestamp=" + date.getTime();
+                            "&date=" + date.getTime();
                     if (!output["results"] && !output["country_data"]) {
                         output["results"] = [];
                         output["country_data"] = {};

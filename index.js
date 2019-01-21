@@ -32,8 +32,7 @@ app.get('/oipa', function (req, res) {
         return res.status(403).end('Please set "url" header in your request!');
 
     // By-pass OIPA cache, add timestamp.
-    let qType = url.indexOf('?') > -1 ? '&timestamp=' : '?timestamp=';
-    url = url + qType + (new Date()).getTime();
+    url = checkQueryString(url, 'date') ? url + '?date=' + (new Date()).getTime() : url;
 
     return cacheProvider.instance().get(url, function (err, value) {
         if (err) console.error(err);
@@ -76,3 +75,17 @@ app.post('/query', function (req, res) {
             return res.status(403).end('No match for data set ID: ' + req.body.id);
     }
 });
+
+/**
+ * Helper function to get query string param.
+ * @param url
+ * @param field
+ * @returns {boolean}
+ */
+var checkQueryString = function (url, field) {
+    if(url.indexOf('?' + field + '=') != -1)
+        return true;
+    else if(url.indexOf('&' + field + '=') != -1)
+        return true;
+    return false;
+}
