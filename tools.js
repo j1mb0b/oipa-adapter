@@ -25,7 +25,6 @@ module.exports = {
         }
     },
     query: function (endpoint, type, output) {
-        let date = new Date();
         return request(module.exports.getOptions(endpoint)).then(function (data) {
             switch (type) {
                 case "pager":
@@ -36,7 +35,6 @@ module.exports = {
                 case "sectors":
                     return Promise.map(data.results, function (result) {
                         let url_parts = Url.parse(result.url);
-                        let sector_url = domain + url_parts.pathname + "&date=" + date.getTime();
                         return Promise.resolve(module.exports.query(sector_url).catch(function (err) {
                             return module.exports.errorHandler(err, sector_url);
                         }));
@@ -61,8 +59,7 @@ module.exports = {
                             "&aggregations=activity_count,disbursement_expenditure" +
                             "&order_by=recipient_country" +
                             "&page_size=400" +
-                            "&transaction_date_year=" + date.getFullYear() +
-                            "&date=" + date.getTime();
+                            "&transaction_date_year=" + (new Date()).getFullYear();
                     if (!output["results"] && !output["country_data"]) {
                         output["results"] = [];
                         output["country_data"] = {};

@@ -32,7 +32,9 @@ app.get('/oipa', function (req, res) {
         return res.status(403).end('Please set "url" header in your request!');
 
     // By-pass OIPA cache, add timestamp.
-    url = checkQueryString(url, 'date') ? url + '?date=' + (new Date()).getTime() : url;
+    url = checkQueryString(url, 'date') ? url : url + '?date=' + (new Date()).getTime();
+    
+    console.log(url);
 
     return cacheProvider.instance().get(url, function (err, value) {
         if (err) console.error(err);
