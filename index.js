@@ -31,8 +31,17 @@ app.get('/oipa', function (req, res) {
     if (!url)
         return res.status(403).end('Please set "url" header in your request!');
 
-    // By-pass OIPA cache, add timestamp.
-    url = checkQueryString(url, 'date') ? url : url + '?date=' + (new Date()).getTime();
+    // By-pass OIPA cache, add date.
+    // Check if we already have our base query param '?format=json'
+    // and without a date, then ensure we just append with "&".
+    if (checkQueryString(url, 'format') && !checkQueryString(url, 'date')) {
+        url = url + '&date=' + (new Date()).getTime();
+    }
+    // If we don't have the base query param along with no date param,
+    // then add it as a new one.
+    else if (!checkQueryString(url, 'format') && !checkQueryString(url, 'date')) {
+        url = url + '?date=' + (new Date()).getTime();
+    }
     
     console.log(url);
 
