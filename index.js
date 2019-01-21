@@ -83,9 +83,9 @@ app.post('/query', function (req, res) {
  * @returns {boolean}
  */
 var checkQueryString = function (url, field) {
-    if(url.indexOf('?' + field + '=') != -1)
+    if (url.indexOf('?' + field + '=') != -1 ||
+        url.indexOf('&' + field + '=') != -1) {
         return true;
-    else if(url.indexOf('&' + field + '=') != -1)
-        return true;
+    }
     return false;
 }
